@@ -1,0 +1,104 @@
+.upload-box {
+    width: 100%;
+    border: 2px dashed #ccc;
+    min-height: 300px;
+    position: relative;
+}
+.upload-button {
+    width: 100%;
+    text-align: center;
+    line-height: 300px;
+}
+.upload-button span.middle {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+.upload-button #inputImage input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+}
+.upload-button2 {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 50px;
+    border: 2px dashed #ccc;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.upload-button2 #inputImage input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+}
+.upload-button2 span.middle {
+    position: relative;
+}
+.upload-button .badge,
+.upload-button2 .badge {
+    margin-bottom: 10px;
+    padding: 10px 10px;
+    border-radius: 16px;
+}
+
+#upload-show {
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+#upload-show input {
+    display: none;
+}
+#upload-show li {
+    padding: 0;
+    list-style: none;
+    float: left;
+    padding: 10px;
+}
+#upload-show li .badge {
+    position: absolute;
+    cursor: pointer;
+    top: 1px;
+    left: 1px;
+}
+#upload-show li.box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    border: .1rem solid #dfe3e8;
+    background: #f4f6f8;
+    border-radius: 6px;
+    margin: 5px;
+    padding: 5px;
+    position: relative;
+    z-index: 11;
+}
+
+#upload-show li.box:hover {
+    background: linear-gradient(180deg,rgba(33,43,54,.55),hsla(0,0%,100%,0));
+}
+#upload-show li.box img {
+    width: 100%;
+}

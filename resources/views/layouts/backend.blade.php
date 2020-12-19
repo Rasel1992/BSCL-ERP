@@ -10,24 +10,37 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{asset('assets/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('assets/bower_components/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/bower_components/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{asset('assets/bower_components/Ionicons/css/ionicons.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/bower_components/Ionicons/css/ionicons.min.css') }}">
     <!-- jvectormap -->
-    <link rel="stylesheet" href="{{asset('assets/bower_components/jvectormap/jquery-jvectormap.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/bower_components/jvectormap/jquery-jvectormap.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('assets/dist/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{asset('assets/dist/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/backend.css') }}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote.min.css') }}">
+    <!-- Vue -->
+    <script src="{{ asset('assets/plugins/vue/vue.min.js') }}"></script>
 
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!-- select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <!-- toastr -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
+
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote.min.css') }}">
+
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -502,7 +515,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-sliders"></i> Category</a></li>
+                        <li><a href="pages/charts/inline.html"><i class="fa fa-sliders"></i> Stock</a></li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-archive"></i>
@@ -755,27 +768,138 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="{{asset('assets/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{ asset('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="{{asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js')}}'"></script>
+<script src="{{ asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- FastClick -->
-<script src="{{asset('assets/bower_components/fastclick/lib/fastclick.js')}}"></script>
+<script src="{{ asset('assets/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+<script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{asset('assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
+<script src="{{ asset('assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap  -->
-<script src="{{asset('assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
-<script src="{{asset('assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+<script src="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 <!-- SlimScroll -->
-<script src="{{asset('assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<script src="{{ asset('assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- ChartJS -->
-<script src="{{asset('assets/bower_components/chart.js/Chart.js')}}"></script>
+<script src="{{ asset('assets/bower_components/chart.js/Chart.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('assets/dist/js/pages/dashboard2.js')}}"></script>
+<script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('assets/dist/js/demo.js')}}"></script>
+<script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+<!-- swal2 -->
+<script src="{{ asset('assets/plugins/swal2/sweetalert2.all.min.js') }}"></script>
+
+<!-- toastr -->
+<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+
+<!-- Summernote -->
+<script src="{{ asset('assets/plugins/summernote/summernote.min.js') }}"></script>
+
 </body>
 
 <!-- Mirrored from adminlte.io/themes/AdminLTE/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Dec 2020 12:19:16 GMT -->
 </html>
+
+<script>
+    $(function () {
+        // this will get the full URL at the address bar
+        const url = window.location.href;
+
+        // passes on every "a" tag
+        // $(".sidebar-menu a").each(function () {
+        //     // checks if its the same on the address bar
+        //     if (url.includes(this.href)) {
+        //         $(this).closest("li").addClass("active");
+        //         $(this).parents('.sidebar-menu').addClass("active");
+        //     }
+        // });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        @if (session('success'))
+            toastr["success"]('{{ session('success') }}');
+        @endif
+
+        @error('error')
+        Swal.fire({
+            type: 'error',
+            title: '500 Internal Server Error!',
+            html: 'Something went wrong! <br> <span class="error-message text-danger hidden">{{ $message }}</span>',
+            footer: '<a href="javascript:void(0)" onclick="document.querySelector(\'.error-message\').classList.remove(\'hidden\');">Why do I have this issue?</a>'
+        });
+        @enderror
+
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            width: '100%',
+            placeholder: 'Select'
+        });
+
+        //Initialize summernote text editor
+        $('.summernote').summernote({
+            placeholder: "Start from here",
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['color', ['color']],
+                ['insert', ['link', 'picture', 'video']],
+                ["view", ["codeview"]],
+            ],
+        });
+    });
+
+
+    @if($errors->any())
+    Swal.fire({
+        type: 'error',
+        title: 'Error!',
+        html: '@if ($errors->any())\n' +
+            '    <div class="alert alert-danger">\n' +
+            '        <ul>\n' +
+            '            @foreach ($errors->all() as $error)\n' +
+            '                <li>{{ $error }}</li>\n' +
+            '            @endforeach\n' +
+            '        </ul>\n' +
+            '    </div>\n' +
+            '@endif',
+    });
+    @endif
+
+    $('input.role-module').on('ifChecked', function () {
+        var selfId = $(this).attr('id');
+        var childClass = '.' + selfId + '-permission';
+        $(childClass).iCheck('enable').iCheck('check');
+    });
+
+    $('input.role-module').on('ifUnchecked', function () {
+        var selfId = $(this).attr('id');
+        var childClass = '.' + selfId + '-permission';
+        $(childClass).iCheck('uncheck').iCheck('disable');
+    });
+
+    Vue.directive('select2', {
+        inserted(el) {
+            $(el).on('select2:select', () => {
+                const event = new Event('change', {bubbles: true, cancelable: true});
+                el.dispatchEvent(event);
+            });
+            $(el).on('select2:unselect', () => {
+                const event = new Event('change', {bubbles: true, cancelable: true})
+                el.dispatchEvent(event)
+            })
+        },
+    });
+</script>
+
+@stack('scripts')
+
