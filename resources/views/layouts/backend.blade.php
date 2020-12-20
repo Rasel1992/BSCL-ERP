@@ -399,6 +399,7 @@
                                 <li><a href="pages/charts/inline.html"><i class="fa fa-camera-retro"></i>Payroll Summary</a></li>
                             </ul>
                         </li>
+                        <li><a href="pages/layout/fixed.html"><i class="fa fa-bar-chart"></i>Request</a></li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-briefcase"></i>Provident Fund</a></li>
                         <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-trophy"></i> Employee Award</a></li>
                         <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-tasks"></i> Tasks</a></li>
@@ -515,7 +516,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-sliders"></i> Stock</a></li>
+                        <li><a href="{{route('admin.categories.index')}}"><i class="fa fa-sliders"></i> Category</a></li>
+                        <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-archive"></i>
