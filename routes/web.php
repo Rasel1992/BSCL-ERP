@@ -25,5 +25,6 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'admin',  'as' => 'admin.'], function() {
 
     Route::resource('stocks','StockController');
+    Route::resource('categories','CategoryController');
 });
 
