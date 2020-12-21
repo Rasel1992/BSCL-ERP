@@ -515,7 +515,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-sliders"></i> Stock</a></li>
+                        <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-archive"></i>
