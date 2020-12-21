@@ -1,28 +1,6 @@
-body{
-    background-color: #F4F6F8!important;
+.panel{
+    box-shadow: 0 2px 4px rgba(0,0,0,.5)!important;
 }
-
-.themeMenu{
-    background-color: #fff!important;
-    box-shadow: 0 2px 4px rgba(0,0,0,.1)!important;
-}
-
-.main-header .navbar .nav > li > a {
-     color: #000!important;
-}
-
-.main-header {
-    position: fixed;
-    max-height: 133px;
-    z-index: 1030;
-    right: 0;
-    left: 0;
-    top: 0;
-}
-.content {
-    margin-top: 75px;
-}
-
 .form-group label {
     font-weight: 450;
     font-size: 13px;
@@ -30,96 +8,10 @@ body{
     letter-spacing: 0;
     display: block;
 }
-
 .form-footer{
     padding: 2rem 0;
     border-top: 1px solid #ccc;
 }
-.panel{
-    box-shadow: 0 2px 4px rgba(0,0,0,.5)!important;
-}
-
-.menuTopBtn{
-    position: absolute!important;
-    top: 10px;
-    right: 35%;
-}
-
-/*Checkbox*/
-.checkBoxNew {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.checkBoxNew input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.checkMark {
-    position: absolute;
-    top: -1px;
-    left: 0;
-    height: 23px;
-    width: 23px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* On mouse-over, add a grey background color */
-.checkBoxNew:hover input ~ .checkMark {
-    background-color: #aee2ff;
-}
-
-/* When the checkbox is checked, add a blue background */
-.checkBoxNew input:checked ~ .checkMark {
-    background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkMark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.checkBoxNew input:checked ~ .checkMark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.checkBoxNew .checkMark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.setRadio{
-    font-size: unset!important;
-    font-weight: 400!important;
-    font-size: 13px!important;
-}
-
 .button {
     display: inline-block;
     white-space: nowrap;
@@ -196,84 +88,8 @@ body{
 
 }
 
-.email:before {
-    content: "\2709";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
-.like:before {
-    content: "\2764";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
-.next:before {
-    content: "\279C";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
-.star:before {
-    content: "\2605";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
-.spark:before {
-    content: "\2737";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
-.play:before {
-    content: "\25B6";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-.previous:before {
-    content: "\21E6";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
-.buttonTopFixed{
-    position: fixed;
-    z-index: 9999;
-    right: calc(34% - -2px);
-    top: 10px;
-}
-
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
     line-height: 28px;
     font-size: 13px;
-}
-
-.themeHeight{
-    height: calc(100vh - 300px);
-    overflow: auto;
-}
-
-.customBox{
-    border-top: 3px solid rgb(60, 141, 188);
-    border-radius: 3px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.5)!important;
-}
-.customBox .box-header{
-    border-bottom: 1px solid #d6cbca!important;
 }
