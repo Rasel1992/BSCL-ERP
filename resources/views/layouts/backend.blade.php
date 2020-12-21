@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/backend.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote.min.css') }}">
+
+    <!-- Data table -->
+    <link href="{{ asset('assets/plugins/data-tables/dataTables.bootstrap4.css') }}" rel="stylesheet">
     <!-- Vue -->
     <script src="{{ asset('assets/plugins/vue/vue.min.js') }}"></script>
 
@@ -414,6 +417,17 @@
 
 <!-- Summernote -->
 <script src="{{ asset('assets/plugins/summernote/summernote.min.js') }}"></script>
+
+<!-- Data table -->
+<script src="{{ asset('assets/plugins/data-tables/jquery.dataTables.min.js') }}"></script>
+<!-- start - This is for export functionality only -->
+<script src="{{ asset('assets/plugins/data-tables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/data-tables/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/data-tables/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/data-tables/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/data-tables/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/data-tables/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/data-tables/buttons.print.min.js') }}"></script>
 </body>
 
 </html>
@@ -421,15 +435,20 @@
     $(function () {
         // this will get the full URL at the address bar
         const url = window.location.href;
+        
 
-        // passes on every "a" tag
-        $(".sidebar-menu a").each(function () {
-            // checks if its the same on the address bar
-            if (url.includes(this.href)) {
-                $(this).closest("li").addClass("active");
-                $(this).parents('.sidebar-menu').addClass("active");
-            }
+        //=============================================//
+        //    File export                              //
+        //=============================================//
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            paging: false,
+            info: false,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
+        $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-
 
         $.ajaxSetup({
             headers: {

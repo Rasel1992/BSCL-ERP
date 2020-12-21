@@ -8,39 +8,19 @@
     <section class="content">
         <div class="panel">
             <div class="box-header with-border">
-                <h3 class="box-title">Stocks</h3>
+                <h3 class="box-title">Categories</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{ route('admin.stocks.create') }}" class="button add"> Add Stock</a>
+                    <a href="{{ route('admin.stocks.create') }}" class="button add"> Add Category</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>
-                        <th class="massActionWrapper">
-                            <!-- Check all button -->
-                            <div class="btn-group ">
-                                <button type="button" class="btn btn-xs btn-default checkbox-toggle" @click="checkAll">
-                                    <input type="checkbox" name="select_all" class="hidden">
-                                    <i id="check-all-icon" class="fa fa-square-o" data-toggle="tooltip" data-placement="top" title="{{ __('trash.select_all') }}"></i>
-                                </button>
-                                <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">{{ __('trash.toggle_dropdown') }}</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="javascript:void(0)" @click="trashOrDestroyPermanently('trash')" class="massAction" data-doafter="reload"><i class="fa fa-trash"></i> {{ __('trash.trash') }}</a></li>
-                                    <li><a href="javascript:void(0)" @click="trashOrDestroyPermanently('delete')" class="massAction" data-doafter="reload"><i class="fa fa-times"></i> {{ __('trash.delete_permanently') }}</a></li>
-                                </ul>
-                            </div>
-                        </th>
                         <th>SL</th>
-                        <th>Item Name</th>
-                        <th>Item Serial</th>
                         <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Assign Date</th>
-                        <th>Assign User</th>
+                        <th>Sub Category</th>
+                        <th>Created at</th>
                         <th>Action</th>
                     </tr>
                     </thead>
