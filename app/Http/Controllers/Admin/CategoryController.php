@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index');
+        $data['categoryData'] = Category::where('parent_id', 0)->with('nested')->get();
+        $sql = Category::orderBy('categories.id', 'DESC');
+        $sql->select('categories.*', 'B.category_name AS parent_name', 'C.category_name AS parent_mother', \DB::raw('IFNULL(D.subCount,0) AS subCount'));
+        $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
+        $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
+        $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
+        $data['categories'] = $sql->latest()->paginate(10);
+        return view('admin.category.index', $data);
     }
 
     /**
@@ -26,7 +34,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        return view('admin.category.create-edit', compact('categoryData'));
     }
 
     /**
@@ -35,9 +44,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $data = $request->except('_token');
+        $category = Category::create($data);
+        if ($request->ajax()) {
+            return response()->json(['data' => $category, 'msg' => 'Category created successfully.']);
+        }
+        return redirect()->back()->withSuccess('Category created successfully.');
     }
 
     /**
@@ -48,7 +62,12 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $category = Category::where('categories.id', $category->id)
+            ->select('categories.*', 'B.category_name AS parent_name')
+            ->leftJoin('categories AS B', 'B.id','=','categories.parent_id')
+            ->first();
+
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -59,7 +78,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        return view('admin.category.create-edit', compact('categoryData', 'category'));
+
     }
 
     /**
@@ -69,9 +90,17 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $input = $request->all();
+        $updateData = [
+            'parent_id' => $input['parent_id'],
+            'category_name' => $input['category_name'],
+        ];
+        $data = $category;
+        $data->update($updateData);
+
+        return redirect()->back()->withSuccess('Category updated successfully.');
     }
 
     /**
@@ -82,6 +111,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->back()->withSuccess('Category deleted successfully.');
     }
 }

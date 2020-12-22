@@ -12,7 +12,17 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'category', 'sub_category',
+        'parent_id','category_name',
     ];
+
+    public function nested()
+    {
+        return $this->hasMany('App\Models\Category', 'parent_id', 'id');
+    }
+
+    public function items()
+    {
+        return $this->nested()->select('id', 'parent_id', 'category_name');
+    }
 
 }

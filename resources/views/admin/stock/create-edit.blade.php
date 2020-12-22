@@ -66,27 +66,3 @@
         </form>
     </section>
 @endsection
-
-{{--@push('scripts')--}}
-{{--    <script>--}}
-{{--        new Vue({--}}
-{{--            el: '#app',--}}
-{{--            data: {--}}
-{{--                isEdit: false,--}}
-{{--                brand: {--}}
-{{--                    name: '{{ old('name', $brand->name ?? '') }}',--}}
-{{--                    logo: '',--}}
-{{--                }--}}
-{{--            },--}}
-{{--            methods: {--}}
-{{--                fileChosen: function () {--}}
-{{--                    if (event.target.value) {--}}
-{{--                        $('#uploadFile').val(event.target.files[0].name);--}}
-{{--                    } else {--}}
-{{--                        $('#uploadFile').val('');--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            }--}}
-{{--        })--}}
-{{--    </script>--}}
-{{--@endpush--}}
