@@ -37,7 +37,7 @@ class ProfileController extends Controller
      * @param ProfileRequest $request
      * @return RedirectResponse
      */
-    public function update(ProfileRequest $request)
+    public function update(Request $request)
     {
         try {
             $id = Auth::user()->id;
@@ -56,7 +56,7 @@ class ProfileController extends Controller
      * @return RedirectResponse
      */
 
-    public function updateImage(ProfileRequest $request)
+    public function updateImage(Request $request)
     {
         try {
             $id = Auth::user()->id;
