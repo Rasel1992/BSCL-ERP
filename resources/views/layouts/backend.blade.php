@@ -27,9 +27,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/backend.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote.min.css') }}">
-
-    <!-- Data table -->
-    <link href="{{ asset('assets/plugins/data-tables/dataTables.bootstrap4.css') }}" rel="stylesheet">
     <!-- Vue -->
     <script src="{{ asset('assets/plugins/vue/vue.min.js') }}"></script>
 
@@ -40,6 +37,9 @@
 
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote.min.css') }}">
+
+    <!-- Data table -->
+    <link href="{{ asset('assets/plugins/data-tables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -140,7 +140,6 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-            <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li @if(request()->is('admin/dashboard')) class="active" @endif>
@@ -436,6 +435,21 @@
         // this will get the full URL at the address bar
         const url = window.location.href;
 
+        // passes on every "a" tag
+        $(".sidebar-menu a").each(function () {
+            // checks if its the same on the address bar
+            if (url.includes(this.href)) {
+                $(this).closest("li").addClass("active");
+                $(this).parents('.sidebar-menu').addClass("active");
+            }
+        });
+
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         //=============================================//
         //    File export                              //
@@ -448,13 +462,7 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]
         });
-        $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
 
         @if (session('success'))
             toastr["success"]('{{ session('success') }}');
