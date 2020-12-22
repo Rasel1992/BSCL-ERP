@@ -435,7 +435,7 @@
     $(function () {
         // this will get the full URL at the address bar
         const url = window.location.href;
-        
+
 
         //=============================================//
         //    File export                              //
