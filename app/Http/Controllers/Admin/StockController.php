@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Models\Category;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,12 @@ class StockController extends Controller
      */
     public function index()
     {
-        return view('admin.stock.index');
+        try {
+            $stocks = Stock::latest()->paginate(10);
+            return view('admin.stock.index', compact('stocks'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -25,7 +31,8 @@ class StockController extends Controller
      */
     public function create()
     {
-        //
+        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        return view('admin.stock.create-edit', compact('categoryData'));
     }
 
     /**
@@ -36,7 +43,13 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->except('_token');
+            Stock::create($data);
+            return redirect()->back()->withSuccess('Stock created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -58,7 +71,8 @@ class StockController extends Controller
      */
     public function edit(Stock $stock)
     {
-        //
+        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        return view('admin.category.create-edit', compact('categoryData', 'stock'));
     }
 
     /**
@@ -70,7 +84,13 @@ class StockController extends Controller
      */
     public function update(Request $request, Stock $stock)
     {
-        //
+        try {
+            $data = $request->except('_token');
+            $stock->update($data);
+            return redirect()->back()->withSuccess('Stock updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -81,6 +101,11 @@ class StockController extends Controller
      */
     public function destroy(Stock $stock)
     {
-        //
+        try {
+            $stock->delete();
+            return redirect()->back()->withSuccess('Stock deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

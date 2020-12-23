@@ -67,3 +67,16 @@
         </form>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                isEdit: false,
+                category: {
+                    parent_id: ''
+                }
+            }
+        })
+    </script>
+@endpush

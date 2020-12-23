@@ -17,14 +17,16 @@ class CreateStocksTable extends Migration
             $table->id();
             $table->string('item_name');
             $table->string('item_serial')->unique();
-            $table->string('category');
             $table->string('quantity');
-            $table->string('assign_date');
-            $table->string('assign_user');
-            $table->string('barcode');
+            $table->string('purchase_date');
+            $table->string('location');
+            $table->enum('assign_user', ['person', 'department', 'others']);
+            $table->string('qr_code');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
-    }
+        }
 
     /**
      * Reverse the migrations.
