@@ -14,7 +14,7 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort" id="file_export">
+                <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
                         <th>SL</th>

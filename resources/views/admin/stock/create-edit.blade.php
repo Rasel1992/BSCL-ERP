@@ -1,26 +1,61 @@
 @extends('layouts.backend')
 
-{{--@section('title')--}}
-{{--    @if(isset($brand)) {{ __('brand.brand_edit') }} @else {{ __('brand.brand_create') }} @endif--}}
-{{--@endsection--}}
+@section('title')
+    @if(isset($stock)) Edit @else Create @endif
+@endsection
 
 @section('content')
     <section class="content">
-        <form method="post">
-{{--        <form method="POST" action="{{ isset($brand) ? route('admin.catalog.brands.update', $brand->id) : route('admin.catalog.brands.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">--}}
-{{--            @csrf--}}
-{{--            {!! (isset($brand))?'<input name="_method" type="hidden" value="PUT">':'' !!}--}}
+        <form method="POST" action="{{ isset($stock) ? route('admin.stocks.update', $stock->id) : route('admin.stocks.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
+            @csrf
+            {!! (isset($stock))?'<input name="_method" type="hidden" value="PUT">':'' !!}
             <div class="row">
-                <div class="col-md-3 col-lg-3"></div>
-                <div class="col-md-6 col-lg-6">
-{{--                    <h3 class="box-title">@if(isset($brand)) {{ __('create.edit') }} @else {{ __('create.add') }} @endif {{ __('brand.brand') }}</h3>--}}
+                <div class="col-md-12 col-lg-12">
+                    <h3 class="box-title">@if(isset($stock)) Edit @else Add @endif Stock</h3>
                     <div class="panel">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="form-group @error('category_id') has-error @enderror">
+                                        <label for="category_id" class="with-help">Category*</label>
+                                        <select class="form-control select2" id="category_id" name="category_id" v-model="product.category_id" required>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group @error('item_name') has-error @enderror">
+                                        <label for="item_name" class="with-help">Item Name*</label>
+                                        <input class="form-control" placeholder="Item Name" name="item_name" value="{{old('item_name')}}" type="text" id="item_name" required>
+                                        @error('item_name')
+                                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group @error('item_serial') has-error @enderror">
+                                        <label for="item_serial" class="with-help">Item Serial*</label>
+                                        <input class="form-control" placeholder="Name" name="item_serial" value="{{old('item_serial')}}" type="text" id="item_serial" required>
+                                        @error('item_serial')
+                                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
                                     <div class="form-group @error('name') has-error @enderror">
-                                        <label for="title" class="with-help">{{ __('brand.name') }}*</label>
-                                        <input class="form-control" placeholder="{{ __('brand.p_name') }}" name="name" value="{{old('name')}}" v-model="brand.name" type="text" id="name" required>
+                                        <label for="title" class="with-help">Name*</label>
+                                        <input class="form-control" placeholder="Name" name="name" value="{{old('name')}}" type="text" id="name" required>
                                         @error('name')
                                         <span class="help-block">
                             <strong>{{ $message }}</strong>
@@ -28,40 +63,38 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div class="form-group @error('logo') has-error @enderror">
-                                <label for="exampleInputFile" class="with-help">{{ __('brand.brand_logo') }}*</label>
-
-                                <div class="row">
-                                    <div class="col-md-9 nopadding-right">
-                                        <input id="uploadFile" placeholder="{{ __('brand.brand_logo') }}" class="form-control" disabled="disabled" style="height: 28px;">
-                                    </div>
-                                    <div class="col-md-3 nopadding-left">
-                                        <div class="fileUpload btn btn-primary btn-block btn-flat">
-                                            <span>{{ __('brand.upload') }}</span>
-                                            <input type="file" name="logo" value="{{old('logo')}}" accept="image/*" id="uploadBtn" @change="fileChosen" class="upload" @if(!isset($brand)) required @endif>
-                                        </div>
-                                    </div>
-                                </div>
-                                @error('logo')
-                                <span class="help-block">
+                                <div class="col-md-12">
+                                    <div class="form-group @error('name') has-error @enderror">
+                                        <label for="title" class="with-help">Name*</label>
+                                        <input class="form-control" placeholder="Name" name="name" value="{{old('name')}}" type="text" id="name" required>
+                                        @error('name')
+                                        <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                @enderror
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group @error('name') has-error @enderror">
+                                        <label for="title" class="with-help">Name*</label>
+                                        <input class="form-control" placeholder="Name" name="name" value="{{old('name')}}" type="text" id="name" required>
+                                        @error('name')
+                                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <p class="help-block">{{ __('create.required') }}</p>
+                    <p class="help-block">* Required Fields.</p>
                     <div class="text-right form-footer">
-                        <button class="button delete" type="reset">{{ __('create.clear') }}</button>
-                        <button class="button save" type="submit">@if(isset($brand)) {{ __('create.update') }} @else {{ __('create.create') }} @endif</button>
+                        <button class="button delete" type="reset">Clear</button>
+                        <button class="button save" type="submit">Save</button>
                     </div>
                 </div>
-                <div class="col-md-3 col-lg-3"></div>
             </div>
         </form>
     </section>
