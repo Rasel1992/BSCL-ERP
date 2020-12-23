@@ -1,6 +1,10 @@
 
 @extends('layouts.backend')
 
+@section('title')
+    Dashboard
+@endsection
+
 @section('content')
         <!-- Main content -->
         <section class="content">

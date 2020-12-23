@@ -436,11 +436,11 @@
         const url = window.location.href;
 
         // passes on every "a" tag
-        $(".sidebar-menu a").each(function () {
+        $(".treeview-menu a").each(function() {
             // checks if its the same on the address bar
-            if (url.includes(this.href)) {
+            if(url.includes(this.href)) {
                 $(this).closest("li").addClass("active");
-                $(this).parents('.sidebar-menu').addClass("active");
+                $(this).parents('.treeview').addClass("active");
             }
         });
 
