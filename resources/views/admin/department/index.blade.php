@@ -61,6 +61,7 @@
                 @endif
             </div> <!-- /.box-body -->
         </div> <!-- /.box -->
+        @include('admin.department.form_import')
     </section>
 @endsection
 

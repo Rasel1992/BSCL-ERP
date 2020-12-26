@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Imports\SuppliersImport;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Vtiful\Kernel\Excel;
 
 class DepartmentController extends Controller
 {
@@ -104,5 +106,21 @@ class DepartmentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function ImportExcel(Request $request) {
+        //Validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:xls,xlsx',
+        ]);
+
+        if ($request->hasFile('file')) {
+            //UPLOAD FILE
+            $file = $request->file('file'); //GET FILE
+            Excel::import(new SuppliersImport, $file); //IMPORT FILE
+            return redirect()->back()->with(['success' => 'Upload file data suppliers !']);
+        }
+
+        return redirect()->back()->with(['error' => 'Please choose file before!']);
     }
 }

@@ -17,7 +17,7 @@
             </div>
             <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover">
+                <table class="table table-hover" id="file_export">
                     <thead>
                     <tr>
                         <th>SL</th>
@@ -25,7 +25,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Email</th>
-                        <th>Options</th>
+                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>
