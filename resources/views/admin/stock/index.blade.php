@@ -14,19 +14,22 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort" id="file_export">
+                <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
-                        <th>SL</th>
+                        <th>Bill No</th>
+                        <th>Bill Date</th>
+                        <th>Shop Info</th>
+                        <th>Invoice No</th>
+                        <th>Invoice Date</th>
                         <th>Item Name</th>
-                        <th>Item Serial</th>
+                        <th>Subject</th>
+                        <th>Qty</th>
                         <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Purchase Date</th>
+                        <th>Cost</th>
                         <th>Location</th>
-                        <th>Assign User</th>
+                        <th>Assign To</th>
                         <th>QR Code</th>
-                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>

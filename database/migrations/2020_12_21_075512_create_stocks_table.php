@@ -15,12 +15,16 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->string('bill_date');
+            $table->string('shop_info');
+            $table->string('invoice_number');
+            $table->string('invoice_date');
             $table->string('item_name');
-            $table->string('item_serial')->unique();
+            $table->string('subject');
             $table->string('quantity');
-            $table->string('purchase_date');
+            $table->string('cost');
             $table->string('location');
-            $table->enum('assign_user', ['person', 'department', 'others']);
+            $table->enum('assign_to', ['person', 'department', 'others']);
             $table->string('qr_code');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');

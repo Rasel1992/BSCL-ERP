@@ -31,5 +31,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('stocks','StockController');
     Route::resource('categories','CategoryController');
+    Route::resource('users','UserController');
+    Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
 });
 

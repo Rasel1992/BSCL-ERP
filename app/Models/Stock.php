@@ -12,12 +12,17 @@ class Stock extends Model
      * @var array
      */
     protected $fillable = [
+        'bill_date',
+        'bill_no',
+        'shop_info',
+        'invoice_number',
+        'invoice_date',
         'item_name',
-        'item_serial',
+        'subject',
         'quantity',
-        'purchase_date',
+        'cost',
         'location',
-        'assign_user',
+        'assign_to',
         'qr_code',
         'category_id',
     ];

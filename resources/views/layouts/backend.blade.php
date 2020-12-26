@@ -158,7 +158,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="pages/layout/top-nav.html"><i class="fa fa-user-secret"></i> Departments</a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-users"></i> User</a></li>
+                        <li><a href="{{route('admin.users.index')}}"><i class="fa fa-users"></i> User</a></li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-plane"></i> Leave Management</a></li>
                         <li class="treeview">
                             <a href="#">
