@@ -105,7 +105,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group @error('sex') has-error @enderror">
                                         <label for="sex">Gender</label>
-                                        <select class="form-control select2" id="sex" name="sex" v-model="user.sex" v-select2>
+                                        <select class="form-control select2" id="sex" name="sex" v-model="user.sex"v-model="user.sex" v-select2>
                                             <option value="male" {{ old('sex') == 'male' ? 'selected' : '' }}>Male</option>
                                             <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female</option>
                                             <option value="other" {{ old('sex') == 'other' ? 'selected' : '' }}>Others</option>

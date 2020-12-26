@@ -15,7 +15,12 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $departments = Department::latest()->paginate(10);
+            return view('admin.department.index', compact('departments'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -25,7 +30,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.department.create-edit');
     }
 
     /**
@@ -36,7 +41,13 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->except('_token');
+            Department::create($data);
+            return redirect()->back()->withSuccess('Department created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -58,7 +69,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('admin.department.create-edit',compact('department'));
     }
 
     /**
@@ -70,7 +81,13 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        try {
+            $data = $request->except('_token');
+            $department->update($data);
+            return redirect()->back()->withSuccess('Department updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -81,6 +98,11 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        try {
+            $department->delete();
+            return redirect()->back()->withSuccess('Department trashed successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

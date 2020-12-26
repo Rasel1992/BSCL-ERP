@@ -47,7 +47,6 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-//            dd($request->all());
             $data = $request->except('_token');
             $data['password'] = bcrypt($request->password);
             $data['email_verified_at'] = now();

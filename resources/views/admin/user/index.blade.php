@@ -20,6 +20,7 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Avatar</th>
                         <th>Name</th>
                         <th>Type</th>
@@ -28,8 +29,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
+                    @foreach($users as $key => $user)
                         <tr>
+                            <td> {{ ++$key }}</td>
                             <td>
                                 @if($user->image)
                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
