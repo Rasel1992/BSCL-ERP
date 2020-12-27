@@ -21,7 +21,7 @@
                         <th>Department</th>
                         <th>Designation</th>
                         <th>Created at</th>
-                        <th> </th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,16 +30,21 @@
                             <td> {{ ++$key }}</td>
                             <td> {{ $department->department }}</td>
                             <td> {{ $department->designation }}</td>
+                            <td>{{ $department->created_at->format('M d, Y') }}</td>
                             <td>
-                                {{ $department->created_at->format('M d, Y') }}
-                            </td>
-                            <td class="row-options text-muted small">
-                                <a href="{{route('admin.departments.edit', $department->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="{{ route('admin.departments.destroy', $department->id) }}" accept-charset="UTF-8" class="data-form">
-                                    @csrf
-                                    @method('delete')
-                                    <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
-                                </form>
+                            <span class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" style="left: -115px;">
+                                                 <form method="POST" action="{{ route('admin.departments.destroy', $department->id) }}" accept-charset="UTF-8" class="data-form">
+                                                     @csrf
+                                                     @method('delete')
+                                                     <li><a href="{{ route('admin.departments.edit', $department->id) }}"><i class="fa fa-edit"></i> Edit </a></li>
+                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> Delete </a></li>
+                                                  </form>
+                                            </ul>
+                                        </span>
                             </td>
                         </tr>
                     @endforeach
@@ -49,7 +54,8 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $departments->firstItem() }} to {{ $departments->lastItem() }} of {{ $departments->total() }} entries
+                                showing {{ $departments->firstItem() }} to {{ $departments->lastItem() }}
+                                of {{ $departments->total() }} entries
                             </div>
                         </div>
                         <div class="col-sm-7">

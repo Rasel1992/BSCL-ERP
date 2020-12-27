@@ -1,44 +1,53 @@
 @extends('layouts.backend')
 
 @section('title')
-    Category
+    Inventories
 @endsection
 
 @section('content')
     <section class="content">
         <div class="panel">
             <div class="box-header with-border">
-                <h3 class="box-title">Categories</h3>
+                <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{ route('admin.categories.create') }}" class="button add"> Add Category</a>
+                    <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
-                        <th>SL</th>
-                        <th>Category Type</th>
+                        <th>Asset Code</th>
+                        <th>Description</th>
                         <th>Category</th>
+                        <th>Allocate To</th>
+                        <th>Department</th>
+                        <th>Voucher No</th>
+                        <th>Qty</th>
+                        <th>Cost</th>
+                        <th>Location</th>
+                        <th>Assign To</th>
+                        <th>Purchase Date</th>
                         <th>Created at</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($categories as $key => $category)
+                    @foreach($inventories as $inventory)
                         <tr>
-                            <td> {{ ++$key }}</td>
-                            <td>{{ $category->type }}</td>
-                            <td>
-                                {{ ($category->parent_mother!='')?$category->parent_mother.' > ':'' }}
-                                {{ ($category->parent_name!='')?$category->parent_name.' > ':'' }}
-                                {{ $category->category_name }}
-                            </td>
-                            <td> {{ $category->created_at->format('M d, Y') }} </td>
+                            <td> {{ $inventory->asset_code  }}</td>
+                            <td> {{ $inventory->description }}</td>
+                            <td> {{ $inventory->category->category_name }}</td>
+                            <td> {{ $inventory->user->name }}</td>
+                            <td> {{ $inventory->department->department }}</td>
+                            <td> {{ $inventory->voucher_no }}</td>
+                            <td> {{ $inventory->qty }}</td>
+                            <td> {{ $inventory->cost }}</td>
+                            <td> {{ $inventory->location }}</td>
+                            <td>{{ $inventory->purchase_date->format('M d, Y') }}</td>
+                            <td>{{ $inventory->created_at->format('M d, Y') }}</td>
                             <td class="row-options text-muted small">
-                                <a href="{{ route('admin.categories.show', $category->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a>&nbsp;
-                                <a href="{{route('admin.categories.edit', $category->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="{{ route('admin.categories.destroy', $category->id) }}" accept-charset="UTF-8" class="data-form">
+                                <a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
+                                <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id) }}" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
                                     <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
@@ -48,16 +57,16 @@
                     @endforeach
                     </tbody>
                 </table>
-                @if($categories->total())
+                @if($inventories->total())
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
+                                showing {{ $inventories->firstItem() }} to {{ $inventories->lastItem() }} of {{ $inventories->total() }} entries
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $categories->links() }}
+                                {{ $inventories->links() }}
                             </div>
                         </div>
                     </div>

@@ -57,8 +57,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group @error('email') has-error @enderror">
                                                 <label for="email">Email-Address</label>
@@ -70,8 +68,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group @error('dob') has-error @enderror">
                                                 <label for="dob">Date of birth</label>
@@ -83,8 +79,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group @error('sex') has-error @enderror">
                                                 <label for="sex">Gender</label>

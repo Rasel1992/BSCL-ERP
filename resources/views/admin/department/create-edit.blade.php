@@ -14,7 +14,6 @@
                     <h3 class="box-title">@if(isset($department)) Edit @else Add @endif Department <a href="{{ route('admin.departments.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back</a></h3>
                     <div class="panel">
                         <div class="panel-body">
-                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group @error('department') has-error @enderror">
                                         <label class="with-help">Department</label>
@@ -26,8 +25,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group @error('designation') has-error @enderror">
                                         <label class="with-help">Designation</label>
@@ -39,7 +36,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>

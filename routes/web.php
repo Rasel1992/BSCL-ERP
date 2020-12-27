@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/password/update/form','ProfileController@passwordForm')->name('profile.password.update.form');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('stocks','StockController');
+    Route::resource('inventories','InventoryController');
     Route::resource('categories','CategoryController');
     Route::resource('departments','DepartmentController');
     Route::post('/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');

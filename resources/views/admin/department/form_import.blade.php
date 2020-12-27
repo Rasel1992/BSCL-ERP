@@ -2,9 +2,10 @@
     <!-- left column -->
     <div class="col-md-6">
         <!-- general form elements -->
-        <div class="box">
+        <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Import Data Department</h3>
+                <h3 class="box-title">Import Data Departments</h3>
+                <br><br>
                 @if(session('error'))
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

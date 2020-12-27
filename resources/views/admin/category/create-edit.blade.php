@@ -17,6 +17,20 @@
                     <div class="panel">
                         <div class="panel-body">
                             <div class="col-md-12">
+                                <div class="form-group @error('type') has-error @enderror">
+                                    <label for="sex">Type</label>
+                                    <select class="form-control select2" id="type" name="type">
+                                        <option value="fixed" {{(isset($category->type)?$category->type:old('type') == 'fixed') ? 'Selected' : ''}}>Fixed Asset</option>
+                                        <option value="current" {{(isset($category->type)?$category->type:old('type') == 'current') ? 'Selected' : ''}}>Current Asset </option>
+                                    </select>
+                                    @error('type')
+                                    <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group @error('parent_id') has-error @enderror">
                                     <label class="required">Select Category*</label>
                                     <div class="">

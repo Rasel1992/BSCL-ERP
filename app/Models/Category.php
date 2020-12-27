@@ -12,7 +12,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id','category_name',
+        'parent_id','category_name', 'type',
     ];
 
     public function nested()
