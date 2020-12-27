@@ -2,16 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34529e75-ad32-42a8-b0b6-4d544ccc45ae" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jogotbari/BSCL-ERP into master&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change afterPath="$PROJECT_DIR$/app/Imports/CustomersImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/ProductsImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/SalesImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/SuppliersImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/department/form_import.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MyFristProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MyFristProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DepartmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DepartmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/CustomersImport.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/ProductsImport.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/SalesImport.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/SuppliersImport.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/department/form_import.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/department/form_import.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/department/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/department/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/user/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,6 +147,13 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
       <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ljssk7brUXhpNMhvePQF8Kqmx4" />
@@ -156,7 +167,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/department" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ecommerce-script" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -197,6 +208,8 @@
       <workItem from="1608742186682" duration="2832000" />
       <workItem from="1608826287320" duration="3557000" />
       <workItem from="1608974972720" duration="2809000" />
+      <workItem from="1609006418099" duration="1639000" />
+      <workItem from="1609052525124" duration="4987000" />
     </task>
     <servers />
   </component>

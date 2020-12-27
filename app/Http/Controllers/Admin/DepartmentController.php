@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
-use App\Imports\SuppliersImport;
+use App\Imports\DepartmentsImport;
 use App\Models\Department;
 use Illuminate\Http\Request;
-use Vtiful\Kernel\Excel;
-
+use Excel;
 class DepartmentController extends Controller
 {
     /**
@@ -117,8 +115,8 @@ class DepartmentController extends Controller
         if ($request->hasFile('file')) {
             //UPLOAD FILE
             $file = $request->file('file'); //GET FILE
-            Excel::import(new SuppliersImport, $file); //IMPORT FILE
-            return redirect()->back()->with(['success' => 'Upload file data suppliers !']);
+            Excel::import(new DepartmentsImport, $file); //IMPORT FILE
+            return redirect()->back()->withSuccess('Upload file data department !');
         }
 
         return redirect()->back()->with(['error' => 'Please choose file before!']);

@@ -2,18 +2,9 @@
     <!-- left column -->
     <div class="col-md-6">
         <!-- general form elements -->
-        <div class="box box-primary">
+        <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Import Data Suppliers</h3>
-                <br><br>
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible ">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <i class="icon fa fa-check"></i> Success!&nbsp;
-                        {{ session('success') }}
-                    </div>
-                @endif
-
+                <h3 class="box-title">Import Data Department</h3>
                 @if(session('error'))
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

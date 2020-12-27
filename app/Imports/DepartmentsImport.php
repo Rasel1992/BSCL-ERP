@@ -4,9 +4,8 @@ namespace App\Imports;
 
 use App\Models\Department;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class SuppliersImport implements ToModel, WithHeadingRow
+class DepartmentsImport implements ToModel
 {
     /**
     * @param array $row
@@ -16,8 +15,8 @@ class SuppliersImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Department([
-            'department'          => $row['department'],
-            'designation'        => $row['designation'],
+            'department'     => $row[1],
+            'designation'    => $row[2],
         ]);
     }
 }
