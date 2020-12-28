@@ -18,9 +18,9 @@ class Inventory extends Model
         'qty',
         'cost',
         'location',
-        'category_id ',
-        'user_id ',
-        'dept_id ',
+        'category_id',
+        'user_id',
+        'dept_id',
     ];
 
     /**
@@ -35,7 +35,7 @@ class Inventory extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
     /**
      * Get the category that owns the product.

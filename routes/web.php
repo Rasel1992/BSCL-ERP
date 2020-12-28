@@ -31,9 +31,10 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('stocks','StockController');
     Route::resource('inventories','InventoryController');
+    Route::post('/inventory/importDepartment', 'InventoryController@ImportExcel')->name('import.inventories');
     Route::resource('categories','CategoryController');
     Route::resource('departments','DepartmentController');
-    Route::post('/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
+    Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
     Route::resource('users','UserController');
     Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
 });

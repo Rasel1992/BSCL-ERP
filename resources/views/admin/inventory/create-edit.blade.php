@@ -11,7 +11,7 @@
             {!! (isset($inventory))?'<input name="_method" type="hidden" value="PUT">':'' !!}
             <div class="row">
                 <div class="col-md-12 col-lg-12">
-                    <h3 class="box-title">@if(isset($inventory)) Edit @else Add @endif Inventory</h3>
+                    <h3 class="box-title">@if(isset($inventory)) Edit @else Add @endif Inventory  <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a></h3>
                     <div class="panel">
                         <div class="panel-body">
                             <div class="row">
@@ -140,7 +140,7 @@
                                 <div class="col-md-6" v-show="inventory.assign_to == 'user'">
                                     <div class="form-group @error('user_id') has-error @enderror">
                                         <label for="user_id" class="with-help">User</label>
-                                        <select class="form-control select2" id="user_id " name="user_id ">
+                                        <select class="form-control select2" id="user_id" name="user_id">
                                             @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
@@ -153,14 +153,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6" v-show="inventory.assign_to == 'department'">
-                                    <div class="form-group @error('dept_id ') has-error @enderror">
-                                        <label for="dept_id " class="with-help">Department</label>
-                                        <select class="form-control select2" id="dept_id " name="dept_id ">
+                                    <div class="form-group @error('dept_id') has-error @enderror">
+                                        <label for="dept_id" class="with-help">Department</label>
+                                        <select class="form-control select2" id="dept_id" name="dept_id">
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}">{{$department->department}}</option>
                                             @endforeach
                                         </select>
-                                        @error('dept_id ')
+                                        @error('dept_id')
                                         <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>

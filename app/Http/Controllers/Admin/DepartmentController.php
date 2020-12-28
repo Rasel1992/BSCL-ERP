@@ -107,7 +107,7 @@ class DepartmentController extends Controller
     }
 
     public function ImportExcel(Request $request) {
-        //Validasi
+        //Validation
         $this->validate($request, [
             'file' => 'required|mimes:xls,xlsx',
         ]);
@@ -116,7 +116,7 @@ class DepartmentController extends Controller
             //UPLOAD FILE
             $file = $request->file('file'); //GET FILE
             Excel::import(new DepartmentsImport, $file); //IMPORT FILE
-            return redirect()->back()->withSuccess('Upload file data department !');
+            return redirect()->back()->withSuccess('Upload file data Department !');
         }
 
         return redirect()->back()->with(['error' => 'Please choose file before!']);

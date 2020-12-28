@@ -14,36 +14,38 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort">
+                <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Asset Code</th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Allocate To</th>
-                        <th>Department</th>
                         <th>Voucher No</th>
                         <th>Qty</th>
                         <th>Cost</th>
                         <th>Location</th>
-                        <th>Assign To</th>
                         <th>Purchase Date</th>
-                        <th>Created at</th>
+                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($inventories as $inventory)
+                    @foreach($inventories as $key => $inventory)
                         <tr>
+                            <td> {{ ++$key }}</td>
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>
-                            <td> {{ $inventory->user->name }}</td>
-                            <td> {{ $inventory->department->department }}</td>
+                            @if($inventory->user)
+                            <td> {{ isset($inventory->user)? $inventory->user->name : '' }}</td>
+                            @else
+                            <td> {{ isset($inventory->department) ? $inventory->department->department : ''}}</td>
+                            @endif
                             <td> {{ $inventory->voucher_no }}</td>
                             <td> {{ $inventory->qty }}</td>
                             <td> {{ $inventory->cost }}</td>
-                            <td> {{ $inventory->location }}</td>
-                            <td>{{ $inventory->purchase_date->format('M d, Y') }}</td>
+                            <td> @if($inventory->location == 'hq') Head Quarter @elseif($inventory->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
                             <td>{{ $inventory->created_at->format('M d, Y') }}</td>
                             <td class="row-options text-muted small">
                                 <a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
@@ -73,6 +75,7 @@
                 @endif
             </div> <!-- /.box-body -->
         </div> <!-- /.box -->
+        @include('admin.inventory.form_import')
     </section>
 @endsection
 

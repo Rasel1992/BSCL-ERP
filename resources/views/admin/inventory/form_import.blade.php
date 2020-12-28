@@ -4,7 +4,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Import Data Departments</h3>
+                <h3 class="box-title">Import Data Inventory</h3>
                 <br><br>
                 @if(session('error'))
                     <div class="alert alert-danger alert-dismissible">
@@ -16,7 +16,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form"  action="{{ route('admin.import.departments') }}" method="post" enctype="multipart/form-data">
+            <form role="form"  action="{{ route('admin.import.inventories') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                     <div class="form-group">
@@ -39,7 +39,7 @@
                 <div class="alert alert-warning alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <i class="icon fa fa-warning"></i> Attention! &nbsp;
-                    File Data Department Only Type (.xls, .xlsx)
+                    File Data Inventory Only Type (.xls, .xlsx)
                 </div>
                 </div>
             </form>

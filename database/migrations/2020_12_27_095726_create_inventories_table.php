@@ -18,7 +18,7 @@ class CreateInventoriesTable extends Migration
             $table->string('asset_code')->unique();
             $table->string('description')->nullable();
             $table->string('voucher_no')->nullable();
-            $table->string('purchase_date');
+            $table->dateTime('purchase_date');
             $table->string('qty')->nullable();
             $table->string('cost')->nullable();
             $table->enum('location', ['hq', 'gs1', 'gs2']);
