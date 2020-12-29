@@ -37,16 +37,15 @@
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>
-                            @if($inventory->user)
-                            <td> {{ isset($inventory->user)? $inventory->user->name : '' }}</td>
-                            @else
-                            <td> {{ isset($inventory->department) ? $inventory->department->department : ''}}</td>
-                            @endif
+                            <td>@if($inventory->user) {{isset($inventory->user) ? $inventory->user->name : ''}}
+                                @elseif($inventory->department)
+                                    {{isset($inventory->department) ? $inventory->department->department : ''}}  @endif</td>
+
                             <td> {{ $inventory->voucher_no }}</td>
                             <td> {{ $inventory->qty }}</td>
                             <td> {{ $inventory->cost }}</td>
                             <td> @if($inventory->location == 'hq') Head Quarter @elseif($inventory->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
-                            <td>{{ $inventory->created_at->format('M d, Y') }}</td>
+                            <td>{{ $inventory->purchase_date}}</td>
                             <td class="row-options text-muted small">
                                 <a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
                                 <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id) }}" accept-charset="UTF-8" class="data-form">

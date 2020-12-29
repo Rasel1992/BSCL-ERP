@@ -141,6 +141,7 @@
                                     <div class="form-group @error('user_id') has-error @enderror">
                                         <label for="user_id" class="with-help">User</label>
                                         <select class="form-control select2" id="user_id" name="user_id">
+                                            <option value="">Select</option>
                                             @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
@@ -156,6 +157,7 @@
                                     <div class="form-group @error('dept_id') has-error @enderror">
                                         <label for="dept_id" class="with-help">Department</label>
                                         <select class="form-control select2" id="dept_id" name="dept_id">
+                                            <option value="">Select</option>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}">{{$department->department}}</option>
                                             @endforeach

@@ -20,7 +20,6 @@
                         <th>SL</th>
                         <th>Department</th>
                         <th>Designation</th>
-                        <th>Created at</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -30,7 +29,6 @@
                             <td> {{ ++$key }}</td>
                             <td> {{ $department->department }}</td>
                             <td> {{ $department->designation }}</td>
-                            <td>{{ $department->created_at->format('M d, Y') }}</td>
                             <td>
                             <span class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -40,8 +38,8 @@
                                                  <form method="POST" action="{{ route('admin.departments.destroy', $department->id) }}" accept-charset="UTF-8" class="data-form">
                                                      @csrf
                                                      @method('delete')
-                                                     <li><a href="{{ route('admin.departments.edit', $department->id) }}"><i class="fa fa-edit"></i> Edit </a></li>
-                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> Delete </a></li>
+                                                     <li><a href="{{ route('admin.departments.edit', $department->id) }}"><i class="fa fa-edit"></i></a></li>
+                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
                                                   </form>
                                             </ul>
                                         </span>
