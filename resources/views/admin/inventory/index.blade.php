@@ -37,9 +37,12 @@
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>
-                            <td>@if($inventory->user) {{isset($inventory->user) ? $inventory->user->name : ''}}
-                                @elseif($inventory->department)
-                                    {{isset($inventory->department) ? $inventory->department->department : ''}}  @endif</td>
+                            <td>
+                                @if($inventory->assign_to == 'user') <strong>Person:</strong><br> {{$inventory->user->name }}
+                                @else
+                                    <strong>Department:</strong><br> {{ $inventory->department->department}}
+                                @endif
+                            </td>
 
                             <td> {{ $inventory->voucher_no }}</td>
                             <td> {{ $inventory->qty }}</td>

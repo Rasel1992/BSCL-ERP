@@ -15,6 +15,7 @@ class Inventory extends Model
         'asset_code',
         'description',
         'category_id',
+        'assign_to',
         'user_id',
         'dept_id',
         'voucher_no',
@@ -43,6 +44,6 @@ class Inventory extends Model
      */
     public function department()
     {
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo('App\Models\Department', 'dept_id', 'id');
     }
 }

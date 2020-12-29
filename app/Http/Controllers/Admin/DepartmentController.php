@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DepartmentRequest;
 use App\Imports\DepartmentsImport;
 use App\Models\Department;
 use Illuminate\Http\Request;
@@ -36,10 +37,10 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param DepartmentRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
         try {
             $data = $request->except('_token');
@@ -75,11 +76,11 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Department  $department
+     * @param DepartmentRequest $request
+     * @param \App\Models\Department $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(DepartmentRequest $request, Department $department)
     {
         try {
             $data = $request->except('_token');

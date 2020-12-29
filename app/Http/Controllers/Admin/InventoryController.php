@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InventoryRequest;
 use App\Imports\InventoriesImport;
 use App\Models\Category;
 use App\Models\Department;
@@ -50,10 +51,10 @@ class InventoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param InventoryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(InventoryRequest $request)
     {
         try {
             $data = $request->except('_token');
@@ -79,24 +80,32 @@ class InventoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Inventory $inventory)
     {
+        $users = User::get();
+        $departments = Department::get();
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
-        return view('admin.category.create-edit', compact('categoryData', 'stock'));
+        return view('admin.inventory.create-edit', compact('inventory','categoryData', 'users', 'departments'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
+     * @param InventoryRequest $request
+     * @param \App\Models\Inventory $inventory
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Inventory $inventory)
+    public function update(InventoryRequest $request, Inventory $inventory)
     {
-        //
+        try {
+            $data = $request->except('_token');
+            $inventory->update($data);
+            return redirect()->back()->withSuccess('Inventory updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -107,7 +116,12 @@ class InventoryController extends Controller
      */
     public function destroy(Inventory $inventory)
     {
-        //
+        try {
+            $inventory->delete();
+            return redirect()->back()->withSuccess('Inventory trashed successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function ImportExcel(Request $request) {

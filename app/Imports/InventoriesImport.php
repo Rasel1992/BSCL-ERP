@@ -18,13 +18,14 @@ class InventoriesImport implements ToModel
             'asset_code'     => $row[1],
             'description'    => $row[2],
             'category_id'    => $row[3],
-            'user_id'    => $row[4],
-            'dept_id'    => $row[5],
-            'voucher_no'    => $row[6],
-            'qty'    => $row[7],
-            'cost'    => $row[8],
-            'location'    => $row[9],
-            'purchase_date'    => $row[10],
+            'assign_to'    => $row[4],
+            'user_id'    => $row[5],
+            'dept_id'    => $row[6],
+            'voucher_no'    => $row[7],
+            'qty'    => $row[8],
+            'cost'    => $row[9],
+            'location'    => $row[10],
+            'purchase_date'    => $row[11],
         ]);
     }
 }
