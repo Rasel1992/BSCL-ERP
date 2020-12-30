@@ -12,6 +12,6 @@ class InventoryExport implements FromCollection
     */
     public function collection()
     {
-        return Inventory::all();
+        return Inventory::select('asset_code', 'description', 'category_id', 'assign_to', 'user_id', 'dept_id', 'voucher_no', 'qty', 'cost', 'location', 'purchase_date')->get();
     }
 }
