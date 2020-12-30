@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Exports\InventoryExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InventoryRequest;
 use App\Imports\InventoriesImport;
@@ -138,5 +139,13 @@ class InventoryController extends Controller
         }
 
         return redirect()->back()->with(['error' => 'Please choose file before!']);
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function fileExport()
+    {
+        return Excel::download(new InventoryExport, 'inventory-collection.xlsx');
     }
 }

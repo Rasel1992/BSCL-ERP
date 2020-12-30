@@ -10,11 +10,12 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
+                    <a class="button add btn-success" href="{{ route('admin.export.inventories') }}">Export</a>
                     <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort" id="file_export">
+                <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
                         <th>SL</th>
