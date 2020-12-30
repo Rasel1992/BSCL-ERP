@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Exports\DepartmentsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Imports\DepartmentsImport;
@@ -122,4 +123,12 @@ class DepartmentController extends Controller
 
         return redirect()->back()->with(['error' => 'Please choose file before!']);
     }
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function fileExport()
+    {
+        return Excel::download(new DepartmentsExport(), 'department-collection.xlsx');
+    }
+
 }

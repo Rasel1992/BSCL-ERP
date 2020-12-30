@@ -10,6 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Departments</h3>
                 <div class="box-tools pull-right">
+                    <a class="btn btn-success" href="{{ route('admin.export.departments') }}">Export</a>
                     <a href="{{ route('admin.departments.create') }}" class="button add"> Add Department</a>
                 </div>
             </div> <!-- /.box-header -->
@@ -24,9 +25,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($departments as $key => $department)
+                    @foreach($departments as $department)
                         <tr>
-                            <td> {{ ++$key }}</td>
+                            <td> {{ $department->id }}</td>
                             <td> {{ $department->department }}</td>
                             <td> {{ $department->designation }}</td>
                             <td>
