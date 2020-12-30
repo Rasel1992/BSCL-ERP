@@ -10,7 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
-                    <a class="button add btn-success" href="{{ route('admin.export.inventories') }}">Export</a>
+                    <a class="btn btn-success" href="{{ route('admin.export.inventories') }}">Export</a>
                     <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
@@ -32,9 +32,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($inventories as $key => $inventory)
+                    @foreach($inventories as $inventory)
                         <tr>
-                            <td> {{ ++$key }}</td>
+                            <td> {{ $inventory->id }}</td>
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::resource('categories','CategoryController');
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
+    Route::get('/inventory/exportDepartment','DepartmentController@fileExport')->name('export.departments');
     Route::resource('users','UserController');
     Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
 });
