@@ -18,7 +18,7 @@ class DepartmentController extends Controller
     public function index()
     {
         try {
-            $departments = Department::latest()->paginate(10);
+            $departments = Department::paginate(10);
             return view('admin.department.index', compact('departments'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

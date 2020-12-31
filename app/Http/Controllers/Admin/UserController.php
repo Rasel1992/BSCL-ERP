@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::latest()->paginate(10);
+            $users = User::paginate(10);
             return view('admin.user.index', compact('users'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

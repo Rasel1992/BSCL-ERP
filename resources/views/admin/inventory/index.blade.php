@@ -39,9 +39,9 @@
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>
                             <td>
-                                @if($inventory->assign_to == 'user') <strong>Person:</strong><br> {{$inventory->user->name }}
+                                @if($inventory->assign_to == 'user') <strong>Person:</strong><br> {{isset($inventory->user->name) ? $inventory->user->name : ''}}
                                 @else
-                                    <strong>Department:</strong><br> {{ $inventory->department->department}}
+                                    <strong>Department:</strong><br> {{isset($inventory->department->department) ? $inventory->department->department : ''}}
                                 @endif
                             </td>
 
