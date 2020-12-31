@@ -15,7 +15,7 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort">
+                <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>
                         <th>SL</th>
@@ -32,9 +32,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($inventories as $inventory)
+                    @foreach($inventories as $key => $inventory)
                         <tr>
-                            <td> {{ $inventory->id }}</td>
+                            <td> {{$key + $inventories->firstItem()}}</td>
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>
