@@ -1,0 +1,172 @@
+Index: resources/views/admin/category/index.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@extends('layouts.backend')\r\n\r\n@section('title')\r\n    Category\r\n@endsection\r\n\r\n@section('content')\r\n    <section class=\"content\">\r\n        <div class=\"panel\">\r\n            <div class=\"box-header with-border\">\r\n                <h3 class=\"box-title\">Categories</h3>\r\n                <div class=\"box-tools pull-right\">\r\n                    <a href=\"{{ route('admin.categories.create') }}\" class=\"button add\"> Add Category</a>\r\n                </div>\r\n            </div> <!-- /.box-header -->\r\n            <div class=\"panel-body\">\r\n                <table class=\"table table-hover table-2nd-no-sort\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th>SL</th>\r\n                        <th>Category Type</th>\r\n                        <th>Category</th>\r\n                        <th>Created at</th>\r\n                        <th>Action</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    @foreach($categories as $category)\r\n                        <tr>\r\n                            <td> {{ $category->id }}</td>\r\n                            <td>{{ $category->type }}</td>\r\n                            <td>\r\n                                {{ ($category->parent_mother!='')?$category->parent_mother.' > ':'' }}\r\n                                {{ ($category->parent_name!='')?$category->parent_name.' > ':'' }}\r\n                                {{ $category->category_name }}\r\n                            </td>\r\n                            <td> {{ $category->created_at->format('M d, Y') }} </td>\r\n                            <td class=\"row-options text-muted small\">\r\n                                <a href=\"{{ route('admin.categories.show', $category->id) }}\" class=\"ajax-modal-btn\"><i data-toggle=\"tooltip\" data-placement=\"top\" title=\"Details\" class=\"fa fa-expand\"></i></a>&nbsp;\r\n                                <a href=\"{{route('admin.categories.edit', $category->id) }}\" class=\"ajax-modal-btn\"><i data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\" class=\"fa fa-edit\"></i></a>&nbsp;\r\n                                <form method=\"POST\" action=\"{{ route('admin.categories.destroy', $category->id) }}\" accept-charset=\"UTF-8\" class=\"data-form\">\r\n                                    @csrf\r\n                                    @method('delete')\r\n                                    <a href=\"javascript:void(0)\" @click=\"destroy\" class=\"confirm ajax-silent\" title=\"Trash\" data-toggle=\"tooltip\" data-placement=\"top\"><i class=\"fa fa-trash-o\"></i></a>\r\n                                </form>\r\n                            </td>\r\n                        </tr>\r\n                    @endforeach\r\n                    </tbody>\r\n                </table>\r\n                @if($categories->total())\r\n                    <div class=\"row\">\r\n                        <div class=\"col-sm-5\">\r\n                            <div class=\"dataTables_info\" id=\"sortable_info\" role=\"status\" aria-live=\"polite\">\r\n                                showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-7\">\r\n                            <div class=\"dataTables_paginate paging_simple_numbers\" id=\"sortable_paginate\">\r\n                                {{ $categories->links() }}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                @endif\r\n            </div> <!-- /.box-body -->\r\n        </div> <!-- /.box -->\r\n    </section>\r\n@endsection\r\n\r\n@push('scripts')\r\n    <script>\r\n        new Vue({\r\n            el: '#app',\r\n            methods: {\r\n                destroy: function () {\r\n                    const $this = $(event.target);\r\n\r\n                    Swal.fire({\r\n                        title: 'Are you sure?',\r\n                        text: \"You won't be able to revert this!\",\r\n                        type: 'warning',\r\n                        showCancelButton: true,\r\n                        confirmButtonColor: '#3085d6',\r\n                        cancelButtonColor: '#d33',\r\n                        confirmButtonText: 'Yes, delete it!'\r\n                    }).then((result) => {\r\n                        if (result.value) {\r\n                            $this.closest('form').submit();\r\n                        }\r\n                    });\r\n                }\r\n            }\r\n        })\r\n    </script>\r\n@endpush\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/admin/category/index.blade.php b/resources/views/admin/category/index.blade.php
+--- a/resources/views/admin/category/index.blade.php	(revision c6a849cb8657f671160901184f739d528cf29745)
++++ b/resources/views/admin/category/index.blade.php	(date 1609393793819)
+@@ -25,9 +25,9 @@
+                     </tr>
+                     </thead>
+                     <tbody>
+-                    @foreach($categories as $category)
++                    @foreach($categories as $key => $category)
+                         <tr>
+-                            <td> {{ $category->id }}</td>
++                            <td> {{$key + $categories->firstItem()}}</td>
+                             <td>{{ $category->type }}</td>
+                             <td>
+                                 {{ ($category->parent_mother!='')?$category->parent_mother.' > ':'' }}
+Index: resources/views/admin/user/index.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@extends('layouts.backend')\r\n\r\n@section('title')\r\n  Users\r\n@endsection\r\n\r\n@section('content')\r\n    <!-- Main content -->\r\n    <section class=\"content\">\r\n        <!-- /#global-alert-box -->\r\n        <div class=\"panel\">\r\n            <div class=\"box-header with-border\">\r\n                <h3 class=\"box-title\">Users</h3>\r\n                <div class=\"box-tools pull-right\">\r\n                    <a href=\"{{ route('admin.users.create') }}\" class=\"button add\" >Add User</a>\r\n                </div>\r\n            </div>\r\n            <!-- /.box-header -->\r\n            <div class=\"panel-body\">\r\n                <table class=\"table table-hover\" id=\"file_export\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th>SL</th>\r\n                        <th>Avatar</th>\r\n                        <th>Name</th>\r\n                        <th>Type</th>\r\n                        <th>Email</th>\r\n                        <th> </th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    @foreach($users as $key => $user)\r\n                        <tr>\r\n                            <td> {{ ++$key }}</td>\r\n                            <td>\r\n                                @if($user->image)\r\n                                    {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}\r\n                                @endif\r\n                            </td>\r\n                            <td>{{ $user->name }}</td>\r\n                            <td><span class=\"label label-outline\">{{ $user->type }}</span></td>\r\n                            <td>{{ $user->email }}</td>\r\n                            <td>\r\n                                <a href=\"{{route('admin.users.edit', $user->id) }}\" class=\"ajax-modal-btn\"><i data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\" class=\"fa fa-edit\"></i></a>&nbsp;\r\n                                <a href=\"javascript:void(0)\" data-toggle=\"modal\" data-target=\"#change-password-modal\" @click=\"showPasswordUpdateModal('{{ $user->id }}')\" class=\"ajax-modal-btn\"><i data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change password\" class=\"fa fa-lock\"></i></a>&nbsp;\r\n                                <form method=\"POST\" action=\"{{ route('admin.users.destroy', $user->id) }}\" accept-charset=\"UTF-8\" class=\"data-form\">\r\n                                    @csrf\r\n                                    @method('delete')\r\n                                    <a href=\"javascript:void(0)\" @click=\"destroy\" class=\"confirm ajax-silent\" title=\"Trash\" data-toggle=\"tooltip\" data-placement=\"top\"><i class=\"fa fa-trash-o\"></i></a>\r\n                                </form>\r\n                            </td>\r\n                        </tr>\r\n                    @endforeach\r\n                    </tbody>\r\n                </table>\r\n                @if($users->total())\r\n                    <div class=\"row\">\r\n                        <div class=\"col-sm-5\">\r\n                            <div class=\"dataTables_info\" id=\"sortable_info\" role=\"status\" aria-live=\"polite\">\r\n                                showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} entries\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-7\">\r\n                            <div class=\"dataTables_paginate paging_simple_numbers\" id=\"sortable_paginate\">\r\n                                {{ $users->links() }}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                @endif\r\n            </div>\r\n            <!-- /.box-body -->\r\n        </div>\r\n        <x-user.password-update/>\r\n    </section>\r\n    <!-- /.content -->\r\n@endsection\r\n\r\n@push('scripts')\r\n    <script>\r\n        new Vue({\r\n            el: '#app',\r\n            methods: {\r\n                destroy: function () {\r\n                    const $this = $(event.target);\r\n\r\n                    Swal.fire({\r\n                        title: 'Are you sure?',\r\n                        text: \"You won't be able to revert this!\",\r\n                        type: 'warning',\r\n                        showCancelButton: true,\r\n                        confirmButtonColor: '#3085d6',\r\n                        cancelButtonColor: '#d33',\r\n                        confirmButtonText: 'Yes, delete it!'\r\n                    }).then((result) => {\r\n                        if (result.value) {\r\n                            $this.closest('form').submit();\r\n                        }\r\n                    });\r\n                },\r\n                showPasswordUpdateModal: function (id) {\r\n                    $('#change-password-form').attr('action', window.location.origin + '/admin/users/' + id + '/password/update');\r\n                },\r\n                fileChosen: function (id) {\r\n                    if (event.target.value) {\r\n                        $(id).val(event.target.files[0].name);\r\n                    } else {\r\n                        $(id).val('');\r\n                    }\r\n                },\r\n            }\r\n        })\r\n    </script>\r\n@endpush\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/admin/user/index.blade.php b/resources/views/admin/user/index.blade.php
+--- a/resources/views/admin/user/index.blade.php	(revision c6a849cb8657f671160901184f739d528cf29745)
++++ b/resources/views/admin/user/index.blade.php	(date 1609393793819)
+@@ -31,7 +31,7 @@
+                     <tbody>
+                     @foreach($users as $key => $user)
+                         <tr>
+-                            <td> {{ ++$key }}</td>
++                            <td> {{$key + $users->firstItem()}}</td>
+                             <td>
+                                 @if($user->image)
+                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
+Index: resources/views/admin/inventory/index.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@extends('layouts.backend')\r\n\r\n@section('title')\r\n    Inventories\r\n@endsection\r\n\r\n@section('content')\r\n    <section class=\"content\">\r\n        <div class=\"panel\">\r\n            <div class=\"box-header with-border\">\r\n                <h3 class=\"box-title\">Inventories</h3>\r\n                <div class=\"box-tools pull-right\">\r\n                    <a class=\"btn btn-success\" href=\"{{ route('admin.export.inventories') }}\">Export</a>\r\n                    <a href=\"{{ route('admin.inventories.create') }}\" class=\"button add\"> Add Inventory</a>\r\n                </div>\r\n            </div> <!-- /.box-header -->\r\n            <div class=\"panel-body\">\r\n                <table class=\"table table-hover table-2nd-no-sort\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th>SL</th>\r\n                        <th>Asset Code</th>\r\n                        <th>Description</th>\r\n                        <th>Category</th>\r\n                        <th>Allocate To</th>\r\n                        <th>Voucher No</th>\r\n                        <th>Qty</th>\r\n                        <th>Cost</th>\r\n                        <th>Location</th>\r\n                        <th>Purchase Date</th>\r\n                        <th> </th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    @foreach($inventories as $inventory)\r\n                        <tr>\r\n                            <td> {{ $inventory->id }}</td>\r\n                            <td> {{ $inventory->asset_code  }}</td>\r\n                            <td> {{ $inventory->description }}</td>\r\n                            <td> {{ $inventory->category->category_name }}</td>\r\n                            <td>\r\n                                @if($inventory->assign_to == 'user') <strong>Person:</strong><br> {{isset($inventory->user->name) ? $inventory->user->name : ''}}\r\n                                @else\r\n                                    <strong>Department:</strong><br> {{isset($inventory->department->department) ? $inventory->department->department : ''}}\r\n                                @endif\r\n                            </td>\r\n\r\n                            <td> {{ $inventory->voucher_no }}</td>\r\n                            <td> {{ $inventory->qty }}</td>\r\n                            <td> {{ $inventory->cost }}</td>\r\n                            <td> @if($inventory->location == 'hq') Head Quarter @elseif($inventory->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>\r\n                            <td>{{ $inventory->purchase_date}}</td>\r\n                            <td class=\"row-options text-muted small\">\r\n                                <a href=\"{{route('admin.inventories.edit', $inventory->id) }}\" class=\"ajax-modal-btn\"><i data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\" class=\"fa fa-edit\"></i></a>&nbsp;\r\n                                <form method=\"POST\" action=\"{{ route('admin.inventories.destroy', $inventory->id) }}\" accept-charset=\"UTF-8\" class=\"data-form\">\r\n                                    @csrf\r\n                                    @method('delete')\r\n                                    <a href=\"javascript:void(0)\" @click=\"destroy\" class=\"confirm ajax-silent\" title=\"Trash\" data-toggle=\"tooltip\" data-placement=\"top\"><i class=\"fa fa-trash-o\"></i></a>\r\n                                </form>\r\n                            </td>\r\n                        </tr>\r\n                    @endforeach\r\n                    </tbody>\r\n                </table>\r\n                @if($inventories->total())\r\n                    <div class=\"row\">\r\n                        <div class=\"col-sm-5\">\r\n                            <div class=\"dataTables_info\" id=\"sortable_info\" role=\"status\" aria-live=\"polite\">\r\n                                showing {{ $inventories->firstItem() }} to {{ $inventories->lastItem() }} of {{ $inventories->total() }} entries\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-7\">\r\n                            <div class=\"dataTables_paginate paging_simple_numbers\" id=\"sortable_paginate\">\r\n                                {{ $inventories->links() }}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                @endif\r\n            </div> <!-- /.box-body -->\r\n        </div> <!-- /.box -->\r\n        @include('admin.inventory.form_import')\r\n    </section>\r\n@endsection\r\n\r\n@push('scripts')\r\n    <script>\r\n        new Vue({\r\n            el: '#app',\r\n            methods: {\r\n                destroy: function () {\r\n                    const $this = $(event.target);\r\n\r\n                    Swal.fire({\r\n                        title: 'Are you sure?',\r\n                        text: \"You won't be able to revert this!\",\r\n                        type: 'warning',\r\n                        showCancelButton: true,\r\n                        confirmButtonColor: '#3085d6',\r\n                        cancelButtonColor: '#d33',\r\n                        confirmButtonText: 'Yes, delete it!'\r\n                    }).then((result) => {\r\n                        if (result.value) {\r\n                            $this.closest('form').submit();\r\n                        }\r\n                    });\r\n                }\r\n            }\r\n        })\r\n    </script>\r\n@endpush\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/admin/inventory/index.blade.php b/resources/views/admin/inventory/index.blade.php
+--- a/resources/views/admin/inventory/index.blade.php	(revision c6a849cb8657f671160901184f739d528cf29745)
++++ b/resources/views/admin/inventory/index.blade.php	(date 1609393793928)
+@@ -15,7 +15,7 @@
+                 </div>
+             </div> <!-- /.box-header -->
+             <div class="panel-body">
+-                <table class="table table-hover table-2nd-no-sort">
++                <table class="table table-hover table-2nd-no-sort" id="file_export">
+                     <thead>
+                     <tr>
+                         <th>SL</th>
+@@ -32,9 +32,9 @@
+                     </tr>
+                     </thead>
+                     <tbody>
+-                    @foreach($inventories as $inventory)
++                    @foreach($inventories as $key => $inventory)
+                         <tr>
+-                            <td> {{ $inventory->id }}</td>
++                            <td> {{$key + $inventories->firstItem()}}</td>
+                             <td> {{ $inventory->asset_code  }}</td>
+                             <td> {{ $inventory->description }}</td>
+                             <td> {{ $inventory->category->category_name }}</td>
+Index: app/Imports/InventoriesImport.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Imports;\r\n\r\nuse App\\Models\\Inventory;\r\nuse Maatwebsite\\Excel\\Concerns\\ToModel;\r\nuse Maatwebsite\\Excel\\Concerns\\WithValidation;\r\n\r\nclass InventoriesImport implements ToModel, WithValidation\r\n{\r\n    /**\r\n    * @param array $row\r\n    *\r\n    * @return \\Illuminate\\Database\\Eloquent\\Model|null\r\n    */\r\n    public function model(array $row)\r\n    {\r\n        return new Inventory([\r\n            'asset_code'     => $row[1],\r\n            'description'    => $row[2],\r\n            'category_id'    => $row[3],\r\n            'assign_to'    => $row[4],\r\n            'user_id'    => $row[5],\r\n            'dept_id'    => $row[6],\r\n            'voucher_no'    => $row[7],\r\n            'qty'    => $row[8],\r\n            'cost'    => $row[9],\r\n            'location'    => $row[10],\r\n        ]);\r\n    }\r\n    public function rules(): array\r\n    {\r\n        return [\r\n            '1' => 'required|string',\r\n            '2' => 'nullable|string',\r\n            '3' => 'required|integer',\r\n            '4' => 'required|string',\r\n            '5' => 'nullable|integer',\r\n            '6' => 'nullable|integer',\r\n            '7' => 'nullable|string',\r\n            '8' => 'nullable|numeric',\r\n            '9' => 'nullable|numeric',\r\n            '10' => 'required|string',\r\n            // so on\r\n        ];\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/Imports/InventoriesImport.php b/app/Imports/InventoriesImport.php
+--- a/app/Imports/InventoriesImport.php	(revision c6a849cb8657f671160901184f739d528cf29745)
++++ b/app/Imports/InventoriesImport.php	(date 1609393793819)
+@@ -3,16 +3,24 @@
+ namespace App\Imports;
+ 
+ use App\Models\Inventory;
++
++use Carbon\Carbon;
+ use Maatwebsite\Excel\Concerns\ToModel;
+ use Maatwebsite\Excel\Concerns\WithValidation;
+ 
+-class InventoriesImport implements ToModel, WithValidation
++class InventoriesImport implements ToModel
+ {
+     /**
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
++    /**
++     * Transform a date value into a Carbon object.
++     *
++     * @return Inventory
++     */
++
+     public function model(array $row)
+     {
+         return new Inventory([
+@@ -26,22 +34,25 @@
+             'qty'    => $row[8],
+             'cost'    => $row[9],
+             'location'    => $row[10],
++            'purchase_date' => \Carbon\Carbon::parse($row[11]),
+         ]);
+     }
+-    public function rules(): array
+-    {
+-        return [
+-            '1' => 'required|string',
+-            '2' => 'nullable|string',
+-            '3' => 'required|integer',
+-            '4' => 'required|string',
+-            '5' => 'nullable|integer',
+-            '6' => 'nullable|integer',
+-            '7' => 'nullable|string',
+-            '8' => 'nullable|numeric',
+-            '9' => 'nullable|numeric',
+-            '10' => 'required|string',
+-            // so on
+-        ];
+-    }
++
++//    public function rules(): array
++//    {
++//        return [
++//            '1' => 'required|string',
++//            '2' => 'nullable|string',
++//            '3' => 'required|integer',
++//            '4' => 'required|string',
++//            '5' => 'nullable|integer',
++//            '6' => 'nullable|integer',
++//            '7' => 'nullable|string',
++//            '8' => 'nullable|numeric',
++//            '9' => 'nullable|numeric',
++//            '10' => 'required|string',
++//            '11' => 'nullable|string',
++//            // so on
++//        ];
++//    }
+ }
+Index: resources/views/admin/department/index.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@extends('layouts.backend')\r\n\r\n@section('title')\r\n    Departments\r\n@endsection\r\n\r\n@section('content')\r\n    <section class=\"content\">\r\n        <div class=\"panel\">\r\n            <div class=\"box-header with-border\">\r\n                <h3 class=\"box-title\">Departments</h3>\r\n                <div class=\"box-tools pull-right\">\r\n                    <a class=\"btn btn-success\" href=\"{{ route('admin.export.departments') }}\">Export</a>\r\n                    <a href=\"{{ route('admin.departments.create') }}\" class=\"button add\"> Add Department</a>\r\n                </div>\r\n            </div> <!-- /.box-header -->\r\n            <div class=\"panel-body\">\r\n                <table class=\"table table-hover table-2nd-no-sort\" id=\"file_export\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th>SL</th>\r\n                        <th>Department</th>\r\n                        <th>Designation</th>\r\n                        <th></th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    @foreach($departments as $department)\r\n                        <tr>\r\n                            <td> {{ $department->id }}</td>\r\n                            <td> {{ $department->department }}</td>\r\n                            <td> {{ $department->designation }}</td>\r\n                            <td>\r\n                            <span class=\"dropdown\">\r\n                                            <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\" aria-expanded=\"false\">\r\n                                                <i class=\"fa fa-cogs\"></i> <span class=\"caret\"></span>\r\n                                            </a>\r\n                                            <ul class=\"dropdown-menu\" style=\"left: -115px;\">\r\n                                                 <form method=\"POST\" action=\"{{ route('admin.departments.destroy', $department->id) }}\" accept-charset=\"UTF-8\" class=\"data-form\">\r\n                                                     @csrf\r\n                                                     @method('delete')\r\n                                                     <li><a href=\"{{ route('admin.departments.edit', $department->id) }}\"><i class=\"fa fa-edit\"></i></a></li>\r\n                                                    <li><a href=\"javascript:void(0)\" @click=\"destroy\"><i class=\"fa fa-trash-o\"></i> </a></li>\r\n                                                  </form>\r\n                                            </ul>\r\n                                        </span>\r\n                            </td>\r\n                        </tr>\r\n                    @endforeach\r\n                    </tbody>\r\n                </table>\r\n                @if($departments->total())\r\n                    <div class=\"row\">\r\n                        <div class=\"col-sm-5\">\r\n                            <div class=\"dataTables_info\" id=\"sortable_info\" role=\"status\" aria-live=\"polite\">\r\n                                showing {{ $departments->firstItem() }} to {{ $departments->lastItem() }}\r\n                                of {{ $departments->total() }} entries\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-7\">\r\n                            <div class=\"dataTables_paginate paging_simple_numbers\" id=\"sortable_paginate\">\r\n                                {{ $departments->links() }}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                @endif\r\n            </div> <!-- /.box-body -->\r\n        </div> <!-- /.box -->\r\n        @include('admin.department.form_import')\r\n    </section>\r\n@endsection\r\n\r\n@push('scripts')\r\n    <script>\r\n        new Vue({\r\n            el: '#app',\r\n            methods: {\r\n                destroy: function () {\r\n                    const $this = $(event.target);\r\n\r\n                    Swal.fire({\r\n                        title: 'Are you sure?',\r\n                        text: \"You won't be able to revert this!\",\r\n                        type: 'warning',\r\n                        showCancelButton: true,\r\n                        confirmButtonColor: '#3085d6',\r\n                        cancelButtonColor: '#d33',\r\n                        confirmButtonText: 'Yes, delete it!'\r\n                    }).then((result) => {\r\n                        if (result.value) {\r\n                            $this.closest('form').submit();\r\n                        }\r\n                    });\r\n                }\r\n            }\r\n        })\r\n    </script>\r\n@endpush\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/admin/department/index.blade.php b/resources/views/admin/department/index.blade.php
+--- a/resources/views/admin/department/index.blade.php	(revision c6a849cb8657f671160901184f739d528cf29745)
++++ b/resources/views/admin/department/index.blade.php	(date 1609393793819)
+@@ -25,9 +25,9 @@
+                     </tr>
+                     </thead>
+                     <tbody>
+-                    @foreach($departments as $department)
++                    @foreach($departments as $key => $department)
+                         <tr>
+-                            <td> {{ $department->id }}</td>
++                            <td> {{$key + $departments->firstItem()}}</td>
+                             <td> {{ $department->department }}</td>
+                             <td> {{ $department->designation }}</td>
+                             <td>

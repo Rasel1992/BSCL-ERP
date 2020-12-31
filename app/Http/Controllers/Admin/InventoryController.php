@@ -28,7 +28,11 @@ class InventoryController extends Controller
             $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
             $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
             $data['categories'] = $sql->get();
+<<<<<<< HEAD
             $inventories = Inventory::paginate(10);
+=======
+            $inventories = Inventory::latest()->paginate(50);
+>>>>>>> origin/master
 //            dd($inventories);
             return view('admin.inventory.index', compact('data', 'inventories'));
         } catch (\Exception $e) {
