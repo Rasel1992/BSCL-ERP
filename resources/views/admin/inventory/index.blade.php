@@ -34,7 +34,7 @@
                     <tbody>
                     @foreach($inventories as $key => $inventory)
                         <tr>
-                            <td> {{ ++$key }}</td>
+                            <td> {{$key + $inventories->firstItem()}}</td>
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>

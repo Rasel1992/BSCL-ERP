@@ -25,9 +25,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($categories as $category)
+                    @foreach($categories as $key => $category)
                         <tr>
-                            <td> {{ $category->id }}</td>
+                            <td> {{$key + $categories->firstItem()}}</td>
                             <td>{{ $category->type }}</td>
                             <td>
                                 {{ ($category->parent_mother!='')?$category->parent_mother.' > ':'' }}
