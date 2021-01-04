@@ -10,7 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
-                    <a class="btn btn-success" href="{{ route('admin.export.inventories') }}">Export</a>
+                    <a class="button add" href="{{ route('admin.inventories.summary') }}">Summary</a>
                     <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->

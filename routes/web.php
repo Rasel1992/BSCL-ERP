@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('stocks','StockController');
     Route::resource('inventories','InventoryController');
+    Route::get('/inventory/summary', 'InventoryController@summary')->name('inventories.summary');
     Route::post('/inventory/importInventory', 'InventoryController@ImportExcel')->name('import.inventories');
     Route::get('/inventory/exportInventory','InventoryController@fileExport')->name('export.inventories');
     Route::resource('categories','CategoryController');

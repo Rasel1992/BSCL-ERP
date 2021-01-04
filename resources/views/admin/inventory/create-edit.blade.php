@@ -11,7 +11,9 @@
             {!! (isset($inventory))?'<input name="_method" type="hidden" value="PUT">':'' !!}
             <div class="row">
                 <div class="col-md-12 col-lg-12">
-                    <h3 class="box-title">@if(isset($inventory)) Edit @else Add @endif Inventory  <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a></h3>
+                    <h3 class="box-title">@if(isset($inventory)) Edit @else Add @endif Inventory
+                        <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a>
+                    </h3>
                     <div class="panel">
                         <div class="panel-body">
                             <div class="row">

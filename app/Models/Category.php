@@ -24,5 +24,8 @@ class Category extends Model
     {
         return $this->nested()->select('id', 'parent_id', 'category_name');
     }
+    public function inventories() {
+        return $this->hasMany('App\Models\Inventory', 'category_id', 'id');
+    }
 
 }

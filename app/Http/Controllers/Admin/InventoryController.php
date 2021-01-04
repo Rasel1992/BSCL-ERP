@@ -29,8 +29,29 @@ class InventoryController extends Controller
             $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
             $data['categories'] = $sql->get();
             $inventories = Inventory::latest()->paginate(10);
-//            dd($inventories);
             return view('admin.inventory.index', compact('data', 'inventories'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    public function summary()
+    {
+        try {
+//            $data['categories'] = Category::with('inventories')->get();
+            $data['categories_head'] = Category::with(['inventories' => function($q) {
+                $q->where('location','hq');
+            }])
+                ->get();
+            $data['categories_gs1'] = Category::with(['inventories' => function($q) {
+                $q->where('location','gs1');
+            }])
+                ->get();
+            $data['categories_gs2'] = Category::with(['inventories' => function($q) {
+                $q->where('location','gs2');
+            }])
+                ->get();
+//            dd($data);
+            return view('admin.inventory.summary', compact( 'data'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
