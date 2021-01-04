@@ -37,7 +37,6 @@ class InventoryController extends Controller
     public function summary()
     {
         try {
-//            $data['categories'] = Category::with('inventories')->get();
             $data['categories_head'] = Category::with(['inventories' => function($q) {
                 $q->where('location','hq');
             }])
@@ -50,12 +49,28 @@ class InventoryController extends Controller
                 $q->where('location','gs2');
             }])
                 ->get();
-//            dd($data);
             return view('admin.inventory.summary', compact( 'data'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+//    public function summaryShow(Request $request)
+//    {
+//        try {
+//            $data['categoryData'] = Category::where('parent_id', 0)->with('nested')->get();
+//            $sql = Category::orderBy('categories.id', 'DESC');
+//            $sql->select('categories.*', 'B.category_name AS parent_name', 'C.category_name AS parent_mother', \DB::raw('IFNULL(D.subCount,0) AS subCount'));
+//            $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
+//            $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
+//            $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
+//            $data['categories'] = $sql->get();
+//            $inventories = Inventory::latest()->paginate(10);
+//            return view('admin.inventory.index', compact('data', 'inventories'));
+//        } catch (\Exception $e) {
+//            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+//        }
+//    }
 
     /**
      * Show the form for creating a new resource.
