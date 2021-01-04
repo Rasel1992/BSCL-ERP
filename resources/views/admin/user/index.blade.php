@@ -31,7 +31,7 @@
                     <tbody>
                     @foreach($users as $key => $user)
                         <tr>
-                            <td> {{ ++$key }}</td>
+                            <td> {{$key + $users->firstItem()}}</td>
                             <td>
                                 @if($user->image)
                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}

@@ -25,9 +25,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($departments as $department)
+                    @foreach($departments as $key => $department)
                         <tr>
-                            <td> {{ $department->id }}</td>
+                            <td> {{$key + $departments->firstItem()}}</td>
                             <td> {{ $department->department }}</td>
                             <td> {{ $department->designation }}</td>
                             <td>
