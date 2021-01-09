@@ -11,13 +11,9 @@ use App\Models\Inventory;
 use App\User;
 use Illuminate\Http\Request;
 use Excel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class InventoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         try {
@@ -34,22 +30,31 @@ class InventoryController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+    public function qrCodeList()
+    {
+        try {
+            $inventories = Inventory::latest()->paginate(10);
+            return view('admin.inventory.qr-code-list', compact('inventories'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
     public function summary()
     {
         try {
-            $data['categories_head'] = Category::with(['inventories' => function($q) {
+            $categories_head = Category::with(['inventories' => function($q) {
                 $q->where('location','hq');
             }])
                 ->get();
-            $data['categories_gs1'] = Category::with(['inventories' => function($q) {
+            $categories_gs1 = Category::with(['inventories' => function($q) {
                 $q->where('location','gs1');
             }])
                 ->get();
-            $data['categories_gs2'] = Category::with(['inventories' => function($q) {
+            $categories_gs2 = Category::with(['inventories' => function($q) {
                 $q->where('location','gs2');
             }])
                 ->get();
-            return view('admin.inventory.summary', compact( 'data'));
+            return view('admin.inventory.summary', compact( 'categories_head', 'categories_gs1', 'categories_gs2'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -72,11 +77,6 @@ class InventoryController extends Controller
 //        }
 //    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $users = User::get();
@@ -84,17 +84,16 @@ class InventoryController extends Controller
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('categoryData', 'users', 'departments'));
     }
+    public function code()
+    {
+        return view('admin.inventory.qr');
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param InventoryRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(InventoryRequest $request)
     {
         try {
             $data = $request->except('_token');
+            QrCode::generate('Make me into a QrCode!', '../public/qrcodes/qrcode.svg');
             Inventory::create($data);
             return redirect()->back()->withSuccess('Inventory created successfully.');
         } catch (\Exception $e) {
@@ -102,23 +101,16 @@ class InventoryController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
     public function show(Inventory $inventory)
     {
-        //
+        return view('admin.inventory.show', compact('inventory'));
+    }
+    public function showQrDetails(Inventory $inventory)
+    {
+        return view('admin.inventory.qr-code-details', compact('inventory'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+
     public function edit(Inventory $inventory)
     {
         $users = User::get();
@@ -127,13 +119,6 @@ class InventoryController extends Controller
         return view('admin.inventory.create-edit', compact('inventory','categoryData', 'users', 'departments'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param InventoryRequest $request
-     * @param \App\Models\Inventory $inventory
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(InventoryRequest $request, Inventory $inventory)
     {
         try {
@@ -145,12 +130,6 @@ class InventoryController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Inventory $inventory)
     {
         try {
@@ -177,9 +156,6 @@ class InventoryController extends Controller
         return redirect()->back()->with(['error' => 'Please choose file before!']);
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     public function fileExport()
     {
         return Excel::download(new InventoryExport, 'inventory-collection.xlsx');
