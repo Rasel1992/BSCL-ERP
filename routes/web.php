@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::resource('stocks','StockController');
     Route::resource('inventories','InventoryController');
     Route::get('/inventory/summary', 'InventoryController@summary')->name('inventories.summary');
+    Route::get('/inventory/qr-code-list', 'InventoryController@qrCodeList')->name('inventories.qr-code-list');
     Route::post('/inventory/importInventory', 'InventoryController@ImportExcel')->name('import.inventories');
     Route::get('/inventory/exportInventory','InventoryController@fileExport')->name('export.inventories');
     Route::resource('categories','CategoryController');
@@ -41,4 +43,5 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::resource('users','UserController');
     Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
 });
-
+Route::get('inventories/{inventory}', 'Admin\InventoryController@showQrDetails');
+Route::get('/inventory/summary', 'Admin/InventoryController@summary')->name('inventories.summary');

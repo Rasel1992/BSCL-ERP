@@ -22,12 +22,16 @@
                        <div class="panel-body">
                            <table class="table table-hover table-2nd-no-sort">
                                <thead>
+                               <tr>
+                                   <th>Category Name</th>
+                                   <th>Number of Category</th>
+                               </tr>
+                               </thead>
                                <tbody>
-                               @foreach($data['categories_head'] as $category)
+                               @foreach($categories_head as $category)
                                    <tr>
-                                       <th>Category Name</th>
-                                       <th>:</th>
-                                       <td><a href="#">{{ $category->category_name }}({{ count($category->inventories) }})</a></td>
+                                       <td>{{ $category->category_name }}</td>
+                                       <td><a href="#">{{ count($category->inventories) }}</a></td>
                                    </tr>
                                @endforeach
                                </tbody>
@@ -43,12 +47,16 @@
                        <div class="panel-body">
                            <table class="table table-hover table-2nd-no-sort">
                                <thead>
+                               <tr>
+                                   <th>Category Name</th>
+                                   <th>Number of Category</th>
+                               </tr>
+                               </thead>
                                <tbody>
-                               @foreach($data['categories_gs1'] as $category)
+                               @foreach($categories_gs1 as $category)
                                    <tr>
-                                       <th>Category Name</th>
-                                       <th>:</th>
-                                       <td><a href="#">{{ $category->category_name }}({{ count($category->inventories) }})</a></td>
+                                       <td>{{ $category->category_name }}</td>
+                                       <td><a href="#">{{ count($category->inventories) }}</a></td>
                                    </tr>
                                @endforeach
                                </tbody>
@@ -64,12 +72,16 @@
                        <div class="panel-body">
                            <table class="table table-hover table-2nd-no-sort">
                                <thead>
+                               <tr>
+                                   <th>Category Name</th>
+                                   <th>Number of Category</th>
+                               </tr>
+                               </thead>
                                <tbody>
-                               @foreach($data['categories_gs2'] as $category)
+                               @foreach($categories_gs2 as $category)
                                    <tr>
-                                       <th>Category Name</th>
-                                       <th>:</th>
-                                       <td><a href="#">{{ $category->category_name }}({{ count($category->inventories) }})</a></td>
+                                       <td>{{ $category->category_name }}</td>
+                                       <td><a href="#">{{ count($category->inventories) }}</a></td>
                                    </tr>
                                @endforeach
                                </tbody>
