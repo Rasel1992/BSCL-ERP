@@ -327,6 +327,7 @@
                     <ul class="treeview-menu">
                         <li><a href="{{route('admin.categories.index')}}"><i class="fa fa-sliders"></i> Category</a></li>
                         <li><a href="{{route('admin.inventories.index')}}"><i class="fa fa-sliders"></i> Inventory</a></li>
+                        <li><a href="{{route('admin.bills.index')}}"><i class="fa fa-sliders"></i> Bill Register</a></li>
                         <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
                         <li class="treeview">
                             <a href="#">

@@ -1,7 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6fe50802-c1b4-4aad-963b-d95a996e8c53" name="Default Changelist" comment="" />
+    <list default="true" id="9316d4c0-4c53-4a89-934d-a8b997e063ae" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/bill-register/create-edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/bill-register/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-2MJNFJQbXpXrCzxgKW0KKjlAClEkTKVt.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-5x4SsmDPRh6okYxRhrW5Ig07LoPloPXI.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-6C33mcx9oXqho1MD9IpKn0H2rjnqEnAo.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-7aOwIzCoVeoxGPFDhpGk2GxfhgVfcZSI.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-7gn17SFshJkxdtvOh0AAbTa86hZbqL70.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-7rkLzXAXcZkpsoGujV9VF9uEVBA3VSuT.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-8gVn18sMjNJ8ey9L6HEmi787kYZnh5y0.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-BMCnDzAhz7oHWYOJPavTYmWWfeIBMzOD.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-Bd4rzcw0LLTCGpEuITQpTKxdycZ4or4U.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-DuRJbVBcjYCh88nO4zC6y22Sry324dcP.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-K2p2WdK20nUVYCd6Akl7DHFTa6gH0auJ.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-MCLRFxbiOYeLhWLAt74T5sEERbL8pTWg.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-NhWUAKGK1jAYyf9aS4IUMZSg5D7r6Tln.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-PPD1KrtqxPX7hwxjDWYPjcaW5T01KH0R.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-RE0bLs65W4DIIAYfrvfc5SVlUUgcjCuZ.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-SVoVOBBhwSdiRI5L4ap4ktxg2r96a4vA.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-ScmMDnKiYyAGSeylo55NL6RUGY8V6HtM.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-SnwIyun3zab8wlPaZ5U2IoORBicEB9bt.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-UzKjUGKscaEuRPXmpFOhxp9R0nJ25Ocw.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-WW1QDNTE4A0RH33xkbpMsPvb62c1xYjy.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-dTJORFuzTp0mT8IoPp1Ft1E2oKMrIdPJ.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-ds2UMEyORWAOjUCP9ZMWSbs0AdyzFHIf.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-hzsFS2nIAajh8M0YbEcD6iCtvhcfMXoD.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-ioW80INnMCHh5OeiAY0TIqWo2pSkGnWW.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-isTYe2TN8XCQHR7XJN52xqfuo9aNaCSU.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-jDNpUmGtsxBuDCAzf5RwQ3BaeAVA9HU9.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-kMQkWb25heP5tTPZqTzM3QpDQSP9hxpn.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-nxq9yPnGz9NcYhaWCqCBJTlr3a1HlqKR.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-pWZVFLDQKYP04RkElsSfbOiAJqNIKmBX.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-tlZ6lIZZH8mA5IbThtv4DilcKALgatUx.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-uVUmmsbSyXsTM3Vj8t7RceejsAq1BAuZ.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-uyX3gDp3B2SrjkJxlbk32a45BXBpxMlf.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-vMkfaZ7HRh6fGE2087XYP8lgIAgSGYhd.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-wBAtNVkePEVzyGBjUykpVPMTHaxx7KAF.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-yyyVnnXl0KMHai5uXcemfJKFs612AdMB.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/laravel-excel-zO4Qz1ge2ImNAu4mCfxsrpXITsROA4Eb.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_31_2020_12_20_PM__Default_Changelist_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Stock.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Stock.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_21_075512_create_stocks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_21_075512_create_stocks_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -131,6 +182,11 @@
       <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
       <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
       <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/vendor/viest/php-ext-xlswriter-ide-helper" />
+      <path value="$PROJECT_DIR$/vendor/simplesoftwareio/simple-qrcode" />
+      <path value="$PROJECT_DIR$/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
     </include_path>
   </component>
   <component name="ProjectId" id="1mPVpfFfDO6MLRQKKImr4RQNueT" />
@@ -142,19 +198,31 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\BSCL-ERP\resources\views\admin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\BSCL-ERP\app\Http\Controllers\Admin" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6fe50802-c1b4-4aad-963b-d95a996e8c53" name="Default Changelist" comment="" />
+      <changelist id="9316d4c0-4c53-4a89-934d-a8b997e063ae" name="Default Changelist" comment="" />
       <created>1609395418095</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1609395418095</updated>
       <workItem from="1609395436379" duration="2142000" />
       <workItem from="1609687262914" duration="783000" />
+      <workItem from="1610712322533" duration="166000" />
+      <workItem from="1610712816496" duration="3402000" />
+      <workItem from="1610721951674" duration="2738000" />
     </task>
     <servers />
   </component>

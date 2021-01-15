@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Models\BillRegister;
 use App\Models\Category;
-use App\Models\Stock;
 use Illuminate\Http\Request;
 
-class StockController extends Controller
+class BillRegisterController extends Controller
 {
     public function index()
     {
@@ -19,8 +19,8 @@ class StockController extends Controller
             $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
             $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
             $data['categories'] = $sql->get();
-            $stocks = Stock::latest()->paginate(10);
-            return view('admin.stock.index', compact('stocks', 'data'));
+            $bills = BillRegister::latest()->paginate(10);
+            return view('admin.bill-register.index', compact('bills', 'data'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -29,47 +29,47 @@ class StockController extends Controller
     public function create()
     {
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
-        return view('admin.stock.create-edit', compact('categoryData'));
+        return view('admin.bill-register.create-edit', compact('categoryData'));
     }
 
     public function store(Request $request)
     {
         try {
             $data = $request->except('_token');
-            Stock::create($data);
-            return redirect()->back()->withSuccess('Stock created successfully.');
+            BillRegister::create($data);
+            return redirect()->back()->withSuccess('Bill register created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    public function show(Stock $stock)
+    public function show(BillRegister $billRegister)
     {
         //
     }
 
-    public function edit(Stock $stock)
+    public function edit(BillRegister $billRegister)
     {
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
-        return view('admin.stock.create-edit', compact('categoryData', 'stock'));
+        return view('admin.bill-register.create-edit', compact('categoryData', 'billRegister'));
     }
 
-    public function update(Request $request, Stock $stock)
+    public function update(Request $request, BillRegister $billRegister)
     {
         try {
             $data = $request->except('_token');
-            $stock->update($data);
-            return redirect()->back()->withSuccess('Stock updated successfully.');
+            $billRegister->update($data);
+            return redirect()->back()->withSuccess('Bill register updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    public function destroy(Stock $stock)
+    public function destroy(BillRegister $billRegister)
     {
         try {
-            $stock->delete();
-            return redirect()->back()->withSuccess('Stock deleted successfully.');
+            $billRegister->delete();
+            return redirect()->back()->withSuccess('Bill register deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
