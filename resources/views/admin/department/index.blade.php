@@ -10,7 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Departments</h3>
                 <div class="box-tools pull-right">
-                    <a class="btn btn-success" href="{{ route('admin.export.departments') }}">Export</a>
+{{--                    <a class="btn btn-success" href="{{ route('admin.export.departments') }}">Export</a>--}}
                     <a href="{{ route('admin.departments.create') }}" class="button add"> Add Department</a>
                 </div>
             </div> <!-- /.box-header -->
