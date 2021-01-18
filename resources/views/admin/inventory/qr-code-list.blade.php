@@ -14,13 +14,13 @@
                 <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
-                        <th>QR Code</th>
+                        <th align="center">QR Code</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($inventories as $key => $inventory)
                         <tr>
-                            <td> {!! QrCode::size(100)->generate(url('inventories',$inventory->id)); !!}<br>
+                            <td class="float-right"> {!! QrCode::size(100)->generate(url('inventories',$inventory->id)); !!}<br>
                                 {{ $inventory->asset_code  }}
                             </td>
                         </tr>

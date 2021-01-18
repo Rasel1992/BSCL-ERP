@@ -91,14 +91,10 @@ class InventoryController extends Controller
 
     public function store(InventoryRequest $request)
     {
-        try {
             $data = $request->except('_token');
-            QrCode::generate('Make me into a QrCode!', '../public/qrcodes/qrcode.svg');
             Inventory::create($data);
             return redirect()->back()->withSuccess('Inventory created successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+
     }
 
     public function show(Inventory $inventory)
