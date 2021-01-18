@@ -29,7 +29,7 @@
                                 @enderror
                             </div>
                             <div class="form-group @error('category_id') has-error @enderror">
-                                <label for="category_id" class="with-help">Stock Category*</label>
+                                <label for="category_id" class="with-help">Stock Category <span class="text-danger">*</span></label>
                                 <select class="form-control select2" id="category_id" name="category_id"
                                         v-model="product.category_id" required>
                                     @foreach($categoryData as $cat)
@@ -60,7 +60,7 @@
                                 @enderror
                             </div>
                             <div class="form-group @error('location') has-error @enderror">
-                                <label for="location" class="with-help">location*</label>
+                                <label for="location" class="with-help">location <span class="text-danger">*</span></label>
                                 <select class="form-control select2" id="location" name="location"
                                         v-model="inventory.location" v-select2>
                                     <option
