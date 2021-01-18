@@ -46,20 +46,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                @if($stocks->total())
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $stocks->firstItem() }} to {{ $stocks->lastItem() }} of {{ $stocks->total() }} entries
-                            </div>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $stocks->links() }}
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                {{ $stocks->appends(Request::except('page'))->links() }}
             </div> <!-- /.box-body -->
         </div> <!-- /.box -->
     </section>

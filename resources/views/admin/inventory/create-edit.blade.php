@@ -8,18 +8,21 @@
     <section class="content">
         <form method="POST" action="{{ isset($inventory) ? route('admin.inventories.update', $inventory->id) : route('admin.inventories.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
             @csrf
-            {!! (isset($inventory))?'<input name="_method" type="hidden" value="PUT">':'' !!}
+            @if (isset($inventory))
+                @method('PUT')
+            @endif
             <div class="row">
-                <div class="col-md-12 col-lg-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <h3 class="box-title">@if(isset($inventory)) Edit @else Add @endif Inventory
-                        <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a>
+                        <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Inventory</a>
                     </h3>
                     <div class="panel">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group @error('asset_code ') has-error @enderror">
-                                        <label class="with-help">Asset Code*</label>
+                                        <label class="with-help">Asset Code <span class="text-danger">*</span></label>
                                         <input class="form-control" placeholder="Asset Code" name="asset_code" value="{{old('asset_code ')}}" type="text" v-model="inventory.asset_code" required>
                                         @error('asset_code ')
                                         <span class="help-block">
@@ -54,7 +57,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group @error('purchase_date') has-error @enderror">
-                                        <label class="with-help">Purchase Date*</label>
+                                        <label class="with-help">Purchase Date <span class="text-danger">*</span></label>
                                         <input class="form-control" placeholder="Purchase Date" name="purchase_date" value="{{old('purchase_date')}}" v-model="inventory.purchase_date" type="date" required>
                                         @error('purchase_date')
                                         <span class="help-block">
@@ -91,13 +94,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group @error('category_id') has-error @enderror">
-                                        <label for="category_id" class="with-help">Asset Category*</label>
+                                        <label for="category_id" class="with-help">Asset Category <span class="text-danger">*</span></label>
                                         <select class="form-control select2" id="category_id" name="category_id" v-model="inventory.category_id" v-select2 required>
                                             @foreach($categoryData as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                                 @if(!empty($cat->nested))
                                                     @foreach($cat->nested as $nc)
-                                                        <option value="{{ $nc->id }}">&nbsp;&nbsp;-- {{ $nc->category_name }}</option>
+                                                        <option value="{{ $nc->id }}"> -- {{ $nc->category_name }}</option>
                                                     @endforeach
                                                 @endif
                                             @endforeach
@@ -111,11 +114,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group @error('location') has-error @enderror">
-                                        <label for="location" class="with-help">location*</label>
+                                        <label for="location" class="with-help">location <span class="text-danger">*</span></label>
                                         <select class="form-control select2" id="location" name="location" v-model="inventory.location" v-select2>
-                                            <option value="hq" {{(isset($inventory->location)?$inventory->location:old('location') == 'hq') ? 'Selected' : ''}}>Head Quarter</option>
-                                            <option value="gs1" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs1') ? 'Selected' : ''}}>GS Gazipur </option>
-                                            <option value="gs2" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs2') ? 'Selected' : ''}}>GS Bethbunia </option>
+                                            <option value="hq" {{(isset($inventory->location)?$inventory->location:old('location') == 'hq') ? 'Selected' : ''}}>Head Quarter
+                                            </option>
+                                            <option value="gs1" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs1') ? 'Selected' : ''}}>GS Gazipur
+                                            </option>
+                                            <option value="gs2" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs2') ? 'Selected' : ''}}>GS Bethbunia
+                                            </option>
                                         </select>
                                         @error('name')
                                         <span class="help-block">
@@ -141,9 +147,10 @@
                                 <div class="col-md-6" v-show="inventory.assign_to == 'user'">
                                     <div class="form-group @error('user_id') has-error @enderror">
                                         <label for="user_id" class="with-help">User</label>
-                                        <select class="form-control select2" id="user_id" name="user_id" v-model="inventory.user_id" v-select2>
+                                        <select class="form-control select2" id="user_id" name="user_id"
+                                                v-model="inventory.user_id" v-select2>
                                             @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
                                         </select>
                                         @error('user_id')
@@ -156,7 +163,8 @@
                                 <div class="col-md-6" v-show="inventory.assign_to == 'department'">
                                     <div class="form-group @error('dept_id') has-error @enderror">
                                         <label for="dept_id" class="with-help">Department</label>
-                                        <select class="form-control select2" id="dept_id" name="dept_id" v-model="inventory.dept_id" v-select2>
+                                        <select class="form-control select2" id="dept_id" name="dept_id"
+                                                v-model="inventory.dept_id" v-select2>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}">{{$department->department}}</option>
                                             @endforeach
@@ -169,15 +177,15 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
                     </div>
-                    <p class="help-block">* Required Fields.</p>
                     <div class="text-right form-footer">
                         <button class="button delete" type="reset">Clear</button>
                         <button class="button save" type="submit">Save</button>
                     </div>
                 </div>
+                <div class="col-md-2"></div>
+            </div>
         </form>
     </section>
 @endsection

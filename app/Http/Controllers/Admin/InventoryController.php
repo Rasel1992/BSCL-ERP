@@ -81,7 +81,7 @@ class InventoryController extends Controller
     {
         $users = User::get();
         $departments = Department::get();
-        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type','!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('categoryData', 'users', 'departments'));
     }
     public function code()
@@ -111,7 +111,7 @@ class InventoryController extends Controller
     {
         $users = User::get();
         $departments = Department::get();
-        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type','!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('inventory','categoryData', 'users', 'departments'));
     }
 

@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'parent_id' => 'required|integer',
-            'type' => 'required|in:fixed,current',
+            'type' => 'required|in:Fixed,Current,Stock',
             'category_name' => 'required|string|max:255',
         ];
     }

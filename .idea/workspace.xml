@@ -4,19 +4,19 @@
     <list default="true" id="34529e75-ad32-42a8-b0b6-4d544ccc45ae" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jogotbari/BSCL-ERP into master&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/InventoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/InventoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/278" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/279" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/280" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/281" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/282" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/283" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/284" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/285" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/286" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/287" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/backend.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/backend.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/qr-code-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/qr-code-list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CategoryRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_20_181608_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_20_181608_create_categories_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CategorySeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CategorySeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/department/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/department/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/user/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +173,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../idea-ecom" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../seamtexbd" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
