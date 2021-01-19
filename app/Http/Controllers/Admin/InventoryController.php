@@ -81,7 +81,7 @@ class InventoryController extends Controller
     {
         $users = User::get();
         $departments = Department::get();
-        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type','!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('categoryData', 'users', 'departments'));
     }
     public function code()
@@ -91,14 +91,10 @@ class InventoryController extends Controller
 
     public function store(InventoryRequest $request)
     {
-        try {
             $data = $request->except('_token');
-            QrCode::generate('Make me into a QrCode!', '../public/qrcodes/qrcode.svg');
             Inventory::create($data);
             return redirect()->back()->withSuccess('Inventory created successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+
     }
 
     public function show(Inventory $inventory)
@@ -115,7 +111,7 @@ class InventoryController extends Controller
     {
         $users = User::get();
         $departments = Department::get();
-        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type','!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('inventory','categoryData', 'users', 'departments'));
     }
 

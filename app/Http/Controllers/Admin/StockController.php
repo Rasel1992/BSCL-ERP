@@ -28,7 +28,7 @@ class StockController extends Controller
 
     public function create()
     {
-        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData'));
     }
 
@@ -50,7 +50,7 @@ class StockController extends Controller
 
     public function edit(Stock $stock)
     {
-        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData', 'stock'));
     }
 

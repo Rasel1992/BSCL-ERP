@@ -20,8 +20,10 @@
                                 <div class="form-group @error('type') has-error @enderror">
                                     <label for="sex">Type</label>
                                     <select class="form-control select2" id="type" name="type">
-                                        <option value="fixed" {{(isset($category->type)?$category->type:old('type') == 'fixed') ? 'Selected' : ''}}>Fixed Asset</option>
-                                        <option value="current" {{(isset($category->type)?$category->type:old('type') == 'current') ? 'Selected' : ''}}>Current Asset </option>
+                                            @php ($typ = old('type', isset($category) ? $category->type : ''))
+                                            @foreach(['Fixed', 'Current', 'Stock'] as $type)
+                                                <option value="{{ $type }}" {{ ($type==$typ)?'selected':''}}>{{ $type }}</option>
+                                            @endforeach
                                     </select>
                                     @error('type')
                                     <span class="help-block">
