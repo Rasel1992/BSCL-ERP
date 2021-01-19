@@ -8,7 +8,9 @@
     <section class="content">
         <div class="panel">
             <div class="box-header with-border">
-                <h3 class="box-title">Inventory QR Code Lists</h3>
+                <h3 class="box-title">Inventory QR Code Lists
+                    </h3>
+                <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Inventory</a>
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort">
@@ -19,10 +21,14 @@
                     </thead>
                     <tbody>
                     @foreach($inventories as $key => $inventory)
+                        @php
+                            $allQrCode = $inventory->count();
+                        @endphp
                         <tr>
-                            <td class="float-right"> {!! QrCode::size(100)->generate(url('inventories',$inventory->id)); !!}<br>
+                            <div class="col-md-{{ ++$key == $allQrCode && $key & 1 ? '12':'6' }}">
+                                {!! QrCode::size(100)->generate(url('inventories',$inventory->id)); !!}<br>
                                 {{ $inventory->asset_code  }}
-                            </td>
+                            </div>
                         </tr>
                     @endforeach
                     </tbody>
