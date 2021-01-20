@@ -10,7 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Inventories Summary</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a>
+                    <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
            <div class="panel-body">

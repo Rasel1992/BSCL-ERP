@@ -20,7 +20,7 @@ class StockController extends Controller
             $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
             $data['categories'] = $sql->get();
             $stocks = Stock::latest()->paginate(10);
-            return view('admin.stock.index', compact('stocks', 'data'));
+            return view('admin.stock.index', compact('stocks', 'data'))->with('list', 1);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -29,7 +29,7 @@ class StockController extends Controller
     public function create()
     {
         $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
-        return view('admin.stock.create-edit', compact('categoryData'));
+        return view('admin.stock.create-edit', compact('categoryData'))->with('create', 1);
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class StockController extends Controller
     public function edit(Stock $stock)
     {
         $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
-        return view('admin.stock.create-edit', compact('categoryData', 'stock'));
+        return view('admin.stock.create-edit', compact('categoryData', 'stock'))->with('edit', 1);
     }
 
     public function update(Request $request, Stock $stock)
