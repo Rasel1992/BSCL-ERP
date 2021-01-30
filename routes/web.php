@@ -27,16 +27,24 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/password/update/form','ProfileController@passwordForm')->name('profile.password.update.form');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('bills','BillRegisterController');
+    Route::get('/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('get-assign-stock-form');
+    Route::post('/assign-stock/{stock}', 'StockController@assignStock')->name('assign-stock');
     Route::resource('stocks','StockController');
-    Route::resource('inventories','InventoryController');
-    Route::get('/inventory/summary', 'InventoryController@summary')->name('inventories.summary');
-    Route::get('/inventory/qr-code-list', 'InventoryController@qrCodeList')->name('inventories.qr-code-list');
-    Route::post('/inventory/importInventory', 'InventoryController@ImportExcel')->name('import.inventories');
-    Route::get('/inventory/exportInventory','InventoryController@fileExport')->name('export.inventories');
+
+    Route::get('/assigned-stock','StockController@assignedStock')->name('assigned-stock');
+
+    Route::group(['prefix' => 'inventories', 'as' => 'inventories.'], function () {
+    Route::get('/summary', 'InventoryController@summary')->name('summary');
+    Route::get('/qr-code-list', 'InventoryController@qrCodeList')->name('qr-code-list');
+    Route::post('/importInventory', 'InventoryController@ImportExcel')->name('import');
+    Route::get('/exportInventory','InventoryController@fileExport')->name('export');
+    });
+
     Route::resource('categories','CategoryController');
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
-    Route::get('/inventory/exportDepartment','DepartmentController@fileExport')->name('export.departments');
+    Route::get('/inventories/exportDepartment','DepartmentController@fileExport')->name('export.departments');
+    Route::resource('inventories','InventoryController');
     Route::resource('users','UserController');
     Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
 });

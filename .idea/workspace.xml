@@ -2,11 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34529e75-ad32-42a8-b0b6-4d544ccc45ae" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jogotbari/BSCL-ERP into master&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/stock/assign-stock.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/stock/assigned-stock.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/form_import.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/form_import.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/qr-code-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/qr-code-list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/summary.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/summary.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,19 +171,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../zenith" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/stock" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\stock" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets\css" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\inventory" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin" />
-      <recent name="G:\Xampp\htdocs\MyFristProject\resources\views\admin\department" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\stock" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\app\Http\Controllers\Admin" />
       <recent name="G:\Xampp\htdocs\MyFristProject\app\Http\Controllers\Admin" />
     </key>
@@ -228,6 +236,15 @@
       <workItem from="1610550468918" duration="2176000" />
       <workItem from="1610815242781" duration="859000" />
       <workItem from="1611074983541" duration="4966000" />
+      <workItem from="1611160624817" duration="2866000" />
+      <workItem from="1611586923296" duration="4799000" />
+      <workItem from="1611762471476" duration="234000" />
+      <workItem from="1611762769084" duration="5748000" />
+      <workItem from="1611847467207" duration="7630000" />
+      <workItem from="1612017342114" duration="15000" />
+      <workItem from="1612017402962" duration="2598000" />
+      <workItem from="1612023308366" duration="2236000" />
+      <workItem from="1612029934178" duration="624000" />
     </task>
     <servers />
   </component>

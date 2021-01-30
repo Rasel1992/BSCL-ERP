@@ -36,9 +36,10 @@
 
                             <td class="row-options text-muted small">
                                 <a href="{{route('admin.stocks.edit', $stock->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="{{ route('admin.stocks.destroy', $stock->id) }}" accept-charset="UTF-8" class="data-form">
+                                <form method="POST" action="" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
+                                    <a href="{{route('admin.get-assign-stock-form', $stock->id) }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
                                     <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
                                 </form>
                             </td>
