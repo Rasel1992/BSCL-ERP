@@ -20,8 +20,7 @@
                         <div class="panel-body">
                             <div class="form-group @error('description') has-error @enderror">
                                 <label class="with-help">Details</label>
-                                <input class="form-control" placeholder="Details" name="description"
-                                       value="{{old('description')}}" type="text" required>
+                                <input class="form-control" placeholder="Details" name="description" v-model="stock.description" type="text" required>
                                 @error('description')
                                 <span class="help-block">
                             <strong>{{ $message }}</strong>
@@ -30,11 +29,9 @@
                             </div>
                             <div class="form-group @error('category_id') has-error @enderror">
                                 <label for="category_id" class="with-help">Stock Category <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="category_id" name="category_id"
-                                        v-model="product.category_id" required>
+                                <select class="form-control select2" id="category_id" name="category_id" v-model="stock.category_id" required>
                                     @foreach($categoryData as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
-
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
                                                 <option value="{{ $nc->id }}">
@@ -51,8 +48,7 @@
                             </div>
                             <div class="form-group @error('qty') has-error @enderror">
                                 <label for="title" class="with-help">Qty</label>
-                                <input class="form-control" placeholder="Qty" name="qty" value="{{old('qty')}}"
-                                       type="number" id="qty" required>
+                                <input class="form-control" placeholder="Qty" name="qty" v-model="stock.qty" type="number" id="qty" required>
                                 @error('qty')
                                 <span class="help-block">
                             <strong>{{ $message }}</strong>
@@ -62,17 +58,17 @@
                             <div class="form-group @error('location') has-error @enderror">
                                 <label for="location" class="with-help">location <span class="text-danger">*</span></label>
                                 <select class="form-control select2" id="location" name="location"
-                                        v-model="inventory.location" v-select2>
+                                        v-model="stock.location" v-select2>
                                     <option
-                                        value="hq" {{(isset($inventory->location)?$inventory->location:old('location') == 'hq') ? 'Selected' : ''}}>
+                                        value="hq" {{(isset($stock->location)?$stock->location:old('location') == 'hq') ? 'Selected' : ''}}>
                                         Head Quarter
                                     </option>
                                     <option
-                                        value="gs1" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs1') ? 'Selected' : ''}}>
+                                        value="gs1" {{(isset($stock->location)?$stock->location:old('location') == 'gs1') ? 'Selected' : ''}}>
                                         GS Gazipur
                                     </option>
                                     <option
-                                        value="gs2" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs2') ? 'Selected' : ''}}>
+                                        value="gs2" {{(isset($stock->location)?$stock->location:old('location') == 'gs2') ? 'Selected' : ''}}>
                                         GS Bethbunia
                                     </option>
                                 </select>
@@ -94,3 +90,31 @@
         </form>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                stock: {
+                    description: '{{ old('description', $stock->description ?? '') }}',
+                    category_id: '{{ old('category_id ', $stock->category_id  ?? '') }}',
+                    qty: '{{ old('qty', $stock->qty ?? '') }}',
+                    location: '{{ old('location', $stock->location ?? '') }}',
+                },
+                mounted() {
+                    this.initLibs();
+                },
+                methods: {
+                    initLibs: function () {
+                        setTimeout(function () {
+                            $('.select2').select2({
+                                width: '100%',
+                                placeholder: 'Select',
+                            });
+                        }, 10);
+                    }
+                }
+            }
+        })
+    </script>
+@endpush

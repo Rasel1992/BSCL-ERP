@@ -329,6 +329,7 @@
                         <li><a href="{{route('admin.inventories.index')}}"><i class="fa fa-sliders"></i> Inventory</a></li>
                         <li><a href="{{route('admin.bills.index')}}"><i class="fa fa-sliders"></i> Bill Register</a></li>
                         <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
+                        <li><a href="{{route('admin.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-archive"></i>
@@ -528,18 +529,6 @@
         $(childClass).iCheck('uncheck').iCheck('disable');
     });
 
-    Vue.directive('select2', {
-        inserted(el) {
-            $(el).on('select2:select', () => {
-                const event = new Event('change', {bubbles: true, cancelable: true});
-                el.dispatchEvent(event);
-            });
-            $(el).on('select2:unselect', () => {
-                const event = new Event('change', {bubbles: true, cancelable: true})
-                el.dispatchEvent(event)
-            })
-        },
-    });
 </script>
 
 @stack('scripts')

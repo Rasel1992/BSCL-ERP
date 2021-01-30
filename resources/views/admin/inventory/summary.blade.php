@@ -6,10 +6,11 @@
 
 @section('content')
     <section class="content">
-        <div class="panel">
+        <div class="panel" id="printableArea">
             <div class="box-header with-border">
                 <h3 class="box-title">Inventories Summary</h3>
                 <div class="box-tools pull-right">
+                    <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
                     <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
@@ -93,4 +94,17 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
 
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+@endpush
