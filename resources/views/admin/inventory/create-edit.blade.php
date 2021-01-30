@@ -95,7 +95,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group @error('category_id') has-error @enderror">
                                         <label for="category_id" class="with-help">Asset Category <span class="text-danger">*</span></label>
-                                        <select class="form-control select2" id="category_id" name="category_id" v-model="inventory.category_id" v-select2 required>
+                                        <select class="form-control" id="category_id" name="category_id" v-model="inventory.category_id" required>
+                                            <option value="">Select Category</option>
                                             @foreach($categoryData as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                                 @if(!empty($cat->nested))
@@ -115,7 +116,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group @error('location') has-error @enderror">
                                         <label for="location" class="with-help">location <span class="text-danger">*</span></label>
-                                        <select class="form-control select2" id="location" name="location" v-model="inventory.location" v-select2>
+                                        <select class="form-control" id="location" name="location" v-model="inventory.location">
+                                            <option value="">Select Location</option>
                                             <option value="hq" {{(isset($inventory->location)?$inventory->location:old('location') == 'hq') ? 'Selected' : ''}}>Head Quarter
                                             </option>
                                             <option value="gs1" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs1') ? 'Selected' : ''}}>GS Gazipur
@@ -147,8 +149,9 @@
                                 <div class="col-md-6" v-show="inventory.assign_to == 'user'">
                                     <div class="form-group @error('user_id') has-error @enderror">
                                         <label for="user_id" class="with-help">User</label>
-                                        <select class="form-control select2" id="user_id" name="user_id"
-                                                v-model="inventory.user_id" v-select2>
+                                        <select class="form-control" id="user_id" name="user_id"
+                                                v-model="inventory.user_id">
+                                            <option value="">Select User</option>
                                             @foreach($users as $user)
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
@@ -163,8 +166,9 @@
                                 <div class="col-md-6" v-show="inventory.assign_to == 'department'">
                                     <div class="form-group @error('dept_id') has-error @enderror">
                                         <label for="dept_id" class="with-help">Department</label>
-                                        <select class="form-control select2" id="dept_id" name="dept_id"
-                                                v-model="inventory.dept_id" v-select2>
+                                        <select class="form-control" id="dept_id" name="dept_id"
+                                                v-model="inventory.dept_id">
+                                            <option value="">Select Department</option>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}">{{$department->department}}</option>
                                             @endforeach

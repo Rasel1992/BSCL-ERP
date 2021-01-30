@@ -329,7 +329,7 @@
                         <li><a href="{{route('admin.inventories.index')}}"><i class="fa fa-sliders"></i> Inventory</a></li>
                         <li><a href="{{route('admin.bills.index')}}"><i class="fa fa-sliders"></i> Bill Register</a></li>
                         <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
-                        <li><a href="{{route('admin.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
+                        <li><a href="{{route('admin.stocks.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-archive"></i>
@@ -377,7 +377,7 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            Developed by <strong>Sohana Kabir Barna</strong>
+            Developed by <strong><a href="https://2bitsoft.com/" target="_blank">2 Bit Soft</a></strong>
         </div>
         <strong>
             Copyright &copy; {{ date('Y') }} <a href="http://www.bcscl.com.bd/" target="_blank">BSCL</a>.
