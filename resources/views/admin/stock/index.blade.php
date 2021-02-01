@@ -47,7 +47,17 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $stocks->appends(Request::except('page'))->links() }}
+                @if($stocks->total())
+                    <div class="row">
+                        <div class="col-sm-5">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
+                                {{ $stocks->appends(Request::except('page'))->links() }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div> <!-- /.box-body -->
         </div> <!-- /.box -->
     </section>

@@ -10,6 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
+                    <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
                     <a class="button add" href="{{ route('admin.inventories.summary') }}">Summary</a>
                     <a class="button add" href="{{ route('admin.inventories.qr-code-list') }}">QR Code List</a>
                     <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
@@ -30,7 +31,7 @@
                         <th>Location</th>
                         <th>QR Code</th>
                         <th>Purchase Date</th>
-                        <th> </th>
+                        <th width="5%"> </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,14 +54,21 @@
                             <td> @if($inventory->location == 'hq') Head Quarter @elseif($inventory->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
                             <td>  {!! QrCode::size(50)->generate(url('inventories',$inventory->id)); !!}</td>
                             <td>{{ $inventory->purchase_date ?? '-' }}</td>
-                            <td class="row-options text-muted small">
-                                <a href="{{ route('admin.inventories.show', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a>&nbsp;
-                                <a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id) }}" accept-charset="UTF-8" class="data-form">
-                                    @csrf
-                                    @method('delete')
-                                    <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
-                                </form>
+                            <td>
+                                 <span class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" style="left: -115px;">
+                                                 <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id) }}" accept-charset="UTF-8" class="data-form">
+                                                     @csrf
+                                                     @method('delete')
+                                                     <li><a href="{{ route('admin.inventories.show', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a></li>
+                                                     <li><a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;</li>
+                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
+                                                  </form>
+                                            </ul>
+                                        </span>
                             </td>
                         </tr>
                     @endforeach
@@ -69,13 +77,10 @@
                 @if($inventories->total())
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $inventories->firstItem() }} to {{ $inventories->lastItem() }} of {{ $inventories->total() }} entries
-                            </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $inventories->links() }}
+                                {{ $inventories->appends(Request::except('page'))->links() }}
                             </div>
                         </div>
                     </div>
@@ -110,6 +115,17 @@
                 }
             }
         })
+
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
     </script>
 @endpush
 
