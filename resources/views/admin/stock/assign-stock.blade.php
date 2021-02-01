@@ -13,7 +13,9 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h3 class="box-title">Assign Stock</h3>
+                    <h3 class="box-title">Assign Stock
+                    <a href="{{ route('admin.stocks.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Stock</a>
+                    </h3>
                     <div class="panel">
                         <div class="panel-body">
                             <div class="col-sm-12">

@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
 
     Route::group(['prefix' => 'inventories', 'as' => 'inventories.'], function () {
     Route::get('/summary', 'InventoryController@summary')->name('summary');
+    Route::get('/category/{id}','InventoryController@categoryInventory')->name('category');
     Route::get('/qr-code-list', 'InventoryController@qrCodeList')->name('qr-code-list');
     Route::post('/importInventory', 'InventoryController@ImportExcel')->name('import');
     Route::get('/exportInventory','InventoryController@fileExport')->name('export');
@@ -44,8 +45,8 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
     Route::get('/inventories/exportDepartment','DepartmentController@fileExport')->name('export.departments');
-    Route::resource('inventories','InventoryController');
     Route::resource('users','UserController');
+    Route::resource('inventories','InventoryController');
     Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
 });
 Route::get('inventories/{inventory}', 'Admin\InventoryController@showQrDetails');

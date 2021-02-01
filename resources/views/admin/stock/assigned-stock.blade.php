@@ -9,6 +9,7 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Assigned Stocks</h3>
+                <a href="{{ route('admin.stocks.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Stock</a>
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort" id="file_export">
