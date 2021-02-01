@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9316d4c0-4c53-4a89-934d-a8b997e063ae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/create-edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/assigned-stock.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/assigned-stock.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/qr-code-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/qr-code-list.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,6 +179,8 @@
       <workItem from="1611119424679" duration="1995000" />
       <workItem from="1611555140067" duration="1208000" />
       <workItem from="1611930381178" duration="682000" />
+      <workItem from="1612073536011" duration="1415000" />
+      <workItem from="1612196775545" duration="795000" />
     </task>
     <servers />
   </component>
