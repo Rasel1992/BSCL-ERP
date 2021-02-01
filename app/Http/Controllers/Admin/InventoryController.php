@@ -42,15 +42,17 @@ class InventoryController extends Controller
     public function summary()
     {
         try {
-            $categories_head = Category::with(['inventories' => function($q) {
+
+            $categories_head = Category::where('type','!=', 'Stock')->with(['inventories' => function($q) {
                 $q->where('location','hq');
             }])
                 ->get();
-            $categories_gs1 = Category::with(['inventories' => function($q) {
+
+            $categories_gs1 = Category::where('type','!=', 'Stock')->with(['inventories' => function($q) {
                 $q->where('location','gs1');
             }])
                 ->get();
-            $categories_gs2 = Category::with(['inventories' => function($q) {
+            $categories_gs2 = Category::where('type','!=', 'Stock')->with(['inventories' => function($q) {
                 $q->where('location','gs2');
             }])
                 ->get();
@@ -155,5 +157,12 @@ class InventoryController extends Controller
     public function fileExport()
     {
         return Excel::download(new InventoryExport, 'inventory-collection.xlsx');
+    }
+
+    public function categoryInventory($id) {
+        $data['category'] = $category = Category::where('id', $id)->find($id);
+        $data['inventories'] = Inventory::where('category_id', $category->id)->paginate(15);
+
+        return view('admin.inventory.summary-show', compact('data'));
     }
 }

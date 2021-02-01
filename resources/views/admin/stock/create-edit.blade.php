@@ -6,16 +6,15 @@
 
 @section('content')
     <section class="content">
-        <form method="POST"
-              action="{{ isset($stock) ? route('admin.stocks.update', $stock->id) : route('admin.stocks.store') }}"
-              accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data"
-              novalidate="true">
+        <form method="POST" action="{{ isset($stock) ? route('admin.stocks.update', $stock->id) : route('admin.stocks.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
             @csrf
             {!! (isset($stock))?'<input name="_method" type="hidden" value="PUT">':'' !!}
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h3 class="box-title">@if(isset($stock)) Edit @else Add @endif Stock</h3>
+                    <h3 class="box-title">@if(isset($stock)) Edit @else Add @endif Stock
+                    <a href="{{ route('admin.stocks.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Stock</a>
+                    </h3>
                     <div class="panel">
                         <div class="panel-body">
                             <div class="form-group @error('description') has-error @enderror">

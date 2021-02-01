@@ -20,6 +20,14 @@ class InventoriesImport implements ToModel
      *
      * @return Inventory
      */
+    public function transformDate($value, $format = 'Y-m-d')
+    {
+        try {
+            return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
+        } catch (\ErrorException $e) {
+            return \Carbon\Carbon::createFromFormat($format, $value);
+        }
+    }
 
     public function model(array $row)
     {
@@ -35,7 +43,7 @@ class InventoriesImport implements ToModel
             'qty'    => $row[8],
             'cost'    => $row[9],
             'location'    => $row[10],
-            'purchase_date' => \Carbon\Carbon::parse($row[11]),
+            'purchase_date' => $this->transformDate($row[11]),
         ]);
     }
 

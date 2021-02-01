@@ -32,9 +32,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($inventories as $key => $inventory)
+                    @foreach($data['inventories'] as $key => $inventory)
                         <tr>
-                            <td> {{$key + $inventories->firstItem()}}</td>
+                            <td> {{$key + $data['inventories']->firstItem()}}</td>
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>
@@ -62,16 +62,13 @@
                     @endforeach
                     </tbody>
                 </table>
-                @if($inventories->total())
+                @if($data['inventories']->total())
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $inventories->firstItem() }} to {{ $inventories->lastItem() }} of {{ $inventories->total() }} entries
-                            </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $inventories->links() }}
+                                {{ $data['inventories']->appends(Request::except('page'))->links() }}
                             </div>
                         </div>
                     </div>
