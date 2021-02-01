@@ -18,7 +18,7 @@
                         <th>Stock Category</th>
                         <th>Assign To</th>
                         <th>Qty</th>
-                        <th>Remaining Qty</th>
+                        <th>Remaining Qty In Stock</th>
                         <th>Location</th>
                         <th>Assign Date</th>
 

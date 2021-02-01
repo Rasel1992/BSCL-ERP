@@ -29,7 +29,8 @@
                             </div>
                             <div class="form-group @error('category_id') has-error @enderror">
                                 <label for="category_id" class="with-help">Stock Category <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="category_id" name="category_id" v-model="stock.category_id" required>
+                                <select class="form-control" id="category_id" name="category_id" v-model="stock.category_id" required>
+                                    <option value="">Select Category</option>
                                     @foreach($categoryData as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
@@ -57,8 +58,9 @@
                             </div>
                             <div class="form-group @error('location') has-error @enderror">
                                 <label for="location" class="with-help">location <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="location" name="location"
-                                        v-model="stock.location" v-select2>
+                                <select class="form-control" id="location" name="location"
+                                        v-model="stock.location">
+                                    <option value="">Select Location</option>
                                     <option
                                         value="hq" {{(isset($stock->location)?$stock->location:old('location') == 'hq') ? 'Selected' : ''}}>
                                         Head Quarter

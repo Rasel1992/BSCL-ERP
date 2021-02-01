@@ -27,11 +27,11 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/password/update/form','ProfileController@passwordForm')->name('profile.password.update.form');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('bills','BillRegisterController');
-    Route::get('/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('get-assign-stock-form');
+    Route::get('/stocks/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('stocks.get-assign-stock-form');
     Route::post('/assign-stock/{stock}', 'StockController@assignStock')->name('assign-stock');
+    Route::get('/stocks/assigned-stock','StockController@assignedStock')->name('stocks.assigned-stock');
     Route::resource('stocks','StockController');
 
-    Route::get('/assigned-stock','StockController@assignedStock')->name('assigned-stock');
 
     Route::group(['prefix' => 'inventories', 'as' => 'inventories.'], function () {
     Route::get('/summary', 'InventoryController@summary')->name('summary');

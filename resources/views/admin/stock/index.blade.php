@@ -39,7 +39,7 @@
                                 <form method="POST" action="" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
-                                    <a href="{{route('admin.get-assign-stock-form', $stock->id) }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
+                                    <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id) }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
                                     <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
                                 </form>
                             </td>

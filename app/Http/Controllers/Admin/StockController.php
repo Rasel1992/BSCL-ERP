@@ -47,7 +47,7 @@ class StockController extends Controller
 
     public function create()
     {
-        $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('type', 'Stock')->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData'))->with('create', 1);
     }
 
