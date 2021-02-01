@@ -65,7 +65,7 @@ class ProfileController extends Controller
 
             if ($request->hasFile('image')) {
                 if ($user && $user->image) {
-                    (new MediaController())->delete('user', $user->image, 1);
+                    (new MediaController())->delete('user', $user->image);
                 }
                 $image = (new MediaController())->imageUpload($request->file('image'),'user', 1);
                 $data['image'] = $image['name'];

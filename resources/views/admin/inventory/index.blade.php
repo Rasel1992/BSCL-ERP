@@ -52,7 +52,7 @@
                             <td> {{ $inventory->cost }}</td>
                             <td> @if($inventory->location == 'hq') Head Quarter @elseif($inventory->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
                             <td>  {!! QrCode::size(50)->generate(url('inventories',$inventory->id)); !!}</td>
-                            <td>{{ $inventory->purchase_date}}</td>
+                            <td>{{ $inventory->purchase_date ?? '-' }}</td>
                             <td class="row-options text-muted small">
                                 <a href="{{ route('admin.inventories.show', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a>&nbsp;
                                 <a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
