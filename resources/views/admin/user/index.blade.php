@@ -37,7 +37,7 @@
                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
                                 @endif
                             </td>
-                            <td>{{ $user->name }}</td>
+                            <td><a href="{{ route('admin.users.show',$user->id ) }}">{{ $user->name }}</a> </td>
                             <td><span class="label label-outline">{{ $user->type }}</span></td>
                             <td>{{ $user->email }}</td>
                             <td>
@@ -56,13 +56,10 @@
                 @if($users->total())
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} entries
-                            </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $users->links() }}
+                                {{ $users->appends(Request::except('page'))->links() }}
                             </div>
                         </div>
                     </div>

@@ -60,7 +60,7 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        return view('admin.department.details', compact('department'));
     }
 
     /**

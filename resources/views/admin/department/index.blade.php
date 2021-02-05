@@ -28,7 +28,7 @@
                     @foreach($departments as $key => $department)
                         <tr>
                             <td> {{$key + $departments->firstItem()}}</td>
-                            <td> {{ $department->department }}</td>
+                            <td><a href="{{ route('admin.departments.show',$department->id ) }}"> {{ $department->department }} </a></td>
                             <td> {{ $department->designation }}</td>
                             <td>
                             <span class="dropdown">
@@ -52,14 +52,11 @@
                 @if($departments->total())
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $departments->firstItem() }} to {{ $departments->lastItem() }}
-                                of {{ $departments->total() }} entries
-                            </div>
+
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $departments->links() }}
+                                {{ $departments->appends(Request::except('page'))->links() }}
                             </div>
                         </div>
                     </div>

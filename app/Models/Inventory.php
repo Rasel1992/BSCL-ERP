@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'asset_code',
         'description',
@@ -25,23 +20,16 @@ class Inventory extends Model
         'purchase_date',
     ];
 
-    /**
-     * Get the category that owns the product.
-     */
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
     }
-    /**
-     * Get the category that owns the product.
-     */
+
     public function user()
     {
         return $this->belongsTo('App\User');
     }
-    /**
-     * Get the category that owns the product.
-     */
+
     public function department()
     {
         return $this->belongsTo('App\Models\Department', 'dept_id', 'id');

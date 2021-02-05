@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json($user);
+        return view('admin.user.details', compact('user'));
     }
 
     /**

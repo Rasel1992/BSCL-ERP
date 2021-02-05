@@ -24,7 +24,7 @@
                         <th>Asset Code</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Allocate To</th>
+                        <th>Assign To</th>
                         <th>Voucher No</th>
                         <th>Qty</th>
                         <th>Cost</th>

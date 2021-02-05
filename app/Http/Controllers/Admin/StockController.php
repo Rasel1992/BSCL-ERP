@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\Stock;
 use App\Models\StockUser;
 use App\User;
@@ -90,14 +91,19 @@ class StockController extends Controller
     }
 
     public function assignStockForm(Request $request, $id){
-        $stock_id = $id;
+        $data = Stock::where('id', $id)->first();
         $users = User::get();
-        return view('admin.stock.assign-stock', compact('stock_id', 'users'));
+        $departments = Department::get();
+        return view('admin.stock.assign-stock', compact('data', 'users', 'departments'));
     }
 
     public function assignStock(Request $request, $id){
         $stock_id = $id;
         $data = Stock::where('id', $stock_id)->first();
+
+        if ($data->qty < $request->qty) {
+            return redirect()->route('admin.stocks.index')->withErrors(['error' => 'Qty not in stock!']);
+        }
         $updateData = [
             'qty' => $data->qty - $request->qty,
         ];
@@ -105,10 +111,42 @@ class StockController extends Controller
         $storeData = [
             'qty' => $request->qty,
             'stock_id' => $request->stock_id,
+            'assign_to' => $request->assign_to,
             'user_id' => $request->user_id,
+            'dept_id' => $request->dept_id,
             'assign_date' => $request->assign_date,
         ];
         StockUser::create($storeData);
-        return redirect()->back()->withSuccess('Stock updated successfully.');
+        return redirect()->route('admin.stocks.assigned-stock')->withSuccess('Stock Assigned successfully.');
+    }
+
+    public function summary()
+    {
+        try {
+
+            $categories_head = Category::where('type', 'Stock')->with(['stocks' => function($q) {
+                $q->where('location','hq');
+            }])
+                ->get();
+
+            $categories_gs1 = Category::where('type', 'Stock')->with(['stocks' => function($q) {
+                $q->where('location','gs1');
+            }])
+                ->get();
+            $categories_gs2 = Category::where('type', 'Stock')->with(['stocks' => function($q) {
+                $q->where('location','gs2');
+            }])
+                ->get();
+            return view('admin.stock.summary', compact( 'categories_head', 'categories_gs1', 'categories_gs2'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function categoryStocks($id) {
+        $data['category'] = $category = Category::where('id', $id)->find($id);
+        $data['stocks'] = Stock::where('category_id', $category->id)->paginate(15);
+
+        return view('admin.stock.summary-show', compact('data', 'category'));
     }
 }

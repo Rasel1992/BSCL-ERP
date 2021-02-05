@@ -10,6 +10,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Stocks</h3>
                 <div class="box-tools pull-right">
+                    <a class="button add" href="{{ route('admin.stocks.summary') }}">Summary</a>
                     <a href="{{ route('admin.stocks.create') }}" class="button add"> Add Stock</a>
                 </div>
             </div> <!-- /.box-header -->

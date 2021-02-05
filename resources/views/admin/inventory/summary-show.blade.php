@@ -8,10 +8,9 @@
     <section class="content">
         <div class="panel">
             <div class="box-header with-border">
-                <h3 class="box-title">Inventories</h3>
+                <h3 class="box-title">Inventories ({{$data['category']->category_name }} )</h3>
                 <div class="box-tools pull-right">
                     <a class="button add" href="{{ route('admin.inventories.summary') }}">Summary</a>
-                    <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
@@ -22,7 +21,7 @@
                         <th>Asset Code</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Allocate To</th>
+                        <th>Assign To</th>
                         <th>Voucher No</th>
                         <th>Qty</th>
                         <th>Cost</th>

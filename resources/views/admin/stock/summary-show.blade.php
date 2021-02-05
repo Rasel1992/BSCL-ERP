@@ -1,60 +1,66 @@
 @extends('layouts.backend')
 
 @section('title')
-    Assigned Stocks
+    Stocks
 @endsection
 
 @section('content')
     <section class="content">
         <div class="panel">
             <div class="box-header with-border">
-                <h3 class="box-title">Assigned Stocks</h3>
-                <a href="{{ route('admin.stocks.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Stock</a>
+                <h3 class="box-title">Stocks ({{$data['category']->category_name }} )</h3>
+                <div class="box-tools pull-right">
+                    <a class="button add" href="{{ route('admin.stocks.summary') }}">Summary</a>
+                </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Stock Category</th>
-                        <th>Assign To</th>
+                        <th>Description</th>
+                        <th>Category</th>
                         <th>Qty</th>
                         <th>Location</th>
-                        <th>Assign Date</th>
-
+                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($assignedStocks as  $key => $stock)
+                    @foreach($data['stocks'] as $key => $stock)
                         <tr>
-                            <td> {{$key + $assignedStocks->firstItem()}}</td>
-                            <td> {{ $stock->stock->category->category_name }}</td>
-                            <td>
-                                @if($stock->assign_to == 'user') <strong>Person:</strong><br><a href="{{ route('admin.users.show',$stock->user->id ) }}">{{$stock->user->name }}</a>
-                                @else
-                                    <strong>Department:</strong><br><a href="{{ route('admin.departments.show',$stock->department->id ) }}">{{ $stock->department->department}}</a>
-                                @endif
-                            </td>
+                            <td> {{$key + $data['stocks']->firstItem()}}</td>
+                            <td> {{ $stock->description }}</td>
+                            <td> {{ $stock->category->category_name }}</td>
                             <td> {{ $stock->qty }}</td>
-                            <td> @if($stock->stock->location == 'hq') Head Quarter @elseif($stock->stock->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
-                            <td> {{ $stock->assign_date }} </td>
+                            <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
+
+                            <td class="row-options text-muted small">
+                                <a href="{{route('admin.stocks.edit', $stock->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
+                                <form method="POST" action="" accept-charset="UTF-8" class="data-form">
+                                    @csrf
+                                    @method('delete')
+                                    <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id) }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
+                                    <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-                @if($assignedStocks->total())
+                @if($data['stocks']->total())
                     <div class="row">
                         <div class="col-sm-5">
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $assignedStocks->appends(Request::except('page'))->links() }}
+                                {{ $data['stocks']->appends(Request::except('page'))->links() }}
                             </div>
                         </div>
                     </div>
                 @endif
             </div> <!-- /.box-body -->
         </div> <!-- /.box -->
+        @include('admin.inventory.form_import')
     </section>
 @endsection
 

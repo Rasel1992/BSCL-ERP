@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+use App\Models\Inventory;
+use App\Models\StockUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +37,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function stocks() {
+        return $this->hasMany(StockUser::class, 'user_id', 'id');
+    }
+
+    public function inventories() {
+        return $this->hasMany(Inventory::class, 'user_id', 'id');
+    }
 }

@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/stocks/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('stocks.get-assign-stock-form');
     Route::post('/assign-stock/{stock}', 'StockController@assignStock')->name('assign-stock');
     Route::get('/stocks/assigned-stock','StockController@assignedStock')->name('stocks.assigned-stock');
+    Route::get('/stocks/summary', 'StockController@summary')->name('stocks.summary');
+    Route::get('/stocks/category/{id}','StockController@categoryStocks')->name('stocks.category');
     Route::resource('stocks','StockController');
 
 

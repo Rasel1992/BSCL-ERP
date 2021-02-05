@@ -11,4 +11,7 @@ class Department extends Model
         'designation',
     ];
 
+    public function stocks() {
+        return $this->hasMany(StockUser::class, 'dept_id', 'id');
+    }
 }
