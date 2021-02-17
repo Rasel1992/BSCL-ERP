@@ -12,35 +12,48 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $data['categoryData'] = Category::where('parent_id', 0)->with('nested')->get();
-            $sql = Category::orderBy('categories.id', 'DESC');
-            $sql->select('categories.*', 'B.category_name AS parent_name', 'C.category_name AS parent_mother', \DB::raw('IFNULL(D.subCount,0) AS subCount'));
-            $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
-            $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
-            $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
-            $data['categories'] = $sql->get();
-            $stocks = Stock::latest()->paginate(10);
-            return view('admin.stock.index', compact('stocks', 'data'));
+//
+            $categoryData = Category::where('type', 'Stock')->with('nested')->get();
+            $sql = Stock::orderBy('created_at', 'ASC');
+            if ($request->location) {
+                $sql->where('location', $request->location);
+            }
+            if ($request->category_id) {
+                $sql->where('category_id', $request->category_id);
+            }
+            $stocks = $sql->paginate(10);
+            return view('admin.stock.index', compact('stocks', 'categoryData'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    public function assignedStock()
+    public function assignedStock(Request $request)
     {
         try {
-            $data['categoryData'] = Category::where('parent_id', 0)->with('nested')->get();
-            $sql = Category::orderBy('categories.id', 'DESC');
-            $sql->select('categories.*', 'B.category_name AS parent_name', 'C.category_name AS parent_mother', \DB::raw('IFNULL(D.subCount,0) AS subCount'));
-            $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
-            $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
-            $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
-            $data['categories'] = $sql->get();
-            $assignedStocks = StockUser::latest()->paginate(10);
-            return view('admin.stock.assigned-stock', compact('assignedStocks', 'data'));
+//
+            $categoryData = Category::where('type', 'Stock')->with('nested')->get();
+            $sql = StockUser::with('stock')->orderBy('created_at', 'ASC');
+
+            if ($request->location) {
+                $sql->whereHas('stock', function ($q) use ($request) {
+                    $q->where('location', $request->location);
+                });
+            }
+            if ($request->category_id) {
+                $sql->where('category_id', $request->category_id);
+            }
+            if ($request->from) {
+                $sql->whereDate('purchase_date', '>=', $request->from);
+            }
+            if ($request->to) {
+                $sql->whereDate('purchase_date', '<=', $request->to);
+            }
+            $assignedStocks = $sql->paginate(10);
+            return view('admin.stock.assigned-stock', compact('assignedStocks', 'categoryData'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

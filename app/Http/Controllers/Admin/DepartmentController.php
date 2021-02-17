@@ -15,10 +15,17 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $departments = Department::paginate(10);
+            $sql = Department::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where(function ($q) use ($request) {
+                    $q->orWhere('department', 'LIKE', $request->q . '%');
+                    $q->orWhere('designation', 'LIKE', $request->q . '%');
+                });
+            }
+            $departments = $sql->paginate(10);
             return view('admin.department.index', compact('departments'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

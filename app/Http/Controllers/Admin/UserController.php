@@ -18,10 +18,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $users = User::paginate(10);
+            $sql = User::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where('name', 'LIKE', $request->q . '%');
+            }
+            if ($request->type) {
+                $sql->where('type', $request->type);
+            }
+            $users = $sql->paginate(10);
             return view('admin.user.index', compact('users'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

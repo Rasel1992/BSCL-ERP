@@ -14,27 +14,6 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6">
-                        <form method="GET" action="{{ route('admin.categories.index') }}" class="form-inline float-right">
-                            <div class="form-group mb-2">
-                                <select class="form-control" id="type" name="type">
-                                    @foreach(['Fixed', 'Current', 'Stock'] as $type)
-                                        <option value="{{ $type }}" {{ $type==Request::get('type')?'selected':''}}>{{ $type }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label class="sr-only">&nbsp;</label>
-                                <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}" placeholder="Input your search text...">
-                            </div>
-
-                            <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
-                            <a href="{{ route('admin.categories.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
-                        </form>
-                    </div>
-                </div>
                 <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
