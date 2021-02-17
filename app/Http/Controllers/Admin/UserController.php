@@ -7,17 +7,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
-use App\Models\Department;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
-        return view('admin.user.index', compact('users'));
+        try {
+            $sql = User::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where('name', 'LIKE', $request->q . '%');
+            }
+            if ($request->type) {
+                $sql->where('type', $request->type);
+            }
+            $users = $sql->paginate(10);
+            return view('admin.user.index', compact('users'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function create()

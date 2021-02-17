@@ -15,7 +15,40 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort" id="file_export">
+                <div class="row">
+                    <div class="col-md-7"></div>
+                    <div class="col-md-5">
+                        <form method="GET" action="{{ route('admin.stocks.index') }}" class="form-inline float-right">
+                            <div class="form-group mb-2">
+                                <select class="form-control" id="category_id" name="category_id">
+                                    <option value="">Select Category</option>
+                                    @foreach($categoryData as $cat)
+                                        <option value="{{ $cat->id }}" {{ ($cat->id==Request::get('category_id'))?'selected':''}}>{{ $cat->category_name }}</option>
+                                        @if(!empty($cat->nested))
+                                            @foreach($cat->nested as $nc)
+                                                <option value="{{ $nc->id }}"  {{ ($nc->id==Request::get('category_id'))?'selected':''}}> -- {{ $nc->category_name }}</option>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-2">
+                                <select class="form-control" id="location" name="location">
+                                    <option value="">Select Location</option>
+                                    <option value="hq" {{old('location') == Request::get('hq')?'selected':''}} >Head Quarter
+                                    </option>
+                                    <option value="gs1" {{old('location') == Request::get('gs1')?'selected':''}}>GS Gazipur
+                                    </option>
+                                    <option value="gs2" {{old('location') == Request::get('gs2')?'selected':''}}>GS Bethbunia
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
+                            <a href="{{ route('admin.stocks.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
+                        </form>
+                    </div>
+                </div>
+                <table class="table table-hover table-2nd-no-sort">
                     <thead>
                     <tr>
                         <th>SL</th>
@@ -23,7 +56,7 @@
                         <th>Category</th>
                         <th>Qty</th>
                         <th>Location</th>
-                        <th></th>
+
                     </tr>
                     </thead>
                     <tbody>

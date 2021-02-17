@@ -10,12 +10,33 @@ use Illuminate\Http\Request;
 use Excel;
 class DepartmentController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-        $departments = Department::paginate(10);
-        return view('admin.department.index', compact('departments'));
+        try {
+            $sql = Department::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where(function ($q) use ($request) {
+                    $q->orWhere('department', 'LIKE', $request->q . '%');
+                    $q->orWhere('designation', 'LIKE', $request->q . '%');
+                });
+            }
+            $departments = $sql->paginate(10);
+            return view('admin.department.index', compact('departments'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('admin.department.create-edit');

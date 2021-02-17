@@ -17,6 +17,26 @@
             </div>
             <!-- /.box-header -->
             <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <form method="GET" action="{{ route('admin.users.index') }}" class="form-inline float-right">
+                            <div class="form-group mb-2">
+                                <select class="form-control" id="type" name="type">
+                                    <option value="admin"  {{ (old('type')==Request::get('admin'))?'selected':''}}>Admin</option>
+                                    <option value="staff" {{ (old('type')==Request::get('staff'))?'selected':''}}>Staff</option>
+                                </select>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label class="sr-only">&nbsp;</label>
+                                <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}" placeholder="Input your search text...">
+                            </div>
+
+                            <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
+                            <a href="{{ route('admin.users.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
+                        </form>
+                    </div>
+                </div>
                 <table class="table table-hover" id="file_export">
                     <thead>
                     <tr>
