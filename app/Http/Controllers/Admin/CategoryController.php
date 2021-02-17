@@ -23,7 +23,7 @@ class CategoryController extends Controller
         $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
         $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
         $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
-        $data['categories'] = $sql->latest()->paginate(10);
+        $data['categories'] = $sql->latest()->paginate(5);
         return view('admin.category.index', $data);
     }
 

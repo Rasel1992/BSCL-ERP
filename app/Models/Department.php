@@ -8,10 +8,13 @@ class Department extends Model
 {
     protected $fillable = [
         'department',
-        'designation',
     ];
 
     public function stocks() {
         return $this->hasMany(StockUser::class, 'dept_id', 'id');
+    }
+
+    public function inventories() {
+        return $this->hasMany(Inventory::class, 'user_id', 'id');
     }
 }

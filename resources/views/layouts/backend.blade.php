@@ -431,7 +431,6 @@
 <script src="{{ asset('assets/plugins/data-tables/buttons.print.min.js') }}"></script>
 </body>
 
-</html>
 <script>
     $(function () {
         // this will get the full URL at the address bar
@@ -466,9 +465,29 @@
         });
         $('.buttons-copy, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
 
-        @if (session('success'))
-            toastr["success"]('{{ session('success') }}');
+
+        @if (session('successMessage'))
+        Swal.fire({
+            title: 'Success!',
+            text: "{!! session('successMessage') !!}",
+            type: 'success',
+            confirmButtonText: 'Ok'
+        });
+
+        @elseif (session('errorMessage'))
+        Swal.fire({
+            title: 'Error!',
+            text: "{!! session('errorMessage') !!}",
+            type: 'error',
+            confirmButtonText: 'Ok'
+        });
         @endif
+
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            width: '100%',
+            placeholder: 'Select',
+        });
 
         @error('error')
         Swal.fire({
@@ -528,7 +547,20 @@
         var childClass = '.' + selfId + '-permission';
         $(childClass).iCheck('uncheck').iCheck('disable');
     });
-
+    Vue.directive('select2', {
+        inserted(el) {
+            $(el).on('select2:select', () => {
+                const event = new Event('change', {bubbles: true, cancelable: true});
+                el.dispatchEvent(event);
+            });
+            $(el).on('select2:unselect', () => {
+                const event = new Event('change', {bubbles: true, cancelable: true})
+                el.dispatchEvent(event)
+            })
+        },
+    });
 </script>
 
 @stack('scripts')
+
+</html>

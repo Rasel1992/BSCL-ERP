@@ -51,13 +51,11 @@
                 @if($categories->total())
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="dataTables_info" id="sortable_info" role="status" aria-live="polite">
-                                showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }} of {{ $categories->total() }} entries
-                            </div>
+
                         </div>
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $categories->links() }}
+                                {{ $categories->appends(Request::except('page'))->links() }}
                             </div>
                         </div>
                     </div>

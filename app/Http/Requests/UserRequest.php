@@ -26,10 +26,12 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'type' => 'required|in:admin,staff',
-            'email' => $this->isMethod('put') ? 'nullable|string|min:8|max:255' : 'required|string|min:8|max:255',
+            'email' => $this->isMethod('put') ? 'nullable|string|max:100' : 'required|string|max:100',
             'password' => $this->isMethod('put') ? 'nullable|string|min:8|max:255' : 'required|string|min:8|max:255',
             'dob' => 'nullable|date',
             'sex' => 'nullable|in:male,female,other',
+            'dept_id' => 'required|integer|exists:departments,id',
+            'designation' => 'required|string|max:255',
             'image' => 'nullable|image',
         ];
     }

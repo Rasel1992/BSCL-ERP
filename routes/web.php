@@ -13,7 +13,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', 'Auth\LoginController@showLoginForm');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/stocks/assigned-stock','StockController@assignedStock')->name('stocks.assigned-stock');
     Route::get('/stocks/summary', 'StockController@summary')->name('stocks.summary');
     Route::get('/stocks/category/{id}','StockController@categoryStocks')->name('stocks.category');
+    Route::post('/stocks/importInventory', 'StockController@ImportExcel')->name('stocks.import');
     Route::resource('stocks','StockController');
 
 

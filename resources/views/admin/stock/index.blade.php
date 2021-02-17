@@ -15,7 +15,7 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
-                <table class="table table-hover table-2nd-no-sort">
+                <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>
                         <th>SL</th>
@@ -23,7 +23,7 @@
                         <th>Category</th>
                         <th>Qty</th>
                         <th>Location</th>
-
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,11 +33,11 @@
                             <td> {{ $stock->description }}</td>
                             <td> {{ $stock->category->category_name }}</td>
                             <td> {{ $stock->qty }}</td>
-                           <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
+                            <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
 
                             <td class="row-options text-muted small">
                                 <a href="{{route('admin.stocks.edit', $stock->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="" accept-charset="UTF-8" class="data-form">
+                                <form method="POST" action="{{route('admin.stocks.destroy', $stock->id) }}" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
                                     <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id) }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
@@ -61,6 +61,7 @@
                 @endif
             </div> <!-- /.box-body -->
         </div> <!-- /.box -->
+        @include('admin.stock.form_import')
     </section>
 @endsection
 

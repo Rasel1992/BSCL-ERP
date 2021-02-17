@@ -20,7 +20,6 @@
                     <tr>
                         <th>SL</th>
                         <th>Department</th>
-                        <th>Designation</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -29,7 +28,6 @@
                         <tr>
                             <td> {{$key + $departments->firstItem()}}</td>
                             <td><a href="{{ route('admin.departments.show',$department->id ) }}"> {{ $department->department }} </a></td>
-                            <td> {{ $department->designation }}</td>
                             <td>
                             <span class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">

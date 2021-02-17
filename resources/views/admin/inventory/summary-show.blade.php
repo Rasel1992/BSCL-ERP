@@ -26,8 +26,8 @@
                         <th>Qty</th>
                         <th>Cost</th>
                         <th>Location</th>
-                        <th>Purchase Date</th>
-                        <th> </th>
+                        <th>QR Code</th>
+                        <th width="10%">Purchase Date</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,15 +48,8 @@
                             <td> {{ $inventory->qty }}</td>
                             <td> {{ $inventory->cost }}</td>
                             <td> @if($inventory->location == 'hq') Head Quarter @elseif($inventory->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
+                            <td>  {!! QrCode::size(50)->generate(url('inventories',$inventory->id)); !!}</td>
                             <td>{{ $inventory->purchase_date}}</td>
-                            <td class="row-options text-muted small">
-                                <a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id) }}" accept-charset="UTF-8" class="data-form">
-                                    @csrf
-                                    @method('delete')
-                                    <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
-                                </form>
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Imports\ImportStock;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Stock;
 use App\Models\StockUser;
 use App\User;
 use Illuminate\Http\Request;
-
+use Excel;
 class StockController extends Controller
 {
     public function index()
@@ -148,5 +149,21 @@ class StockController extends Controller
         $data['stocks'] = Stock::where('category_id', $category->id)->paginate(15);
 
         return view('admin.stock.summary-show', compact('data', 'category'));
+    }
+
+    public function ImportExcel(Request $request) {
+        //Validation
+        $this->validate($request, [
+            'file' => 'required|mimes:xls,xlsx',
+        ]);
+
+        if ($request->hasFile('file')) {
+            //UPLOAD FILE
+            $file = $request->file('file'); //GET FILE
+            Excel::import(new ImportStock(), $file); //IMPORT FILE
+            return redirect()->back()->withSuccess('Upload file data Stock !');
+        }
+
+        return redirect()->back()->with(['error' => 'Please choose file before!']);
     }
 }

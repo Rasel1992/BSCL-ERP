@@ -22,11 +22,12 @@
                             @php
                                 $allQrCode = $inventory->count();
                             @endphp
-                                <div class="col-md-{{ ++$key == $allQrCode && $key & 1 ? '12':'6' }}">
-                                    {!! QrCode::size(100)->generate(url('inventories',$inventory->id)); !!}<br>
-                                    {{ $inventory->asset_code  }}
+                                <div align="center" style="margin-bottom: 50px;" class="col-md-{{ ++$key == $allQrCode && $key & 1 ? '12':'6' }}">
+                                    {!! QrCode::size(150)->generate(url('inventories',$inventory->id)); !!}<br>
+                                    <div align="center"> {{ $inventory->asset_code  }}</div>
                                 </div>
                         @endforeach
+
                     </div>
                 </div>
 

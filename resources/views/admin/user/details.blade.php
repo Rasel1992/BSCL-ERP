@@ -35,16 +35,40 @@
                                     <th>Assigned Date</th>
                                 </tr>
                                 </thead>
-                                <tbody>
                                 @if($user->stocks)
                                     @foreach($user->stocks as $key => $stock)
+                                <tbody>
                                         <td> {{++ $key}}</td>
                                         <td> {{ $stock->stock->category->category_name }}</td>
                                         <td>{{$stock->qty}}<br></td>
                                         <td>{{$stock->assign_date}}<br></td>
+                                </tbody>
                                     @endforeach
                                 @endif
+                            </table>
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <caption><h3>Assigned Inventories</h3></caption>
+                                </tr>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Inventory Category</th>
+                                    <th>Inventory Qty</th>
+                                    <th>Assigned Date</th>
+                                </tr>
+                                </thead>
+                                @if($user->inventories)
+                                    @foreach($user->inventories as $key => $inventory)
+                                <tbody>
+                                        <td> {{++ $key}}</td>
+                                        <td> {{ $inventory->category->category_name }}</td>
+                                        <td>{{$inventory->qty}}<br></td>
+                                        <td>{{$inventory->purchase_date}}<br></td>
                                 </tbody>
+                                    @endforeach
+                                @endif
                             </table>
                     </div>
                 @endif

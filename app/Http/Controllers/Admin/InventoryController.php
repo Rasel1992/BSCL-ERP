@@ -142,7 +142,7 @@ class InventoryController extends Controller
         return Excel::download(new InventoryExport, 'inventory-collection.xlsx');
     }
 
-    public function categoryInventory($id) {
+    public function categoryInventory(Request $request, $id) {
         $data['category'] = $category = Category::where('id', $id)->find($id);
         $data['inventories'] = Inventory::where('category_id', $category->id)->paginate(15);
         return view('admin.inventory.summary-show', compact('data', 'category'));

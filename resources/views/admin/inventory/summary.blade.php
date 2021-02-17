@@ -25,7 +25,7 @@
                                <thead>
                                <tr>
                                    <th>Category Name</th>
-                                   <th>Number of Inventory</th>
+                                   <th>QTY</th>
                                </tr>
                                </thead>
                                <tbody>
@@ -101,10 +101,14 @@
             var originalContents = document.body.innerHTML;
 
             document.body.innerHTML = printContents;
-
+            var l = document.getElementsByTagName('a');
+            for (var i =0; i<l.length; i++) {
+                l[i].href = '#';
+            }
             window.print();
 
             document.body.innerHTML = originalContents;
+
         }
     </script>
 @endpush

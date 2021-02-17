@@ -7,43 +7,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\Department;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
     public function index()
     {
-        try {
-            $users = User::paginate(10);
-            return view('admin.user.index', compact('users'));
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+        $users = User::paginate(10);
+        return view('admin.user.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
-     */
     public function create()
     {
-        return view('admin.user.create-edit');
+        $departments = Department::get();
+        return view('admin.user.create-edit', compact('departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(UserRequest $request)
     {
         try {
@@ -55,44 +37,39 @@ class UserController extends Controller
                 $data['image'] = $image['name'];
             }
             User::create($data);
-            return redirect()->back()->withSuccess('User created successfully.');
+
+            $request->session()->flash('successMessage', "User create successfully!");
+            return redirect()->route('admin.users.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
-     */
     public function show(User $user)
     {
+        if (empty($user)) {
+            return redirect()->route('admin.users.index');
+        }
         return view('admin.user.details', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
-     */
     public function edit(User $user)
     {
-        return view('admin.user.create-edit',compact('user'));
+        if (empty($user)) {
+            return redirect()->route('admin.users.index');
+        }
+        $departments = Department::get();
+//        dd($user);
+        return view('admin.user.create-edit',compact('user', 'departments'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UserRequest $request
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(UserRequest $request, User $user)
     {
         try {
+            if (empty($user)) {
+                return redirect()->route('admin.users.index');
+            }
+
             $data = $request->except('_token');
             if ($request->password) {
                 $data['password'] = bcrypt($request->password);
@@ -108,38 +85,33 @@ class UserController extends Controller
             }
 
             $user->update($data);
-            return redirect()->back()->withSuccess('User updated successfully.');
+
+            $request->session()->flash('successMessage', "User Updated!");
+            return redirect()->route('admin.users.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
         try {
-            if ($user && $user->image) {
-                (new MediaController())->delete('user', $user->image, 1);
+
+            if (!empty($user)) {
+                if ($user && $user->image) {
+                    (new MediaController())->delete('user', $user->image, 1);
+                }
+                $user->delete();
+                $request->session()->flash('successMessage', "User deleted!");
+            } else {
+                $request->session()->flash('errorMessage', "User not found!");
             }
-            $user->delete();
-            return redirect()->back()->withSuccess('User trashed successfully.');
+            return redirect()->route('admin.users.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function passwordUpdate(Request $request, User $user)
     {
         $request->validate([
@@ -147,9 +119,8 @@ class UserController extends Controller
         ]);
 
         try {
-            $admin->update(['password' => bcrypt($request->password)]);
-
-            return redirect()->back()->withSuccess('User\'s password updated successfully.');
+            $user->update(['password' => bcrypt($request->password)]);
+            $request->session()->flash('successMessage', "User\'s password updated successfully!");
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

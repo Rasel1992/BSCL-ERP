@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('dob')->nullable();
             $table->enum('sex', ['male', 'female', 'other'])->nullable();
+            $table->unsignedBigInteger('dept_id');
+            $table->string('designation');
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();

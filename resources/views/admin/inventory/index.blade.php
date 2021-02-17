@@ -16,7 +16,7 @@
                     <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
-            <div class="panel-body">
+            <div class="panel-body" id="printableArea">
                 <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>
@@ -74,18 +74,18 @@
                     @endforeach
                     </tbody>
                 </table>
-                @if($inventories->total())
-                    <div class="row">
-                        <div class="col-sm-5">
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
-                                {{ $inventories->appends(Request::except('page'))->links() }}
-                            </div>
+            </div> <!-- /.box-body -->
+            @if($inventories->total())
+                <div class="row">
+                    <div class="col-sm-5">
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
+                            {{ $inventories->appends(Request::except('page'))->links() }}
                         </div>
                     </div>
-                @endif
-            </div> <!-- /.box-body -->
+                </div>
+            @endif
         </div> <!-- /.box -->
         @include('admin.inventory.form_import')
     </section>

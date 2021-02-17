@@ -93,8 +93,7 @@
 
                             <div class="form-group @error('sex') has-error @enderror">
                                 <label for="sex">Gender</label>
-                                <select class="form-control select2" id="sex" name="sex" v-model="user.sex"
-                                        v-model="user.sex" v-select2>
+                                <select class="form-control select2" id="sex" name="sex" v-model="user.sex" v-select2>
                                     <option value="male" {{ old('sex') == 'male' ? 'selected' : '' }}>Male</option>
                                     <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female
                                     </option>
@@ -105,6 +104,31 @@
                                 <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group @error('dept_id') has-error @enderror">
+                                <label for="dept_id" class="with-help">Department</label>
+                                <select class="form-control select2" id="dept_id" name="dept_id"
+                                        v-model="user.dept_id" v-select2>
+                                    @foreach($departments as $department)
+                                        <option value="{{$department->id}}">{{$department->department}}</option>
+                                    @endforeach
+                                </select>
+                                @error('dept_id')
+                                <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group @error('designation') has-error @enderror">
+                                <label class="with-help">Designation <span class="text-danger">*</span></label>
+                                <input class="form-control" placeholder="Designation" name="designation" value="{{ old('designation') }}" v-model="user.designation" type="text" required>
+                                @error('designation')
+                                <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
                                 @enderror
                             </div>
 
@@ -158,6 +182,8 @@
                     email: '{{ old('email', $user->email ?? '') }}',
                     dob: '{{ old('dob', $user->dob ?? '') }}',
                     sex: '{{ old('sex', $user->sex ?? '') }}',
+                    dept_id: '{{ old('dept_id', $user->dept_id  ?? '') }}',
+                    designation: '{{ old('designation', $user->designation  ?? '') }}',
                     image: ''
                 },
             },

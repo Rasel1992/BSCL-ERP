@@ -42,17 +42,41 @@
                                     <th>Assigned Date</th>
                                 </tr>
                                 </thead>
-                                <tbody>
                                 @if($department->stocks)
                                     @foreach($department->stocks as $key => $stock)
+                                <tbody>
                                         <td> {{++ $key}}</td>
                                         <td> {{ $stock->stock->category->category_name }}</td>
                                         <td>{{$stock->qty}}<br></td>
                                         <td>{{$stock->assign_date}}<br></td>
+                                </tbody>
                                     @endforeach
                                 @endif
-                                </tbody>
                             </table>
+
+                         <table class="table">
+                        <thead>
+                        <tr>
+                            <caption><h3>Assigned Inventories</h3></caption>
+                        </tr>
+                        <tr>
+                            <th>SL</th>
+                            <th>Inventory Category</th>
+                            <th>Inventory Qty</th>
+                            <th>Assigned Date</th>
+                        </tr>
+                        </thead>
+                        @if($department->inventories)
+                            @foreach($department->inventories as $key => $inventory)
+                                <tbody>
+                                <td> {{++ $key}}</td>
+                                <td> {{ $inventory->category->category_name }}</td>
+                                <td>{{$inventory->qty}}<br></td>
+                                <td>{{$inventory->purchase_date}}<br></td>
+                                </tbody>
+                            @endforeach
+                        @endif
+                    </table>
                     </div>
                 @endif
             </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Models\Department;
 use App\Models\Inventory;
 use App\Models\StockUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'type', 'email', 'password','dob', 'sex','image',
+        'name', 'type', 'email', 'password','dob', 'sex', 'dept_id', 'designation', 'image',
     ];
 
     /**
@@ -44,5 +45,9 @@ class User extends Authenticatable
 
     public function inventories() {
         return $this->hasMany(Inventory::class, 'user_id', 'id');
+    }
+
+    public function departments() {
+        return $this->belongsTo(Department::class, 'dept_id', 'id');
     }
 }

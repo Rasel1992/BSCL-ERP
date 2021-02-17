@@ -72,7 +72,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group @error('qty') has-error @enderror">
                                     <label for="title" class="with-help">Qty In Stock<span class="text-danger">*</span></label>
-                                    <input class="form-control" placeholder="Qty" name="stock_qty" value="{{$data->qty}}" type="number" id="stock_qty" required>
+                                    <input class="form-control" placeholder="Qty" name="stock_qty" value="{{$data->qty}}" type="number" id="stock_qty" readonly>
                                     @error('qty')
                                     <span class="help-block">
                             <strong>{{ $message }}</strong>
