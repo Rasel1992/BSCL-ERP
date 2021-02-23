@@ -43,7 +43,8 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::post('/importInventory', 'InventoryController@ImportExcel')->name('import');
     Route::get('/exportInventory','InventoryController@fileExport')->name('export');
     });
-
+    Route::get('/categories/all', 'CategoryController@all')->name('categories.all');
+    Route::post('/categories/update-order', 'CategoryController@updateOrder')->name('categories.update.order');
     Route::resource('categories','CategoryController');
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');

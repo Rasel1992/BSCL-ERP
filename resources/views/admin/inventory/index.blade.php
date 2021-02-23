@@ -21,18 +21,14 @@
                     <div class="col-md-12">
                         <form method="GET" action="{{ route('admin.inventories.index') }}" class="form-inline float-right">
                             <div class="form-group mx-sm-3 mb-2">
-                                <div class="row">
-                                        <div class="input-group inline">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">From</span>
-                                            </div>
-                                            <input type="date" class="form-control" name="from" value="{{ Request::get('from') }}">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">To</span>
-                                            </div>
-                                            <input type="date" class="form-control" name="to" value="{{ Request::get('to') }}">
-                                        </div>
-                                </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">From</span>
+                                        <input type="date" class="form-control" name="from" value="{{ Request::get('from') }}">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">To</span>
+                                        <input type="date" class="form-control" name="to" value="{{ Request::get('to') }}">
+                                    </div>
                             </div>
                             <div class="form-group mb-2">
                                 <select class="form-control" id="category_id" name="category_id">

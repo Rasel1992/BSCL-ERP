@@ -26,7 +26,7 @@
                                         <option value="{{ $cat->id }}" {{ ($cat->id==Request::get('category_id'))?'selected':''}}>{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
-                                                <option value="{{ $nc->id }}"  {{ ($nc->id==Request::get('category_id'))?'selected':''}}> -- {{ $nc->category_name }}</option>
+                                                <option value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>-- {{ $nc->category_name }}</option>
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -39,8 +39,7 @@
                                     </option>
                                     <option value="gs1" {{old('location') == Request::get('gs1')?'selected':''}}>GS Gazipur
                                     </option>
-                                    <option value="gs2" {{old('location') == Request::get('gs2')?'selected':''}}>GS Bethbunia
-                                    </option>
+                                    <option value="gs2" {{old('location') == Request::get('gs2')?'selected':''}}>GS Bethbunia</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
@@ -66,7 +65,7 @@
                             <td> {{ $stock->description }}</td>
                             <td> {{ $stock->category->category_name }}</td>
                             <td> {{ $stock->qty }}</td>
-                            <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GS Gazipur @else GS Bethbunia @endif</td>
+                            <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GSGazipur @else GS Bethbunia @endif</td>
 
                             <td class="row-options text-muted small">
                                 <a href="{{route('admin.stocks.edit', $stock->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
