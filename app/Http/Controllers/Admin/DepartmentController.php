@@ -47,7 +47,7 @@ class DepartmentController extends Controller
         try {
             $data = $request->except('_token');
             Department::create($data);
-            return redirect()->back()->withSuccess('Department created successfully.');
+            return redirect()->route('admin.departments.index')->withSuccess('Department created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

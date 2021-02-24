@@ -91,7 +91,7 @@ class InventoryController extends Controller
     {
             $data = $request->except('_token');
             Inventory::create($data);
-            return redirect()->back()->withSuccess('Inventory created successfully.');
+            return redirect()->route('admin.inventories.index')->withSuccess('Inventory created successfully.');
 
     }
 

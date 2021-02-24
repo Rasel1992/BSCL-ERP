@@ -330,33 +330,6 @@
                         <li><a href="{{route('admin.bills.index')}}"><i class="fa fa-sliders"></i> Bill Register</a></li>
                         <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
                         <li><a href="{{route('admin.stocks.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-archive"></i>
-                                <span>Manage Stock & Asset</span>
-                                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-file-text-o"></i> Stock & Asset History</a></li>
-                                <li><a href="pages/charts/morris.html"><i class="fa fa-stack-exchange"></i> Stock & Asset List</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-align-left"></i>
-                                <span>Assign Stock & Asset</span>
-                                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-align-left"></i> Assign Stock & Asset</a></li>
-                                <li><a href="pages/charts/morris.html"><i class="fa fa-bar-chart"></i> Assign Stock & Asset Report</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-line-chart"></i> Stock & Asset Report</a></li>
                     </ul>
                 </li>
 
@@ -465,22 +438,8 @@
         });
         $('.buttons-copy, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
 
-
-        @if (session('successMessage'))
-        Swal.fire({
-            title: 'Success!',
-            text: "{!! session('successMessage') !!}",
-            type: 'success',
-            confirmButtonText: 'Ok'
-        });
-
-        @elseif (session('errorMessage'))
-        Swal.fire({
-            title: 'Error!',
-            text: "{!! session('errorMessage') !!}",
-            type: 'error',
-            confirmButtonText: 'Ok'
-        });
+        @if (session('success'))
+            toastr["success"]('{{ session('success') }}');
         @endif
 
         //Initialize Select2 Elements

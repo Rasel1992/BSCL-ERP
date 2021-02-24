@@ -133,16 +133,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="with-help">Assign To</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="with-help">Assign To</label>
+                                    </div>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="user" v-model="inventory.assign_to" name="assign_to" {{ old('assign_to') == 'user' ? 'checked' : '' }}>User
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="department" v-model="inventory.assign_to" name="assign_to" {{ old('assign_to') == 'department' ? 'checked' : '' }}>Department
+                                    </label>
                                 </div>
-                                <label class="radio-inline">
-                                    <input type="radio" value="user" v-model="inventory.assign_to" name="assign_to" {{ old('assign_to') == 'user' ? 'checked' : '' }}>User
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" value="department" v-model="inventory.assign_to" name="assign_to" {{ old('assign_to') == 'department' ? 'checked' : '' }}>Department
-                                </label>
+                                <div class="col-md-6">
+                                    <div class="form-group @error('assign_date') has-error @enderror">
+                                        <label class="with-help">Assign Date <span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="Assign Date" name="assign_date" value="{{old('assign_date')}}" v-model="inventory.assign_date" type="date" required>
+                                        @error('assign_date')
+                                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <br>
                             <div class="row">
@@ -211,6 +224,7 @@
                     cost: '{{ old('cost', $inventory->cost ?? '') }}',
                     location: '{{ old('location', $inventory->location ?? '') }}',
                     purchase_date: '{{ old('purchase_date', $inventory->purchase_date ?? '') }}',
+                    assign_date: '{{ old('assign_date', $inventory->assign_date ?? '') }}',
                 },
                 mounted() {
                     this.initLibs();

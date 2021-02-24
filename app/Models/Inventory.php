@@ -18,6 +18,7 @@ class Inventory extends Model
         'cost',
         'location',
         'purchase_date',
+        'assign_date',
     ];
 
     public function category()

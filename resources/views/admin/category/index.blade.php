@@ -201,7 +201,6 @@
                                             <td class="service-block__checker">
 
                                             <td class="service-block__service">Category Name</td>
-                                            <td class="service-block__service">Type</td>
                                             <td class="service-block__action"><span
                                                     id="all_show_hide" @click="allCatChildShowHide"
                                                     class="btn btn-info">Hide All</span></td>
@@ -234,7 +233,6 @@
                                                                             @click="catShowHide({{ $category->id }})"><span id="show_hide_controll_{{ $category->id }}">Hide</span> Category ({{ $category->nested->count() }})</span></small>
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $category->type }}</td>
                                                             <td class="service-block__action">
                                                                 <div class="input-group-btn">
                                                                     <button type="button" class="btn btn-default dropdown-toggle"
@@ -296,7 +294,6 @@
                                                                                             @click="catShowHide({{ $childCat->id }})"><span id="show_hide_controll_{{ $childCat->id }}">Hide</span> Category ({{ $childCat->nested->count() }})</span></small>
                                                                                 @endif
                                                                             </td>
-                                                                            <td>{{ $childCat->type }}</td>
                                                                             <td class="service-block__action">
                                                                                 <div class="input-group-btn">
                                                                                     <button type="button" class="btn btn-default dropdown-toggle"
@@ -346,7 +343,6 @@
                                                                                 </td>
                                                                                 <td class="service-block__service"><strong
                                                                                         class="service-block__category-title">{{ $grandChildCat->category_name }}</strong></td>3.
-                                                                                <td>{{ $grandChildCat->type }}</td>
                                                                                 <td class="service-block__action">
                                                                                     <div class="input-group-btn">
                                                                                         <button type="button" class="btn btn-default dropdown-toggle"

@@ -44,6 +44,7 @@ class InventoriesImport implements ToModel
             'cost'    => $row[9],
             'location'    => $row[10],
             'purchase_date' => $this->transformDate($row[11]),
+            'assign_date' => $this->transformDate($row[12]),
         ]);
     }
 

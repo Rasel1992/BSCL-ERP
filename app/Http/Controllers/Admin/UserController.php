@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\Department;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,9 +53,7 @@ class UserController extends Controller
                 $data['image'] = $image['name'];
             }
             User::create($data);
-
-            $request->session()->flash('successMessage', "User create successfully!");
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.users.index')->withSuccess('User created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -100,9 +99,7 @@ class UserController extends Controller
             }
 
             $user->update($data);
-
-            $request->session()->flash('successMessage', "User Updated!");
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.users.index')->withSuccess('User Updated!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -119,7 +116,7 @@ class UserController extends Controller
                 $user->delete();
                 $request->session()->flash('successMessage', "User deleted!");
             } else {
-                $request->session()->flash('errorMessage', "User not found!");
+                return redirect()->route('admin.users.index');
             }
             return redirect()->route('admin.users.index');
         } catch (\Exception $e) {

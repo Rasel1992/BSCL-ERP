@@ -59,7 +59,8 @@
                         <th>SL</th>
                         <th>Stock Category</th>
                         <th>Assign To</th>
-                        <th>Qty</th>
+                        <th>Assigned Qty</th>
+                        <th>Qty In Stock</th>
                         <th>Location</th>
                         <th>Assign Date</th>
 
@@ -77,6 +78,7 @@
                                 @endif
                             </td>
                             <td> {{ $stock->qty }}</td>
+                            <td> {{ $stock->stock->qty }}</td>
                             <td> @if($stock->stock->location == 'hq') HeadQuarter @elseif($stock->stock->location == 'gs1') GS Gazipur @else GSBethbunia @endif</td>
                             <td> {{ $stock->assign_date }} </td>
                         </tr>

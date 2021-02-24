@@ -72,6 +72,7 @@
                         <th>Description</th>
                         <th>Category</th>
                         <th>Assign To</th>
+                        <th>Assign Date</th>
                         <th>Voucher No</th>
                         <th>Qty</th>
                         <th>Cost</th>
@@ -94,7 +95,7 @@
                                     <strong>Department:</strong><br> {{ $inventory->department->department}}
                                 @endif
                             </td>
-
+                            <td>{{ $inventory->assign_date ?? '-' }}</td>
                             <td> {{ $inventory->voucher_no }}</td>
                             <td> {{ $inventory->qty }}</td>
                             <td> {{ $inventory->cost }}</td>
