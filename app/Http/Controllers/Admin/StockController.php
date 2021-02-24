@@ -36,7 +36,7 @@ class StockController extends Controller
     public function assignedStock(Request $request)
     {
         try {
-            $categoryData = Category::where('type', 'Stock')->with('nested')->get();
+            $categoryData = Category::where('parent_id', 0)->with('nested')->where('type', 'Stock')->get();
             $sql = StockUser::with('stock')->orderBy('created_at', 'ASC');
 
             if ($request->location) {
@@ -45,13 +45,15 @@ class StockController extends Controller
                 });
             }
             if ($request->category_id) {
-                $sql->where('category_id', $request->category_id);
+                $sql->whereHas('stock', function ($q) use ($request) {
+                    $q->where('category_id', $request->category_id);
+                });
             }
             if ($request->from) {
-                $sql->whereDate('purchase_date', '>=', $request->from);
+                $sql->whereDate('assign_date', '>=', $request->from);
             }
             if ($request->to) {
-                $sql->whereDate('purchase_date', '<=', $request->to);
+                $sql->whereDate('assign_date', '<=', $request->to);
             }
             $assignedStocks = $sql->paginate(10);
             return view('admin.stock.assigned-stock', compact('assignedStocks', 'categoryData'));
