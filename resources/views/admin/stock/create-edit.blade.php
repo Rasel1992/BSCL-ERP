@@ -47,7 +47,7 @@
                                 @enderror
                             </div>
                             <div class="form-group @error('qty') has-error @enderror">
-                                <label for="title" class="with-help">Qty</label>
+                                <label for="title" class="with-help">Qty <span class="text-danger">*</span></label>
                                 <input class="form-control" placeholder="Qty" name="qty" v-model="stock.qty" type="number" id="qty" required>
                                 @error('qty')
                                 <span class="help-block">

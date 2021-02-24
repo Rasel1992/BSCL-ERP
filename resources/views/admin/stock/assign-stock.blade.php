@@ -19,8 +19,13 @@
                     <div class="panel">
                         <div class="panel-body">
                             <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="with-help">Assign To</label>
+                                <div class="form-group @error('assign_to') has-error @enderror">
+                                    <label class="with-help">Assign To <span class="text-danger">*</span></label>
+                                    @error('assign_to')
+                                    <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                    @enderror
                                 </div>
                                 <label class="radio-inline">
                                     <input type="radio" value="user" v-model="assignStock.assign_to" name="assign_to" {{ old('assign_to') == 'user' ? 'checked' : '' }}>User
@@ -70,14 +75,9 @@
                             </div>
                             <br>
                             <div class="col-sm-12">
-                                <div class="form-group @error('qty') has-error @enderror">
-                                    <label for="title" class="with-help">Qty In Stock<span class="text-danger">*</span></label>
+                                <div class="form-group">
+                                    <label for="title" class="with-help">Qty In Stock</label>
                                     <input class="form-control" placeholder="Qty" name="stock_qty" value="{{$data->qty}}" type="number" id="stock_qty" readonly>
-                                    @error('qty')
-                                    <span class="help-block">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-12">

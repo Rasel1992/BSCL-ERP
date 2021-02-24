@@ -21,10 +21,10 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group @error('asset_code ') has-error @enderror">
+                                    <div class="form-group @error('asset_code') has-error @enderror">
                                         <label class="with-help">Asset Code <span class="text-danger">*</span></label>
                                         <input class="form-control" placeholder="Asset Code" name="asset_code" value="{{old('asset_code ')}}" type="text" v-model="inventory.asset_code" required>
-                                        @error('asset_code ')
+                                        @error('asset_code')
                                         <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -125,7 +125,7 @@
                                             <option value="gs2" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs2') ? 'Selected' : ''}}>GS Bethbunia
                                             </option>
                                         </select>
-                                        @error('name')
+                                        @error('location')
                                         <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -135,8 +135,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="with-help">Assign To</label>
+                                    <div class="form-group @error('assign_to') has-error @enderror">
+                                        <label class="with-help">Assign To <span class="text-danger">*</span></label>
+                                        @error('assign_to')
+                                        <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                        @enderror
                                     </div>
                                     <label class="radio-inline">
                                         <input type="radio" value="user" v-model="inventory.assign_to" name="assign_to" {{ old('assign_to') == 'user' ? 'checked' : '' }}>User

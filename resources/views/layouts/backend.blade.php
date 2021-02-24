@@ -478,23 +478,6 @@
         });
     });
 
-
-    @if($errors->any())
-    Swal.fire({
-        type: 'error',
-        title: 'Error!',
-        html: '@if ($errors->any())\n' +
-            '    <div class="alert alert-danger">\n' +
-            '        <ul>\n' +
-            '            @foreach ($errors->all() as $error)\n' +
-            '                <li>{{ $error }}</li>\n' +
-            '            @endforeach\n' +
-            '        </ul>\n' +
-            '    </div>\n' +
-            '@endif',
-    });
-    @endif
-
     $('input.role-module').on('ifChecked', function () {
         var selfId = $(this).attr('id');
         var childClass = '.' + selfId + '-permission';

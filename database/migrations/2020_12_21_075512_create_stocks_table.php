@@ -15,7 +15,7 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');
             $table->string('qty');

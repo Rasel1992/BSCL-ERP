@@ -35,11 +35,12 @@
                             <div class="form-group mb-2">
                                 <select class="form-control" id="location" name="location">
                                     <option value="">Select Location</option>
-                                    <option value="hq" {{old('location') == Request::get('hq')?'selected':''}} >Head Quarter
+                                    <option value="hq" {{'hq' == Request::get('location')?'selected':''}} >Head Quarter
                                     </option>
-                                    <option value="gs1" {{old('location') == Request::get('gs1')?'selected':''}}>GS Gazipur
+                                    <option value="gs1" {{'gs1' == Request::get('location')?'selected':''}}>GS Gazipur
                                     </option>
-                                    <option value="gs2" {{old('location') == Request::get('gs2')?'selected':''}}>GS Bethbunia</option>
+                                    <option value="gs2" {{'gs2' == Request::get('location')?'selected':''}}>GS Bethbunia
+                                    </option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
@@ -68,11 +69,11 @@
                             <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GSGazipur @else GS Bethbunia @endif</td>
 
                             <td class="row-options text-muted small">
-                                <a href="{{route('admin.stocks.edit', $stock->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <form method="POST" action="{{route('admin.stocks.destroy', $stock->id) }}" accept-charset="UTF-8" class="data-form">
+                                <a href="{{route('admin.stocks.edit', $stock->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
+                                <form method="POST" action="{{route('admin.stocks.destroy', $stock->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
-                                    <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id) }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
+                                    <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id).qString() }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
                                     <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
                                 </form>
                             </td>

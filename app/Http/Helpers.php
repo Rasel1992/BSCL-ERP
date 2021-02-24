@@ -4,6 +4,19 @@
 use App\Models\Discount;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
+//if ( ! function_exists('qString')) {
+//    function qString($query = null)
+//    {
+//        if (isset($_SERVER['QUERY_STRING'])) {
+//            return '?'.$_SERVER['QUERY_STRING'].$query;
+//        } else {
+//            if ($query) {
+//                return '?'.$query;
+//            }
+//        }
+//    }
+//}
+//Search string get and set an url
 if ( ! function_exists('qString')) {
     function qString($query = null)
     {
@@ -11,8 +24,20 @@ if ( ! function_exists('qString')) {
             return '?'.$_SERVER['QUERY_STRING'].$query;
         } else {
             if ($query) {
-                return '?'.$query;
+                return ($query != null) ? '?'.$query : null;
             }
+        }
+    }
+}
+
+//Search string get and set an url
+if ( ! function_exists('qArray')) {
+    function qArray()
+    {
+        if (isset($_SERVER['QUERY_STRING'])) {
+            return $_GET;
+        } else {
+            return null;
         }
     }
 }

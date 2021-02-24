@@ -43,9 +43,12 @@
                             <div class="form-group mb-2">
                                 <select class="form-control" id="location" name="location">
                                     <option value="">Select Location</option>
-                                    <option value="hq" {{old('location') == Request::get('hq')?'selected':''}} >Head Quarter</option>
-                                    <option value="gs1" {{old('location') == Request::get('gs1')?'selected':''}}>GS Gazipur</option>
-                                    <option value="gs2" {{old('location') == Request::get('gs2')?'selected':''}}>GS Bethbunia</option>
+                                    <option value="hq" {{'hq' == Request::get('location')?'selected':''}} >Head Quarter
+                                    </option>
+                                    <option value="gs1" {{'gs1' == Request::get('location')?'selected':''}}>GS Gazipur
+                                    </option>
+                                    <option value="gs2" {{'gs2' == Request::get('location')?'selected':''}}>GS Bethbunia
+                                    </option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>

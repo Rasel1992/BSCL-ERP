@@ -175,6 +175,7 @@
                         <form method="GET" action="{{ route('admin.categories.index') }}" class="form-inline float-right">
                             <div class="form-group mb-2">
                                 <select class="form-control" id="type" name="type">
+                                    <option value="">Select Type</option>
                                     @foreach(['Fixed', 'Current', 'Stock'] as $type)
                                         <option value="{{ $type }}" {{ $type==Request::get('type')?'selected':''}}>{{ $type }}</option>
                                     @endforeach
@@ -243,16 +244,16 @@
 
                                                                     <ul class="dropdown-menu dropleft">
                                                                         <li>
-                                                                            <a href="{{ route('admin.categories.show', $category->id) }}"
+                                                                            <a href="{{ route('admin.categories.show', $category->id).qString() }}"
                                                                                class="ajax-modal-btn">Show</a>
                                                                         </li>
                                                                         <li>
-                                                                            <a href="{{route('admin.categories.edit', $category->id) }}"
+                                                                            <a href="{{route('admin.categories.edit', $category->id).qString() }}"
                                                                                class="ajax-modal-btn">Edit</a>
                                                                         </li>
                                                                         <li>
                                                                             <form method="POST"
-                                                                                  action="{{ route('admin.categories.destroy', $category->id) }}"
+                                                                                  action="{{ route('admin.categories.destroy', $category->id).qString() }}"
                                                                                   accept-charset="UTF-8" class="data-form">
                                                                                 @csrf
                                                                                 @method('delete')
@@ -304,16 +305,16 @@
 
                                                                                     <ul class="dropdown-menu dropleft">
                                                                                         <li>
-                                                                                            <a href="{{ route('admin.categories.show', $childCat->id) }}"
+                                                                                            <a href="{{ route('admin.categories.show', $childCat->id).qString() }}"
                                                                                                class="ajax-modal-btn">Show</a>
                                                                                         </li>
                                                                                         <li>
-                                                                                            <a href="{{route('admin.categories.edit', $childCat->id) }}"
+                                                                                            <a href="{{route('admin.categories.edit', $childCat->id).qString() }}"
                                                                                                class="ajax-modal-btn">Edit</a>
                                                                                         </li>
                                                                                         <li>
                                                                                             <form method="POST"
-                                                                                                  action="{{ route('admin.categories.destroy', $childCat->id) }}"
+                                                                                                  action="{{ route('admin.categories.destroy', $childCat->id).qString() }}"
                                                                                                   accept-charset="UTF-8" class="data-form">
                                                                                                 @csrf
                                                                                                 @method('delete')
@@ -353,16 +354,16 @@
 
                                                                                         <ul class="dropdown-menu dropleft">
                                                                                             <li>
-                                                                                                <a href="{{ route('admin.categories.show', $grandChildCat->id) }}"
+                                                                                                <a href="{{ route('admin.categories.show', $grandChildCat->id).qString() }}"
                                                                                                    class="ajax-modal-btn">Show</a>
                                                                                             </li>
                                                                                             <li>
-                                                                                                <a href="{{route('admin.categories.edit', $grandChildCat->id) }}"
+                                                                                                <a href="{{route('admin.categories.edit', $grandChildCat->id).qString() }}"
                                                                                                    class="ajax-modal-btn">Edit</a>
                                                                                             </li>
                                                                                             <li>
                                                                                                 <form method="POST"
-                                                                                                      action="{{ route('admin.categories.destroy', $grandChildCat->id) }}"
+                                                                                                      action="{{ route('admin.categories.destroy', $grandChildCat->id).qString() }}"
                                                                                                       accept-charset="UTF-8" class="data-form">
                                                                                                     @csrf
                                                                                                     @method('delete')

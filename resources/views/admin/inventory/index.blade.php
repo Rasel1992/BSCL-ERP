@@ -46,11 +46,11 @@
                             <div class="form-group mb-2">
                                 <select class="form-control" id="location" name="location">
                                     <option value="">Select Location</option>
-                                    <option value="hq" {{old('location') == Request::get('hq')?'selected':''}} >Head Quarter
+                                    <option value="hq" {{'hq' == Request::get('location')?'selected':''}} >Head Quarter
                                     </option>
-                                    <option value="gs1" {{old('location') == Request::get('gs1')?'selected':''}}>GS Gazipur
+                                    <option value="gs1" {{'gs1' == Request::get('location')?'selected':''}}>GS Gazipur
                                     </option>
-                                    <option value="gs2" {{old('location') == Request::get('gs2')?'selected':''}}>GS Bethbunia
+                                    <option value="gs2" {{'gs2' == Request::get('location')?'selected':''}}>GS Bethbunia
                                     </option>
                                 </select>
                             </div>
@@ -108,11 +108,11 @@
                                                 <i class="fa fa-cogs"></i> <span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu" style="left: -115px;">
-                                                 <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id) }}" accept-charset="UTF-8" class="data-form">
+                                                 <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                                      @csrf
                                                      @method('delete')
-                                                     <li><a href="{{ route('admin.inventories.show', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a></li>
-                                                     <li><a href="{{route('admin.inventories.edit', $inventory->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;</li>
+                                                     <li><a href="{{ route('admin.inventories.show', $inventory->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a></li>
+                                                     <li><a href="{{route('admin.inventories.edit', $inventory->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;</li>
                                                     <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
                                                   </form>
                                             </ul>
@@ -123,7 +123,6 @@
                     </tbody>
                 </table>
             </div> <!-- /.box-body -->
-            @if($inventories->total())
                 <div class="row">
                     <div class="col-sm-5">
                     </div>
@@ -133,7 +132,6 @@
                         </div>
                     </div>
                 </div>
-            @endif
         </div> <!-- /.box -->
         @include('admin.inventory.form_import')
     </section>

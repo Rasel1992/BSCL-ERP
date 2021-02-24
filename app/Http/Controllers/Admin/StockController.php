@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\AssignStockRequest;
+use App\Http\Requests\StockRequest;
 use App\Imports\ImportStock;
 use App\Models\Category;
 use App\Models\Department;
@@ -16,7 +18,6 @@ class StockController extends Controller
     public function index(Request $request)
     {
         try {
-//
             $categoryData = Category::where('type', 'Stock')->with('nested')->get();
             $sql = Stock::orderBy('created_at', 'ASC');
             if ($request->location) {
@@ -35,7 +36,6 @@ class StockController extends Controller
     public function assignedStock(Request $request)
     {
         try {
-//
             $categoryData = Category::where('type', 'Stock')->with('nested')->get();
             $sql = StockUser::with('stock')->orderBy('created_at', 'ASC');
 
@@ -66,12 +66,12 @@ class StockController extends Controller
         return view('admin.stock.create-edit', compact('categoryData'))->with('create', 1);
     }
 
-    public function store(Request $request)
+    public function store(StockRequest $request)
     {
         try {
             $data = $request->except('_token');
             Stock::create($data);
-            return redirect()->back()->withSuccess('Stock created successfully.');
+            return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -83,12 +83,12 @@ class StockController extends Controller
         return view('admin.stock.create-edit', compact('categoryData', 'stock'))->with('edit', 1);
     }
 
-    public function update(Request $request, Stock $stock)
+    public function update(StockRequest $request, Stock $stock)
     {
         try {
             $data = $request->except('_token');
             $stock->update($data);
-            return redirect()->back()->withSuccess('Stock updated successfully.');
+            return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -98,7 +98,7 @@ class StockController extends Controller
     {
         try {
             $stock->delete();
-            return redirect()->back()->withSuccess('Stock deleted successfully.');
+            return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -111,7 +111,7 @@ class StockController extends Controller
         return view('admin.stock.assign-stock', compact('data', 'users', 'departments'));
     }
 
-    public function assignStock(Request $request, $id){
+    public function assignStock(AssignStockRequest $request, $id){
         $stock_id = $id;
         $data = Stock::where('id', $stock_id)->first();
 

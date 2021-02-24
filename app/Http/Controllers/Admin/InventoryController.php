@@ -37,7 +37,7 @@ class InventoryController extends Controller
             if ($request->to) {
                 $sql->whereDate('purchase_date', '<=', $request->to);
             }
-            $inventories = $sql->paginate(10);
+            $inventories = $sql->paginate(1);
             return view('admin.inventory.index', compact('categoryData', 'inventories'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -91,7 +91,7 @@ class InventoryController extends Controller
     {
             $data = $request->except('_token');
             Inventory::create($data);
-            return redirect()->route('admin.inventories.index')->withSuccess('Inventory created successfully.');
+            return redirect()->route('admin.inventories.index', qArray())->withSuccess('Inventory created successfully.');
 
     }
 
@@ -118,7 +118,7 @@ class InventoryController extends Controller
         try {
             $data = $request->except('_token');
             $inventory->update($data);
-            return redirect()->back()->withSuccess('Inventory updated successfully.');
+            return redirect()->route('admin.inventories.index', qArray())->withSuccess('Inventory updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -128,7 +128,7 @@ class InventoryController extends Controller
     {
         try {
             $inventory->delete();
-            return redirect()->back()->withSuccess('Inventory trashed successfully.');
+            return redirect()->route('admin.inventories.index', qArray())->withSuccess('Inventory trashed successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
