@@ -31,7 +31,7 @@
                                     <option value="">Select Category</option>
                                     @foreach($categoryData as $cat)
                                         <option
-                                            value="{{ $cat->id }}" {{ ($cat->id==Request::get('category_id'))?'selected':''}}>{{ $cat->category_name }}</option>
+                                            value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
                                                 <option value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>-- {{ $nc->category_name }}</option>
@@ -56,6 +56,7 @@
                         </form>
                     </div>
                 </div>
+                <br>
                 <table class="table table-hover table-2nd-no-sort" id="file_export">
                     <thead>
                     <tr>

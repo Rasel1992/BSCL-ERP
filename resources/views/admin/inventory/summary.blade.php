@@ -56,7 +56,7 @@
                                <tbody>
                                @foreach($categories_gs1 as $category)
                                    <tr>
-                                       <td><a href="{{ route('admin.inventories.category', $category->id) }}">{{ $category->category_name }}</a></td>
+                                       <td><a href="{{ route('admin.inventories.category', $category->id)}}">{{ $category->category_name }}</a></td>
                                        <td>{{ $category->inventories->sum('qty') }}</td>
                                    </tr>
                                @endforeach

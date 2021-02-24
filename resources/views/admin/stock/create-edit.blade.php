@@ -31,7 +31,7 @@
                                 <select class="form-control" id="category_id" name="category_id" v-model="stock.category_id" required>
                                     <option value="">Select Category</option>
                                     @foreach($categoryData as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                                        <option value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
                                                 <option value="{{ $nc->id }}">

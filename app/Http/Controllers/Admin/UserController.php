@@ -14,11 +14,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
     public function index(Request $request)
     {
         try {
@@ -45,15 +40,15 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-            $data = $request->except('_token');
+            $data = $request->all();
             $data['password'] = bcrypt($request->password);
             $data['email_verified_at'] = now();
             if ($request->hasFile('image')) {
-                $image = (new MediaController())->imageUpload($request->file('image'),'user', 1);
+                $image = (new MediaController())->imageUpload($request->file('image'), 'user', 1);
                 $data['image'] = $image['name'];
             }
             User::create($data);
-            return redirect()->route('admin.users.index')->withSuccess('User created successfully.');
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -73,8 +68,7 @@ class UserController extends Controller
             return redirect()->route('admin.users.index');
         }
         $departments = Department::get();
-//        dd($user);
-        return view('admin.user.create-edit',compact('user', 'departments'));
+        return view('admin.user.create-edit', compact('user', 'departments'));
     }
 
     public function update(UserRequest $request, User $user)
@@ -84,7 +78,7 @@ class UserController extends Controller
                 return redirect()->route('admin.users.index');
             }
 
-            $data = $request->except('_token');
+            $data = $request->all();
             if ($request->password) {
                 $data['password'] = bcrypt($request->password);
             } else {
@@ -94,12 +88,12 @@ class UserController extends Controller
                 if ($user && $user->image) {
                     (new MediaController())->delete('user', $user->image, 1);
                 }
-                $image = (new MediaController())->imageUpload($request->file('image'),'user', 1);
+                $image = (new MediaController())->imageUpload($request->file('image'), 'user', 1);
                 $data['image'] = $image['name'];
             }
 
             $user->update($data);
-            return redirect()->route('admin.users.index')->withSuccess('User Updated!');
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User Updated!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -108,17 +102,15 @@ class UserController extends Controller
     public function destroy(Request $request, User $user)
     {
         try {
-
-            if (!empty($user)) {
-                if ($user && $user->image) {
-                    (new MediaController())->delete('user', $user->image, 1);
-                }
-                $user->delete();
-                $request->session()->flash('successMessage', "User deleted!");
-            } else {
+            if (empty($user)) {
                 return redirect()->route('admin.users.index');
             }
-            return redirect()->route('admin.users.index');
+            if ($user && $user->image) {
+                (new MediaController())->delete('user', $user->image, 1);
+            }
+            $user->delete();
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User deleted!');
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -132,7 +124,7 @@ class UserController extends Controller
 
         try {
             $user->update(['password' => bcrypt($request->password)]);
-            $request->session()->flash('successMessage', "User\'s password updated successfully!");
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User\'s password updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

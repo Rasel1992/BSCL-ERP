@@ -2,6 +2,7 @@
 
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\CategoryRequest;
@@ -12,31 +13,18 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $sql = Category::where('parent_id', 0)
-        ->with('nested')
-            ->orderBy('id', 'asc');
+        $sql = Category::where('parent_id', 0)->with('nested')->orderBy('id', 'asc');
         if ($request->q) {
-            $sql->where('category_name', 'LIKE', $request->q . '%');
+            $sql->whereHas('nested', function ($q) use ($request) {
+                $q->where('category_name', 'LIKE', $request->q . '%');
+            });
+            $sql->orWhere('category_name', 'LIKE', $request->q . '%');
         }
         if ($request->type) {
             $sql->where('type', $request->type);
         }
-        $categoryData = $sql->paginate(10);
+        $categoryData = $sql->paginate(1);
         return view('admin.category.index', compact('categoryData'));
-    }
-
-    public function updateOrder(Request $request): \Illuminate\Http\JsonResponse
-    {
-        $request->validate([
-            'ids' => 'required|array',
-            'ids.*' => 'required|integer|exists:categories,id',
-        ]);
-
-        foreach ($request->ids as $key => $id) {
-            Category::where('id', $id)->update(['sorting' => $key]);
-        }
-
-        return response()->json(['msg' => 'Categories sorted successfully.']);
     }
 
     public function create()
@@ -47,16 +35,19 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        $data = $request->except('_token');
+        $data = $request->all();
         Category::create($data);
         return redirect()->route('admin.categories.index', qArray())->withSuccess('Category created successfully.');
     }
 
     public function show(Category $category)
     {
+        if (empty($category)) {
+            return redirect()->route('admin.categories.index');
+        }
         $category = Category::where('categories.id', $category->id)
             ->select('categories.*', 'B.category_name AS parent_name')
-            ->leftJoin('categories AS B', 'B.id','=','categories.parent_id')
+            ->leftJoin('categories AS B', 'B.id', '=', 'categories.parent_id')
             ->first();
 
         return view('admin.category.show', compact('category'));
@@ -64,6 +55,9 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        if (empty($category)) {
+            return redirect()->route('admin.categories.index');
+        }
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
         return view('admin.category.create-edit', compact('categoryData', 'category'));
 
@@ -71,6 +65,9 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
+        if (empty($category)) {
+            return redirect()->route('admin.categories.index');
+        }
         $input = $request->all();
         $updateData = [
             'parent_id' => $input['parent_id'],
@@ -85,8 +82,10 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if (empty($category)) {
+            return redirect()->route('admin.categories.index');
+        }
         $category->delete();
-
         return redirect()->route('admin.categories.index', qArray())->withSuccess('Category deleted successfully.');
     }
 }

@@ -108,9 +108,9 @@
                             </div>
 
                             <div class="form-group @error('dept_id') has-error @enderror">
-                                <label for="dept_id" class="with-help">Department</label>
+                                <label for="dept_id" class="with-help">Department <span class="text-danger">*</span></label>
                                 <select class="form-control select2" id="dept_id" name="dept_id"
-                                        v-model="user.dept_id" v-select2>
+                                        v-model="user.dept_id" v-select2 required>
                                     @foreach($departments as $department)
                                         <option value="{{$department->id}}">{{$department->department}}</option>
                                     @endforeach

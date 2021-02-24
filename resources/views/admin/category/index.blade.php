@@ -191,6 +191,7 @@
                         </form>
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
@@ -421,22 +422,6 @@
         new Vue({
             el: '#app',
             methods: {
-                statusUpdate: function (action) {
-                    const $this = $(event.target);
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Yes, ${action} it!`
-                    }).then((result) => {
-                        if (result.value) {
-                            $this.closest('form').submit();
-                        }
-                    });
-                },
                 destroy: function () {
                     const $this = $(event.target);
 
@@ -451,71 +436,6 @@
                     }).then((result) => {
                         if (result.value) {
                             $this.closest('form').submit();
-                        }
-                    });
-                },
-                destroyPermanentlyOrRestore: function (type) {
-                    const $this = $(event.target);
-                    const confirmButtonText = type === 'permanently' ? 'delete' : 'restore';
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Yes, ${confirmButtonText} it!`
-                    }).then((result) => {
-                        if (result.value) {
-                            $this.closest('form').find('input[name=type]').val(type);
-                            $this.closest('form').submit();
-                        }
-                    });
-                },
-                bulkDestroy: function () {
-                    const $this = $(event.target);
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.value) {
-                            $this.closest('form').submit();
-                        }
-                    });
-                },
-                checkAll: function () {
-                    $('input[name=select_all]').click();
-
-                    if ($('input[name=select_all]').is(':checked')) {
-                        $('#check-all-icon').addClass('fa-check-square-o').removeClass('fa-square-o');
-                        $('.massCheck').prop('checked', true);
-                    } else {
-                        $('#check-all-icon').removeClass('fa-check-square-o').addClass('fa-square-o');
-                        $('.massCheck').prop('checked', false);
-                    }
-                },
-                trashOrDestroyPermanently: function (type) {
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Yes, ${type} it!`
-                    }).then((result) => {
-                        if (result.value) {
-                            const form = $('#bulk-trash-or-destroy');
-                            form.append($('.massCheck'));
-                            form.find('input[name=type]').val(type);
-                            form.submit();
                         }
                     });
                 },
@@ -540,85 +460,6 @@
                         $('.child').show();
                     }
                 },
-            }
-        });
-
-        $(function () {
-            $("#service-box").sortable({
-                placeholder: 'sort-highlight',
-                forcePlaceholderSize: true,
-                axis: 'y',
-                items: "tr.parent_cat",
-                cursor: 'move',
-                handle: '.parent-drag-handle',
-                opacity: 0.6,
-                update: function () {
-                    const ids = [];
-
-                    $('tr.parent-sort-row').each(function (index, element) {
-                        ids.push($(this).attr('data-id'));
-                    });
-
-                    sort(ids);
-                }
-            });
-
-            $("#child").sortable({
-                placeholder: 'sort-highlight',
-                forcePlaceholderSize: true,
-                axis: 'y',
-                items: "tr.child-sort-row",
-                cursor: 'move',
-                handle: '.child-drag-handle',
-                opacity: 0.6,
-                update: function () {
-                    const ids = [];
-
-                    $('tr.child-sort-row').each(function (index, element) {
-                        ids.push($(this).attr('data-id'));
-                    });
-
-                    sort(ids);
-                }
-            });
-
-            $("#grand-child").sortable({
-                placeholder: 'sort-highlight',
-                forcePlaceholderSize: true,
-                axis: 'y',
-                items: "tr.grand-child-sort-row",
-                cursor: 'move',
-                handle: '.grand-child-drag-handle',
-                opacity: 0.6,
-                update: function () {
-                    const ids = [];
-
-                    $('tr.grand-child-sort-row').each(function (index, element) {
-                        ids.push($(this).attr('data-id'));
-                    });
-
-                    sort(ids);
-                }
-            });
-
-            function sort(ids) {
-                $.ajax({
-                    type: 'post',
-                    dataType: "json",
-                    data: {ids: ids},
-                    url: '{{ route('admin.categories.update.order') }}',
-                    success: function (response) {
-                        console.log(response.msg);
-                    },
-                    error: function (response) {
-                        Swal.fire({
-                            type: 'error',
-                            title: '500 Internal Server Error!',
-                            html: 'Something went wrong! <br> <span class="error-message text-danger hidden">' + response.responseJSON.message + '</span>',
-                            footer: '<a href="javascript:void(0)" onclick="document.querySelector(\'.error-message\').classList.remove(\'hidden\');">Why do I have this issue?</a>'
-                        });
-                    }
-                });
             }
         });
     </script>

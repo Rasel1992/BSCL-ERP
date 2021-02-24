@@ -12,7 +12,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Users</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{ route('admin.users.create') }}" class="button add" >Add User</a>
+                    <a href="{{ route('admin.users.create').qString() }}" class="button add" >Add User</a>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -57,13 +57,13 @@
                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
                                 @endif
                             </td>
-                            <td><a href="{{ route('admin.users.show',$user->id ) }}">{{ $user->name }}</a> </td>
+                            <td><a href="{{ route('admin.users.show',$user->id ).qString() }}">{{ $user->name }}</a> </td>
                             <td><span class="label label-outline">{{ $user->type }}</span></td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                <a href="{{route('admin.users.edit', $user->id) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
+                                <a href="{{route('admin.users.edit', $user->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#change-password-modal" @click="showPasswordUpdateModal('{{ $user->id }}')" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Change password" class="fa fa-lock"></i></a>&nbsp;
-                                <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" accept-charset="UTF-8" class="data-form">
+                                <form method="POST" action="{{ route('admin.users.destroy', $user->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
                                     <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
