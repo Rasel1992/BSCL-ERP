@@ -25,7 +25,6 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'department' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
         ];
     }
 }

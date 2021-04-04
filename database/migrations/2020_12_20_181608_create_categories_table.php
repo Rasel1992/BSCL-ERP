@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->enum('type', ['Fixed', 'Current', 'Stock']);
             $table->string('category_name');
             $table->unique(["parent_id", "category_name"], 'parent-cat');
+            $table->unsignedTinyInteger('sorting')->default('0');
             $table->timestamps();
         });
     }

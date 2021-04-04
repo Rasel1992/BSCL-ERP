@@ -35,6 +35,7 @@ class InventoryRequest extends FormRequest
             'cost' => 'nullable|numeric',
             'location' => 'required|in:hq,gs1,gs2',
             'purchase_date' => 'required|date',
+            'assign_date' => 'required|date',
         ];
     }
 }

@@ -17,6 +17,16 @@
                     </h3>
                     <div class="panel">
                         <div class="panel-body">
+                            <div class="form-group @error('stock_code') has-error @enderror">
+                                <label for="name">Stock Code <span class="text-danger">*</span></label>
+                                <input class="form-control" placeholder="Enter Stock Code" required name="stock_code"
+                                       value="{{old('stock_code')}}" type="text" id="stock_code" v-model="stock.stock_code">
+                                @error('stock_code')
+                                <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
                             <div class="form-group @error('description') has-error @enderror">
                                 <label class="with-help">Details</label>
                                 <input class="form-control" placeholder="Details" name="description" v-model="stock.description" type="text" required>
@@ -28,10 +38,10 @@
                             </div>
                             <div class="form-group @error('category_id') has-error @enderror">
                                 <label for="category_id" class="with-help">Stock Category <span class="text-danger">*</span></label>
-                                <select class="form-control" id="category_id" name="category_id" v-model="stock.category_id" required>
+                                <select class="form-control select2" id="category_id" name="category_id" v-model="stock.category_id" required v-select2>
                                     <option value="">Select Category</option>
                                     @foreach($categoryData as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                                        <option value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
                                                 <option value="{{ $nc->id }}">
@@ -47,7 +57,7 @@
                                 @enderror
                             </div>
                             <div class="form-group @error('qty') has-error @enderror">
-                                <label for="title" class="with-help">Qty</label>
+                                <label for="title" class="with-help">Qty <span class="text-danger">*</span></label>
                                 <input class="form-control" placeholder="Qty" name="qty" v-model="stock.qty" type="number" id="qty" required>
                                 @error('qty')
                                 <span class="help-block">
@@ -57,8 +67,8 @@
                             </div>
                             <div class="form-group @error('location') has-error @enderror">
                                 <label for="location" class="with-help">location <span class="text-danger">*</span></label>
-                                <select class="form-control" id="location" name="location"
-                                        v-model="stock.location">
+                                <select class="form-control select2" id="location" name="location"
+                                        v-model="stock.location" v-select2>
                                     <option value="">Select Location</option>
                                     <option
                                         value="hq" {{(isset($stock->location)?$stock->location:old('location') == 'hq') ? 'Selected' : ''}}>
@@ -97,6 +107,7 @@
             el: '#app',
             data: {
                 stock: {
+                    stock_code: '{{ old('stock_code', $stock->stock_code ?? '') }}',
                     description: '{{ old('description', $stock->description ?? '') }}',
                     category_id: '{{ old('category_id ', $stock->category_id  ?? '') }}',
                     qty: '{{ old('qty', $stock->qty ?? '') }}',

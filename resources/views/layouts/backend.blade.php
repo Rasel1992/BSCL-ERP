@@ -40,6 +40,9 @@
     <!-- Data table -->
     <link href="{{ asset('assets/plugins/data-tables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
+    <!-- datetimepicker -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datetimepicker/jquery.datetimepicker.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,8 +51,8 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @yield('styles')
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
@@ -59,7 +62,7 @@
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b></span>
+            <span class="logo-mini"><b>B</b>E</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>{{ config('app.name') }}</b></span>
         </a>
@@ -158,6 +161,20 @@
                     <ul class="treeview-menu">
                         <li><a href="{{route('admin.departments.index')}}"><i class="fa fa-user-secret"></i> Departments</a></li>
                         <li><a href="{{route('admin.users.index')}}"><i class="fa fa-users"></i> User</a></li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-bar-chart"></i>
+                                <span>Request</span>
+                                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ route('admin.request.requisition.create') }}"><i class="fa fa-clock-o"></i> Requisition</a></li>
+                                <li><a href="pages/charts/morris.html"><i class="fa fa-plane"></i> Leave Application</a></li>
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-cc-mastercard"></i> Advance Money</a></li>
+                            </ul>
+                        </li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-plane"></i> Leave Management</a></li>
                         <li class="treeview">
                             <a href="#">
@@ -208,7 +225,6 @@
                                 <li><a href="pages/charts/inline.html"><i class="fa fa-camera-retro"></i>Payroll Summary</a></li>
                             </ul>
                         </li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-bar-chart"></i>Request</a></li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-briefcase"></i>Provident Fund</a></li>
                         <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-trophy"></i> Employee Award</a></li>
                         <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-tasks"></i> Tasks</a></li>
@@ -330,33 +346,6 @@
                         <li><a href="{{route('admin.bills.index')}}"><i class="fa fa-sliders"></i> Bill Register</a></li>
                         <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
                         <li><a href="{{route('admin.stocks.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-archive"></i>
-                                <span>Manage Stock & Asset</span>
-                                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-file-text-o"></i> Stock & Asset History</a></li>
-                                <li><a href="pages/charts/morris.html"><i class="fa fa-stack-exchange"></i> Stock & Asset List</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-align-left"></i>
-                                <span>Assign Stock & Asset</span>
-                                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-align-left"></i> Assign Stock & Asset</a></li>
-                                <li><a href="pages/charts/morris.html"><i class="fa fa-bar-chart"></i> Assign Stock & Asset Report</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="pages/charts/inline.html"><i class="fa fa-line-chart"></i> Stock & Asset Report</a></li>
                     </ul>
                 </li>
 
@@ -429,9 +418,11 @@
 <script src="{{ asset('assets/plugins/data-tables/vfs_fonts.js') }}"></script>
 <script src="{{ asset('assets/plugins/data-tables/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/data-tables/buttons.print.min.js') }}"></script>
+
+<!-- Date Time Picker -->
+<script src="{{ asset('assets/plugins/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
 </body>
 
-</html>
 <script>
     $(function () {
         // this will get the full URL at the address bar
@@ -470,6 +461,11 @@
             toastr["success"]('{{ session('success') }}');
         @endif
 
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            width: '100%',
+        });
+
         @error('error')
         Swal.fire({
             type: 'error',
@@ -478,12 +474,6 @@
             footer: '<a href="javascript:void(0)" onclick="document.querySelector(\'.error-message\').classList.remove(\'hidden\');">Why do I have this issue?</a>'
         });
         @enderror
-
-        //Initialize Select2 Elements
-        $('.select2').select2({
-            width: '100%',
-            placeholder: 'Select'
-        });
 
         //Initialize summernote text editor
         $('.summernote').summernote({
@@ -500,22 +490,45 @@
         });
     });
 
-
-    @if($errors->any())
-    Swal.fire({
-        type: 'error',
-        title: 'Error!',
-        html: '@if ($errors->any())\n' +
-            '    <div class="alert alert-danger">\n' +
-            '        <ul>\n' +
-            '            @foreach ($errors->all() as $error)\n' +
-            '                <li>{{ $error }}</li>\n' +
-            '            @endforeach\n' +
-            '        </ul>\n' +
-            '    </div>\n' +
-            '@endif',
+    $(".datepicker, .datetimepicker, #datepicker-from, #datepicker-to").keydown(function(e){
+        e.preventDefault();
     });
-    @endif
+    $(".datepicker, .datetimepicker, #datepicker-from, #datepicker-to").attr("autocomplete","off");
+
+    $('.datepicker').datetimepicker({
+        lang:'en',
+        timepicker:false,
+        format:'Y-m-d',
+        formatDate:'Y/m/d'
+    });
+
+    $('.datetimepicker').datetimepicker({
+        lang:'en',
+        format:'Y-m-d H:i',
+        startDate:	'-1970/01/01',
+        step:30
+    });
+
+    /*From-to date*/
+    $('#datepicker-from').datetimepicker({
+        format:'Y-m-d',
+        onShow:function( ct ){
+            this.setOptions({
+                maxDate:jQuery('#datepicker-to').val()?jQuery('#datepicker-to').val():false
+            })
+        },
+        timepicker:false
+    });
+    $('#datepicker-to').datetimepicker({
+        format:'Y-m-d',
+        onShow:function( ct ){
+            this.setOptions({
+                minDate:jQuery('#datepicker-from').val()?jQuery('#datepicker-from').val():false
+            })
+        },
+        timepicker:false
+    });
+    /*From-to date*/
 
     $('input.role-module').on('ifChecked', function () {
         var selfId = $(this).attr('id');
@@ -528,7 +541,20 @@
         var childClass = '.' + selfId + '-permission';
         $(childClass).iCheck('uncheck').iCheck('disable');
     });
-
+    Vue.directive('select2', {
+        inserted(el) {
+            $(el).on('select2:select', () => {
+                const event = new Event('change', {bubbles: true, cancelable: true});
+                el.dispatchEvent(event);
+            });
+            $(el).on('select2:unselect', () => {
+                const event = new Event('change', {bubbles: true, cancelable: true})
+                el.dispatchEvent(event)
+            })
+        },
+    });
 </script>
 
 @stack('scripts')
+
+</html>

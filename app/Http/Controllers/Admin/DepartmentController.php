@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Exports\DepartmentsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
@@ -8,107 +9,88 @@ use App\Imports\DepartmentsImport;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Excel;
+
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $departments = Department::paginate(10);
+            $sql = Department::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where(function ($q) use ($request) {
+                    $q->orWhere('department', 'LIKE', $request->q . '%');
+                    $q->orWhere('designation', 'LIKE', $request->q . '%');
+                });
+            }
+            $departments = $sql->paginate(10);
             return view('admin.department.index', compact('departments'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.department.create-edit');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param DepartmentRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(DepartmentRequest $request)
     {
         try {
-            $data = $request->except('_token');
+            $data = $request->all();
             Department::create($data);
-            return redirect()->back()->withSuccess('Department created successfully.');
+            return redirect()->route('admin.departments.index', qArray())->withSuccess('Department created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function show(Department $department)
     {
-        //
+        if (empty($department)) {
+            return redirect()->route('admin.departments.index');
+        }
+        return view('admin.department.details', compact('department'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Department $department)
     {
-        return view('admin.department.create-edit',compact('department'));
+        if (empty($department)) {
+            return redirect()->route('admin.departments.index');
+        }
+        return view('admin.department.create-edit', compact('department'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param DepartmentRequest $request
-     * @param \App\Models\Department $department
-     * @return \Illuminate\Http\Response
-     */
     public function update(DepartmentRequest $request, Department $department)
     {
         try {
-            $data = $request->except('_token');
+            if (empty($department)) {
+                return redirect()->route('admin.departments.index');
+            }
+
+            $data = $request->all();
             $department->update($data);
-            return redirect()->back()->withSuccess('Department updated successfully.');
+            return redirect()->route('admin.departments.index', qArray())->withSuccess('Department updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Department $department)
     {
         try {
+            if (empty($department)) {
+                return redirect()->route('admin.departments.index', qArray());
+            }
             $department->delete();
-            return redirect()->back()->withSuccess('Department trashed successfully.');
+            return redirect()->route('admin.departments.index', qArray())->withSuccess('Department trashed successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    public function ImportExcel(Request $request) {
+    public function ImportExcel(Request $request)
+    {
         //Validation
         $this->validate($request, [
             'file' => 'required|mimes:xls,xlsx',
@@ -123,9 +105,7 @@ class DepartmentController extends Controller
 
         return redirect()->back()->with(['error' => 'Please choose file before!']);
     }
-    /**
-     * @return \Illuminate\Support\Collection
-     */
+
     public function fileExport()
     {
         return Excel::download(new DepartmentsExport(), 'department-collection.xlsx');

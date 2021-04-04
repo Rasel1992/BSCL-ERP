@@ -13,7 +13,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', 'Auth\LoginController@showLoginForm');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -30,8 +30,14 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/stocks/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('stocks.get-assign-stock-form');
     Route::post('/assign-stock/{stock}', 'StockController@assignStock')->name('assign-stock');
     Route::get('/stocks/assigned-stock','StockController@assignedStock')->name('stocks.assigned-stock');
+    Route::get('/stocks/summary', 'StockController@summary')->name('stocks.summary');
+    Route::get('/stocks/category/{id}','StockController@categoryStocks')->name('stocks.category');
+    Route::post('/stocks/importInventory', 'StockController@ImportExcel')->name('stocks.import');
     Route::resource('stocks','StockController');
 
+    Route::group(['prefix' => 'request', 'as' => 'request.'], function () {
+        Route::resource('requisition','Request\RequisitionController');
+    });
 
     Route::group(['prefix' => 'inventories', 'as' => 'inventories.'], function () {
     Route::get('/summary', 'InventoryController@summary')->name('summary');
@@ -40,7 +46,8 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::post('/importInventory', 'InventoryController@ImportExcel')->name('import');
     Route::get('/exportInventory','InventoryController@fileExport')->name('export');
     });
-
+    Route::get('/categories/all', 'CategoryController@all')->name('categories.all');
+    Route::post('/categories/update-order', 'CategoryController@updateOrder')->name('categories.update.order');
     Route::resource('categories','CategoryController');
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');

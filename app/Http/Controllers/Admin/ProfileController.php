@@ -67,7 +67,7 @@ class ProfileController extends Controller
                 if ($user && $user->image) {
                     (new MediaController())->delete('user', $user->image);
                 }
-                $image = (new MediaController())->imageUpload($request->file('image'),'user', 1);
+                $image = (new MediaController())->imageUpload($request->file('image'),'user');
                 $data['image'] = $image['name'];
             }
             User::updateOrCreate(['id' => $id], $data);

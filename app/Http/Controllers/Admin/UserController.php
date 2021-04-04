@@ -7,93 +7,78 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\Department;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $users = User::paginate(10);
+            $sql = User::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where('name', 'LIKE', $request->q . '%');
+            }
+            if ($request->type) {
+                $sql->where('type', $request->type);
+            }
+            $users = $sql->paginate(10);
             return view('admin.user.index', compact('users'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
-     */
     public function create()
     {
-        return view('admin.user.create-edit');
+        $departments = Department::get();
+        return view('admin.user.create-edit', compact('departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(UserRequest $request)
     {
         try {
-            $data = $request->except('_token');
+            $data = $request->all();
             $data['password'] = bcrypt($request->password);
             $data['email_verified_at'] = now();
             if ($request->hasFile('image')) {
-                $image = (new MediaController())->imageUpload($request->file('image'),'user', 1);
+                $image = (new MediaController())->imageUpload($request->file('image'), 'user', 1);
                 $data['image'] = $image['name'];
             }
             User::create($data);
-            return redirect()->back()->withSuccess('User created successfully.');
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
-     */
     public function show(User $user)
     {
-        return response()->json($user);
+        if (empty($user)) {
+            return redirect()->route('admin.users.index');
+        }
+        return view('admin.user.details', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
-     */
     public function edit(User $user)
     {
-        return view('admin.user.create-edit',compact('user'));
+        if (empty($user)) {
+            return redirect()->route('admin.users.index');
+        }
+        $departments = Department::get();
+        return view('admin.user.create-edit', compact('user', 'departments'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UserRequest $request
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(UserRequest $request, User $user)
     {
         try {
-            $data = $request->except('_token');
+            if (empty($user)) {
+                return redirect()->route('admin.users.index');
+            }
+
+            $data = $request->all();
             if ($request->password) {
                 $data['password'] = bcrypt($request->password);
             } else {
@@ -103,43 +88,34 @@ class UserController extends Controller
                 if ($user && $user->image) {
                     (new MediaController())->delete('user', $user->image, 1);
                 }
-                $image = (new MediaController())->imageUpload($request->file('image'),'user', 1);
+                $image = (new MediaController())->imageUpload($request->file('image'), 'user', 1);
                 $data['image'] = $image['name'];
             }
 
             $user->update($data);
-            return redirect()->back()->withSuccess('User updated successfully.');
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User Updated!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
         try {
+            if (empty($user)) {
+                return redirect()->route('admin.users.index');
+            }
             if ($user && $user->image) {
                 (new MediaController())->delete('user', $user->image, 1);
             }
             $user->delete();
-            return redirect()->back()->withSuccess('User trashed successfully.');
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User deleted!');
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function passwordUpdate(Request $request, User $user)
     {
         $request->validate([
@@ -147,9 +123,8 @@ class UserController extends Controller
         ]);
 
         try {
-            $admin->update(['password' => bcrypt($request->password)]);
-
-            return redirect()->back()->withSuccess('User\'s password updated successfully.');
+            $user->update(['password' => bcrypt($request->password)]);
+            return redirect()->route('admin.users.index', qArray())->withSuccess('User\'s password updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

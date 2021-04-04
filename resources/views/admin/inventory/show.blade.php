@@ -60,6 +60,10 @@
                             <th>Purchase Date</th>
                             <td>{{ $inventory->purchase_date}}</td>
                         </tr>
+                        <tr>
+                            <th>Assign Date</th>
+                            <td>{{ $inventory->assign_date}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

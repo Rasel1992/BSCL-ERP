@@ -12,7 +12,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id','category_name', 'type',
+        'parent_id', 'category_name', 'type',
     ];
 
     public function nested()
@@ -24,8 +24,19 @@ class Category extends Model
     {
         return $this->nested()->select('id', 'parent_id', 'category_name');
     }
+    /**
+     * Get the parent of the category.
+     */
+    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo('App\Models\Category', 'parent_id');
+    }
     public function inventories() {
         return $this->hasMany('App\Models\Inventory', 'category_id', 'id');
+    }
+
+    public function stocks() {
+        return $this->hasMany('App\Models\Stock', 'category_id', 'id');
     }
 
 }

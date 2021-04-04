@@ -26,16 +26,6 @@
                         </span>
                                 @enderror
                             </div>
-
-                            <div class="form-group @error('designation') has-error @enderror">
-                                <label class="with-help">Designation <span class="text-danger">*</span></label>
-                                <input class="form-control" placeholder="Designation" name="designation" value="{{ old('department', isset($department) ? $department->designation : '') }}" type="text" required>
-                                @error('designation')
-                                <span class="help-block">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
                     </div>
                 </div>
                 <div class="text-right form-footer">

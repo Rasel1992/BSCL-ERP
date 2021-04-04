@@ -29,6 +29,7 @@ class CreateInventoriesTable extends Migration
             $table->decimal('cost', 10, 2)->nullable();
             $table->enum('location', ['hq', 'gs1', 'gs2']);
             $table->date('purchase_date');
+            $table->date('assign_date');
             $table->timestamps();
         });
     }

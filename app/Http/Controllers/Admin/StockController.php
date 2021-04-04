@@ -1,45 +1,35 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\AssignStockRequest;
+use App\Http\Requests\StockRequest;
+use App\Imports\ImportStock;
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\Stock;
 use App\Models\StockUser;
 use App\User;
 use Illuminate\Http\Request;
+use Excel;
 
 class StockController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $data['categoryData'] = Category::where('parent_id', 0)->with('nested')->get();
-            $sql = Category::orderBy('categories.id', 'DESC');
-            $sql->select('categories.*', 'B.category_name AS parent_name', 'C.category_name AS parent_mother', \DB::raw('IFNULL(D.subCount,0) AS subCount'));
-            $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
-            $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
-            $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
-            $data['categories'] = $sql->get();
-            $stocks = Stock::latest()->paginate(10);
-            return view('admin.stock.index', compact('stocks', 'data'));
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
-    }
-
-    public function assignedStock()
-    {
-        try {
-            $data['categoryData'] = Category::where('parent_id', 0)->with('nested')->get();
-            $sql = Category::orderBy('categories.id', 'DESC');
-            $sql->select('categories.*', 'B.category_name AS parent_name', 'C.category_name AS parent_mother', \DB::raw('IFNULL(D.subCount,0) AS subCount'));
-            $sql->leftJoin('categories AS B', 'B.id','=','categories.parent_id');
-            $sql->leftJoin('categories AS C', 'C.id','=','B.parent_id');
-            $sql->leftJoin(\DB::raw('(SELECT parent_id, COUNT(id) AS subCount FROM categories GROUP BY parent_id) AS D'), 'categories.id','=','D.parent_id');
-            $data['categories'] = $sql->get();
-            $assignedStocks = StockUser::latest()->paginate(10);
-            return view('admin.stock.assigned-stock', compact('assignedStocks', 'data'));
+            $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+            $sql = Stock::orderBy('created_at', 'ASC');
+            if ($request->location) {
+                $sql->where('location', $request->location);
+            }
+            if ($request->category_id) {
+                $sql->where('category_id', $request->category_id);
+            }
+            $stocks = $sql->paginate(10);
+            return view('admin.stock.index', compact('stocks', 'categoryData'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -47,16 +37,16 @@ class StockController extends Controller
 
     public function create()
     {
-        $categoryData = Category::where('type', 'Stock')->with('nested')->get();
-        return view('admin.stock.create-edit', compact('categoryData'))->with('create', 1);
+        $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+        return view('admin.stock.create-edit', compact('categoryData'));
     }
 
-    public function store(Request $request)
+    public function store(StockRequest $request)
     {
         try {
-            $data = $request->except('_token');
+            $data = $request->all();
             Stock::create($data);
-            return redirect()->back()->withSuccess('Stock created successfully.');
+            return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -64,16 +54,22 @@ class StockController extends Controller
 
     public function edit(Stock $stock)
     {
+        if (empty($stock)) {
+            return redirect()->route('admin.stocks.index');
+        }
         $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData', 'stock'))->with('edit', 1);
     }
 
-    public function update(Request $request, Stock $stock)
+    public function update(StockRequest $request, Stock $stock)
     {
         try {
-            $data = $request->except('_token');
+            if (empty($stock)) {
+                return redirect()->route('admin.stocks.index');
+            }
+            $data = $request->all();
             $stock->update($data);
-            return redirect()->back()->withSuccess('Stock updated successfully.');
+            return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -82,22 +78,61 @@ class StockController extends Controller
     public function destroy(Stock $stock)
     {
         try {
+            if (empty($stock)) {
+                return redirect()->route('admin.stocks.index');
+            }
             $stock->delete();
-            return redirect()->back()->withSuccess('Stock deleted successfully.');
+            return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    public function assignStockForm(Request $request, $id){
-        $stock_id = $id;
-        $users = User::get();
-        return view('admin.stock.assign-stock', compact('stock_id', 'users'));
+    public function assignedStock(Request $request)
+    {
+        try {
+            $categoryData = Category::where('parent_id', 0)->with('nested')->where('type', 'Stock')->get();
+            $sql = StockUser::with('stock')->orderBy('created_at', 'ASC');
+
+            if ($request->location) {
+                $sql->whereHas('stock', function ($q) use ($request) {
+                    $q->where('location', $request->location);
+                });
+            }
+            if ($request->category_id) {
+                $sql->whereHas('stock', function ($q) use ($request) {
+                    $q->where('category_id', $request->category_id);
+                });
+            }
+            if ($request->from) {
+                $sql->whereDate('assign_date', '>=', $request->from);
+            }
+            if ($request->to) {
+                $sql->whereDate('assign_date', '<=', $request->to);
+            }
+            $assignedStocks = $sql->paginate(10);
+            return view('admin.stock.assigned-stock', compact('assignedStocks', 'categoryData'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
-    public function assignStock(Request $request, $id){
+    public function assignStockForm(Request $request, $id)
+    {
+        $data = Stock::where('id', $id)->first();
+        $users = User::get();
+        $departments = Department::get();
+        return view('admin.stock.assign-stock', compact('data', 'users', 'departments'));
+    }
+
+    public function assignStock(AssignStockRequest $request, $id)
+    {
         $stock_id = $id;
         $data = Stock::where('id', $stock_id)->first();
+
+        if ($data->qty < $request->qty) {
+            return redirect()->route('admin.stocks.index')->withErrors(['error' => 'Qty not in stock!']);
+        }
         $updateData = [
             'qty' => $data->qty - $request->qty,
         ];
@@ -105,10 +140,51 @@ class StockController extends Controller
         $storeData = [
             'qty' => $request->qty,
             'stock_id' => $request->stock_id,
+            'assign_to' => $request->assign_to,
             'user_id' => $request->user_id,
+            'dept_id' => $request->dept_id,
             'assign_date' => $request->assign_date,
         ];
         StockUser::create($storeData);
-        return redirect()->back()->withSuccess('Stock updated successfully.');
+        return redirect()->route('admin.stocks.assigned-stock')->withSuccess('Stock Assigned successfully.');
+    }
+
+    public function summary()
+    {
+        try {
+
+            $categories = Category::with('nested')->where('parent_id', 0)->where('type', 'Stock')->paginate(50);
+            return view('admin.stock.summary', compact('categories'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function categoryStocks(Request $request, $id)
+    {
+        $data['category'] = $category = Category::where('id', $id)->find($id);
+        $sql = Stock::where('category_id', $category->id);
+        if ($request->location) {
+            $sql->where('location', $request->location);
+        }
+        $data['stocks'] = $sql->paginate(15);
+        return view('admin.stock.summary-show', compact('data', 'category'));
+    }
+
+    public function ImportExcel(Request $request)
+    {
+        //Validation
+        $this->validate($request, [
+            'file' => 'required|mimes:xls,xlsx',
+        ]);
+
+        if ($request->hasFile('file')) {
+            //UPLOAD FILE
+            $file = $request->file('file'); //GET FILE
+            Excel::import(new ImportStock(), $file); //IMPORT FILE
+            return redirect()->back()->withSuccess('Upload file data Stock !');
+        }
+
+        return redirect()->back()->with(['error' => 'Please choose file before!']);
     }
 }

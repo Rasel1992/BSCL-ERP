@@ -16,17 +16,35 @@
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="GET" action="{{ route('admin.inventories.qr-code-list') }}"
+                              class="form-inline float-right">
+                            <div class="form-group">
+                                <label class="sr-only">&nbsp;</label>
+                                <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}"
+                                       placeholder="Input your search text...">
+                            </div>
+
+                            <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> Search</button>&nbsp
+                            <a href="{{ route('admin.inventories.qr-code-list') }}" class="btn btn-warning mb-2"><i
+                                    class="fa fa-times"></i></a>
+                        </form>
+                    </div>
+                </div>
+                <br>
                 <div class="row" id="printableArea">
                     <div class="col-md-12">
                         @foreach($inventories as $key => $inventory)
                             @php
                                 $allQrCode = $inventory->count();
                             @endphp
-                                <div class="col-md-{{ ++$key == $allQrCode && $key & 1 ? '12':'6' }}">
-                                    {!! QrCode::size(100)->generate(url('inventories',$inventory->id)); !!}<br>
-                                    {{ $inventory->asset_code  }}
+                                <div align="center" style="margin-bottom: 50px;" class="col-md-{{ ++$key == $allQrCode && $key & 1 ? '12':'6' }}">
+                                    {!! QrCode::size(150)->generate(url('inventories',$inventory->id)); !!}<br>
+                                    <div align="center"> {{ $inventory->asset_code  }}</div>
                                 </div>
                         @endforeach
+
                     </div>
                 </div>
 

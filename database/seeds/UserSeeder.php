@@ -14,8 +14,11 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Rasel Uddin',
+                'user_id' => 'User-01',
                 'type' => 'admin',
                 'email' => 'rasel@gmail.com',
+                'dept_id' => 1,
+                'designation' => 'IT Support',
                 'password' => bcrypt('12345678'),
                 'email_verified_at' => now(),
                 'created_at' => now(),
@@ -23,8 +26,11 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Sohana Kabir',
+                'user_id' => 'User-02',
                 'type' => 'staff',
                 'email' => 'sohana@gmail.com',
+                'dept_id' => 1,
+                'designation' => 'IT Support',
                 'password' => bcrypt('12345678'),
                 'email_verified_at' => now(),
                 'created_at' => now(),
