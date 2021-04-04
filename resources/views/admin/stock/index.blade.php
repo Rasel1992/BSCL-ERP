@@ -16,11 +16,11 @@
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-7"></div>
-                    <div class="col-md-5">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
                         <form method="GET" action="{{ route('admin.stocks.index') }}" class="form-inline float-right">
-                            <div class="form-group mb-2">
-                                <select class="form-control" id="category_id" name="category_id">
+                            <div class="form-group" style="width: 25%">
+                                <select class="form-control select2" id="category_id" name="category_id">
                                     <option value="">Select Category</option>
                                     @foreach($categoryData as $cat)
                                         <option value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
@@ -32,8 +32,8 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group mb-2">
-                                <select class="form-control" id="location" name="location">
+                            <div class="form-group" style="width: 25%">
+                                <select class="form-control select2" id="location" name="location">
                                     <option value="">Select Location</option>
                                     <option value="hq" {{'hq' == Request::get('location')?'selected':''}} >Head Quarter
                                     </option>
@@ -53,6 +53,7 @@
                     <thead>
                     <tr>
                         <th>SL</th>
+                        <th>Stock Code</th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Qty</th>
@@ -64,6 +65,7 @@
                     @foreach($stocks as  $key => $stock)
                         <tr>
                             <td> {{$key + $stocks->firstItem()}}</td>
+                            <td> {{ $stock->stock_code }}</td>
                             <td> {{ $stock->description }}</td>
                             <td> {{ $stock->category->category_name }}</td>
                             <td> {{ $stock->qty }}</td>

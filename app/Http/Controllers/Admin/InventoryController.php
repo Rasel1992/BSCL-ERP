@@ -22,10 +22,8 @@ class InventoryController extends Controller
             $categoryData = Category::where('type', '!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
             $sql = Inventory::orderBy('created_at', 'ASC');
             if ($request->q) {
-                $sql->where(function ($q) use ($request) {
-                    $q->orWhere('asset_code', 'LIKE', $request->q . '%');
-                    $q->orWhere('voucher_no', 'LIKE', $request->q . '%');
-                });
+                $sql->where('asset_code', 'LIKE', $request->q . '%');
+                $sql->orWhere('voucher_no', $request->q );
             }
             if ($request->location) {
                 $sql->where('location', $request->location);
@@ -108,10 +106,14 @@ class InventoryController extends Controller
         }
     }
 
-    public function qrCodeList()
+    public function qrCodeList(Request $request)
     {
         try {
-            $inventories = Inventory::latest()->paginate(10);
+            $sql = Inventory::orderBy('created_at', 'ASC');
+            if ($request->q) {
+                $sql->where('asset_code', 'LIKE', $request->q . '%');
+            }
+            $inventories = $sql->latest()->paginate(10);
             return view('admin.inventory.qr-code-list', compact('inventories'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -121,20 +123,8 @@ class InventoryController extends Controller
     public function summary()
     {
         try {
-
-            $data['categories_head'] = Category::where('type', '!=', 'Stock')->with(['inventories' => function ($q) {
-                $q->where('location', 'hq');
-            }])
-                ->get();
-            $data['categories_gs1'] = Category::where('type', '!=', 'Stock')->with(['inventories' => function ($q) {
-                $q->where('location', 'gs1');
-            }])
-                ->get();
-            $data['categories_gs2'] = Category::where('type', '!=', 'Stock')->with(['inventories' => function ($q) {
-                $q->where('location', 'gs2');
-            }])
-                ->get();
-            return view('admin.inventory.summary', $data);
+            $categories = Category::with('nested')->where('parent_id', 0)->where('type', '!=', 'Stock')->paginate(50);
+            return view('admin.inventory.summary', compact('categories'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -173,10 +163,14 @@ class InventoryController extends Controller
         return Excel::download(new InventoryExport, 'inventory-collection.xlsx');
     }
 
-    public function categoryInventory($id)
+    public function categoryInventory(Request $request, $id)
     {
         $data['category'] = $category = Category::where('id', $id)->find($id);
-        $data['inventories'] = Inventory::where('category_id', $category->id)->paginate(15);
+        $sql = Inventory::where('category_id', $category->id);
+        if ($request->location) {
+            $sql->where('location', $request->location);
+        }
+        $data['inventories'] = $sql->paginate(15);
         return view('admin.inventory.summary-show', compact('data', 'category'));
     }
 }

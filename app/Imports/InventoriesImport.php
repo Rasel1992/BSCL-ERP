@@ -32,7 +32,7 @@ class InventoriesImport implements ToModel
     public function model(array $row)
     {
         return new Inventory([
-            'id'     => $row[0],
+            'id' => $row[0],
             'asset_code'     => $row[1],
             'description'    => $row[2],
             'category_id'    => $row[3],

@@ -26,8 +26,8 @@
                                     <input type="date" class="form-control" name="to" value="{{ Request::get('to') }}">
                                 </div>
                             </div>
-                            <div class="form-group mb-2">
-                                <select class="form-control" id="category_id" name="category_id">
+                            <div class="form-group" style="width: 15%">
+                                <select class="form-control select2" id="category_id" name="category_id">
                                     <option value="">Select Category</option>
                                     @foreach($categoryData as $cat)
                                         <option
@@ -40,8 +40,8 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group mb-2">
-                                <select class="form-control" id="location" name="location">
+                            <div class="form-group" style="width: 15%">
+                                <select class="form-control select2" id="location" name="location">
                                     <option value="">Select Location</option>
                                     <option value="hq" {{'hq' == Request::get('location')?'selected':''}} >Head Quarter
                                     </option>

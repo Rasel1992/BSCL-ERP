@@ -19,4 +19,9 @@ class DashboardController extends Controller
         $totalInventory= Inventory::sum('qty');
         return view('admin.dashboard', compact('totalUser', 'totalDept', 'totalStock', 'totalInventory'));
     }
+
+    public function application() {
+        $users = User::get();
+        return view('admin.application', compact('users'));
+    }
 }

@@ -40,6 +40,9 @@
     <!-- Data table -->
     <link href="{{ asset('assets/plugins/data-tables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
+    <!-- datetimepicker -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datetimepicker/jquery.datetimepicker.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -59,7 +62,7 @@
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b></span>
+            <span class="logo-mini"><b>B</b>E</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>{{ config('app.name') }}</b></span>
         </a>
@@ -158,6 +161,20 @@
                     <ul class="treeview-menu">
                         <li><a href="{{route('admin.departments.index')}}"><i class="fa fa-user-secret"></i> Departments</a></li>
                         <li><a href="{{route('admin.users.index')}}"><i class="fa fa-users"></i> User</a></li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-bar-chart"></i>
+                                <span>Request</span>
+                                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ route('admin.request.requisition.create') }}"><i class="fa fa-clock-o"></i> Requisition</a></li>
+                                <li><a href="pages/charts/morris.html"><i class="fa fa-plane"></i> Leave Application</a></li>
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-cc-mastercard"></i> Advance Money</a></li>
+                            </ul>
+                        </li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-plane"></i> Leave Management</a></li>
                         <li class="treeview">
                             <a href="#">
@@ -208,7 +225,6 @@
                                 <li><a href="pages/charts/inline.html"><i class="fa fa-camera-retro"></i>Payroll Summary</a></li>
                             </ul>
                         </li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-bar-chart"></i>Request</a></li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-briefcase"></i>Provident Fund</a></li>
                         <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-trophy"></i> Employee Award</a></li>
                         <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-tasks"></i> Tasks</a></li>
@@ -402,6 +418,9 @@
 <script src="{{ asset('assets/plugins/data-tables/vfs_fonts.js') }}"></script>
 <script src="{{ asset('assets/plugins/data-tables/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/data-tables/buttons.print.min.js') }}"></script>
+
+<!-- Date Time Picker -->
+<script src="{{ asset('assets/plugins/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
 </body>
 
 <script>
@@ -445,7 +464,6 @@
         //Initialize Select2 Elements
         $('.select2').select2({
             width: '100%',
-            placeholder: 'Select',
         });
 
         @error('error')
@@ -456,12 +474,6 @@
             footer: '<a href="javascript:void(0)" onclick="document.querySelector(\'.error-message\').classList.remove(\'hidden\');">Why do I have this issue?</a>'
         });
         @enderror
-
-        //Initialize Select2 Elements
-        $('.select2').select2({
-            width: '100%',
-            placeholder: 'Select'
-        });
 
         //Initialize summernote text editor
         $('.summernote').summernote({
@@ -477,6 +489,46 @@
             ],
         });
     });
+
+    $(".datepicker, .datetimepicker, #datepicker-from, #datepicker-to").keydown(function(e){
+        e.preventDefault();
+    });
+    $(".datepicker, .datetimepicker, #datepicker-from, #datepicker-to").attr("autocomplete","off");
+
+    $('.datepicker').datetimepicker({
+        lang:'en',
+        timepicker:false,
+        format:'Y-m-d',
+        formatDate:'Y/m/d'
+    });
+
+    $('.datetimepicker').datetimepicker({
+        lang:'en',
+        format:'Y-m-d H:i',
+        startDate:	'-1970/01/01',
+        step:30
+    });
+
+    /*From-to date*/
+    $('#datepicker-from').datetimepicker({
+        format:'Y-m-d',
+        onShow:function( ct ){
+            this.setOptions({
+                maxDate:jQuery('#datepicker-to').val()?jQuery('#datepicker-to').val():false
+            })
+        },
+        timepicker:false
+    });
+    $('#datepicker-to').datetimepicker({
+        format:'Y-m-d',
+        onShow:function( ct ){
+            this.setOptions({
+                minDate:jQuery('#datepicker-from').val()?jQuery('#datepicker-from').val():false
+            })
+        },
+        timepicker:false
+    });
+    /*From-to date*/
 
     $('input.role-module').on('ifChecked', function () {
         var selfId = $(this).attr('id');

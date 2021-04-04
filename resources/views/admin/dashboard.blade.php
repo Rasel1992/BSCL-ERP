@@ -14,7 +14,6 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <h3>{{$totalInventory}}</h3>
-
                         <p>Total Inventory</p>
                     </div>
                     <div class="icon">
@@ -29,7 +28,6 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <h3>{{$totalStock}}</h3>
-
                         <p>Total Stock</p>
                     </div>
                     <div class="icon">

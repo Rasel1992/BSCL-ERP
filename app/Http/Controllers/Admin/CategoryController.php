@@ -23,7 +23,7 @@ class CategoryController extends Controller
         if ($request->type) {
             $sql->where('type', $request->type);
         }
-        $categoryData = $sql->paginate(1);
+        $categoryData = $sql->paginate(10);
         return view('admin.category.index', compact('categoryData'));
     }
 
@@ -45,12 +45,12 @@ class CategoryController extends Controller
         if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }
-        $category = Category::where('categories.id', $category->id)
+        $cat = Category::where('categories.id', $category->id)
             ->select('categories.*', 'B.category_name AS parent_name')
             ->leftJoin('categories AS B', 'B.id', '=', 'categories.parent_id')
             ->first();
 
-        return view('admin.category.show', compact('category'));
+        return view('admin.category.show', compact('cat'));
     }
 
     public function edit(Category $category)

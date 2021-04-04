@@ -153,30 +153,21 @@ class StockController extends Controller
     {
         try {
 
-            $categories_head = Category::where('type', 'Stock')->with(['stocks' => function ($q) {
-                $q->where('location', 'hq');
-            }])
-                ->get();
-
-            $categories_gs1 = Category::where('type', 'Stock')->with(['stocks' => function ($q) {
-                $q->where('location', 'gs1');
-            }])
-                ->get();
-            $categories_gs2 = Category::where('type', 'Stock')->with(['stocks' => function ($q) {
-                $q->where('location', 'gs2');
-            }])
-                ->get();
-            return view('admin.stock.summary', compact('categories_head', 'categories_gs1', 'categories_gs2'));
+            $categories = Category::with('nested')->where('parent_id', 0)->where('type', 'Stock')->paginate(50);
+            return view('admin.stock.summary', compact('categories'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
-    public function categoryStocks($id)
+    public function categoryStocks(Request $request, $id)
     {
         $data['category'] = $category = Category::where('id', $id)->find($id);
-        $data['stocks'] = Stock::where('category_id', $category->id)->paginate(15);
-
+        $sql = Stock::where('category_id', $category->id);
+        if ($request->location) {
+            $sql->where('location', $request->location);
+        }
+        $data['stocks'] = $sql->paginate(15);
         return view('admin.stock.summary-show', compact('data', 'category'));
     }
 

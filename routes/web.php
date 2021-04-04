@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::post('/stocks/importInventory', 'StockController@ImportExcel')->name('stocks.import');
     Route::resource('stocks','StockController');
 
+    Route::group(['prefix' => 'request', 'as' => 'request.'], function () {
+        Route::resource('requisition','Request\RequisitionController');
+    });
 
     Route::group(['prefix' => 'inventories', 'as' => 'inventories.'], function () {
     Route::get('/summary', 'InventoryController@summary')->name('summary');

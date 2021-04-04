@@ -164,8 +164,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Category</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{ route('admin.categories.create') }}"
-                       class="button add">Add Category</a>
+                    <a href="{{ route('admin.categories.create') }}" class="button add">Add Category</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
@@ -185,7 +184,6 @@
                                 <label class="sr-only">&nbsp;</label>
                                 <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}" placeholder="Input your search text...">
                             </div>
-
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
                             <a href="{{ route('admin.categories.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
                         </form>
@@ -201,11 +199,8 @@
                                         <thead>
                                         <tr class="parent_cat">
                                             <td class="service-block__checker">
-
                                             <td class="service-block__service">Category Name</td>
-                                            <td class="service-block__action"><span
-                                                    id="all_show_hide" @click="allCatChildShowHide"
-                                                    class="btn btn-info">Hide All</span></td>
+                                            <td class="service-block__action"><span id="all_show_hide" @click="allCatChildShowHide" class="btn btn-info">Hide All</span></td>
                                         </tr>
                                         </thead>
                                         <tbody id="grand-child">
@@ -214,10 +209,8 @@
                                                 <td class="service-block__checker">
                                                     <div class="parent_selector">
                                                         <div class="service-block__drag pull-left parent-drag-handle">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                                <title>Drag</title>
-                                                                <path
-                                                                    d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Drag</title>
+                                                                <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
                                                             </svg>
                                                         </div>
                                                     </div>
@@ -227,154 +220,118 @@
                                                         <thead>
                                                         <tr>
                                                             <td colspan="2" class="service-block__service">
-                                                                <strong
-                                                                    class="service-block__category-title">{{ $category->category_name }}</strong>
+                                                                <strong class="service-block__category-title">{{ $category->category_name }}</strong>
                                                                 @if($category->nested->count())
-                                                                    <small><span
-                                                                            class="service-block__collapse-button-counter"
-                                                                            @click="catShowHide({{ $category->id }})"><span id="show_hide_controll_{{ $category->id }}">Hide</span> Category ({{ $category->nested->count() }})</span></small>
+                                                                    <small><span class="service-block__collapse-button-counter" @click="catShowHide({{ $category->id }})"><span id="show_hide_controll_{{ $category->id }}">Hide</span> Category ({{ $category->nested->count() }})</span></small>
                                                                 @endif
                                                             </td>
                                                             <td class="service-block__action">
                                                                 <div class="input-group-btn">
-                                                                    <button type="button" class="btn btn-default dropdown-toggle"
-                                                                            data-toggle="dropdown" aria-expanded="false">Actions
-                                                                        <span
-                                                                            class="fa fa-caret-down"></span>
+                                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Actions
+                                                                        <span class="fa fa-caret-down"></span>
                                                                     </button>
 
                                                                     <ul class="dropdown-menu dropleft">
-                                                                        <li>
-                                                                            <a href="{{ route('admin.categories.show', $category->id).qString() }}"
-                                                                               class="ajax-modal-btn">Show</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="{{route('admin.categories.edit', $category->id).qString() }}"
-                                                                               class="ajax-modal-btn">Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form method="POST"
-                                                                                  action="{{ route('admin.categories.destroy', $category->id).qString() }}"
-                                                                                  accept-charset="UTF-8" class="data-form">
-                                                                                @csrf
-                                                                                @method('delete')
-                                                                                <a href="javascript:void(0)" @click="destroy"
-                                                                                   class="dropdown-menu-link confirm ajax-silent"
-                                                                                   title="Delete"
-                                                                                   data-toggle="tooltip"
-                                                                                   data-placement="top">Delete</a>
-                                                                            </form>
-                                                                        </li>
+                                                                        <form method="POST" action="{{ route('admin.categories.destroy', $category->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                                                            @csrf
+                                                                            @method('delete')
+                                                                            <li>
+                                                                                <a href="{{ route('admin.categories.show', $category->id).qString() }}" class="ajax-modal-btn">Show</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="{{route('admin.categories.edit', $category->id).qString() }}" class="ajax-modal-btn">Edit</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
+                                                                            </li>
+                                                                        </form>
                                                                     </ul>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach($category->nested()->orderBy('sorting', 'ASC')->get() as $childCat)
-                                                            <tr class="child child_cat_{{ $category->id }} child-sort-row" data-id="{{ $childCat->id }}">
+                                                        @foreach($category->nested()->orderBy('id', 'ASC')->get() as $childCat)
+                                                            <tr class="child child_cat_{{ $category->id }} child-sort-row"
+                                                                data-id="{{ $childCat->id }}">
                                                                 <td class="service-block__checker">
                                                                     <div class="service-block__drag pull-left child-drag-handle">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>
-                                                                                Drag</title>
-                                                                            <path
-                                                                                d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Drag</title>
+                                                                            <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
                                                                         </svg>
                                                                     </div>
                                                                 </td>
-                                                                <td colspan="3" class="service-block__type parent-pad-0">
+                                                                <td colspan="3"
+                                                                    class="service-block__type parent-pad-0">
                                                                     <!-- Start child sub -->
                                                                     <table class="table">
                                                                         <thead>
                                                                         <tr>
                                                                             <td class="service-block__service">
-                                                                                <strong
-                                                                                    class="service-block__category-title">{{ $childCat->category_name }}</strong>
+                                                                                <strong class="service-block__category-title">{{ $childCat->category_name }}</strong>
                                                                                 @if($childCat->nested->count())
-                                                                                    <small><span
-                                                                                            class="service-block__collapse-button-counter"
-                                                                                            @click="catShowHide({{ $childCat->id }})"><span id="show_hide_controll_{{ $childCat->id }}">Hide</span> Category ({{ $childCat->nested->count() }})</span></small>
+                                                                                    <small><span class="service-block__collapse-button-counter" @click="catShowHide({{ $childCat->id }})"><span id="show_hide_controll_{{ $childCat->id }}">Hide</span> Category ({{ $childCat->nested->count() }})</span></small>
                                                                                 @endif
                                                                             </td>
                                                                             <td class="service-block__action">
                                                                                 <div class="input-group-btn">
-                                                                                    <button type="button" class="btn btn-default dropdown-toggle"
-                                                                                            data-toggle="dropdown" aria-expanded="false">Actions
-                                                                                        <span
-                                                                                            class="fa fa-caret-down"></span>
+                                                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Actions
+                                                                                        <span class="fa fa-caret-down"></span>
                                                                                     </button>
 
                                                                                     <ul class="dropdown-menu dropleft">
-                                                                                        <li>
-                                                                                            <a href="{{ route('admin.categories.show', $childCat->id).qString() }}"
-                                                                                               class="ajax-modal-btn">Show</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="{{route('admin.categories.edit', $childCat->id).qString() }}"
-                                                                                               class="ajax-modal-btn">Edit</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <form method="POST"
-                                                                                                  action="{{ route('admin.categories.destroy', $childCat->id).qString() }}"
-                                                                                                  accept-charset="UTF-8" class="data-form">
-                                                                                                @csrf
-                                                                                                @method('delete')
-                                                                                                <a href="javascript:void(0)" @click="destroy"
-                                                                                                   class="dropdown-menu-link confirm ajax-silent"
-                                                                                                   title="Delete"
-                                                                                                   data-toggle="tooltip"
-                                                                                                   data-placement="top">Delete</a>
-                                                                                            </form>
-                                                                                        </li>
+                                                                                        <form method="POST" action="{{ route('admin.categories.destroy', $childCat->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                                                                            @csrf
+                                                                                            @method('delete')
+                                                                                            <li>
+                                                                                                <a href="{{ route('admin.categories.show', $childCat->id).qString() }}" class="ajax-modal-btn">Show</a>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a href="{{route('admin.categories.edit', $childCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
+
+                                                                                            </li>
+                                                                                        </form>
                                                                                     </ul>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        @foreach($childCat->nested()->orderBy('sorting', 'ASC')->get() as $grandChildCat)
+                                                                        @foreach($childCat->nested()->orderBy('id', 'ASC')->get() as $grandChildCat)
                                                                             <tr class="child child_cat_{{ $childCat->id }} grand-child-sort-row" data-id="{{ $grandChildCat->id }}">
                                                                                 <td colspan="1" class="service-block__checker">
                                                                                     <div class="service-block__drag pull-left grand-child-drag-handle">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                             viewBox="0 0 20 20"><title>Drag</title>
-                                                                                            <path
-                                                                                                d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Drag</title>
+                                                                                            <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
                                                                                         </svg>
                                                                                     </div>
                                                                                 </td>
-                                                                                <td class="service-block__service"><strong
-                                                                                        class="service-block__category-title">{{ $grandChildCat->category_name }}</strong></td>3.
+                                                                                <td class="service-block__service">
+                                                                                    <strong class="service-block__category-title">{{ $grandChildCat->category_name }}</strong>
+                                                                                </td>
                                                                                 <td class="service-block__action">
                                                                                     <div class="input-group-btn">
-                                                                                        <button type="button" class="btn btn-default dropdown-toggle"
-                                                                                                data-toggle="dropdown" aria-expanded="false">Actions
-                                                                                            <span
-                                                                                                class="fa fa-caret-down"></span>
+                                                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Actions
+                                                                                            <span class="fa fa-caret-down"></span>
                                                                                         </button>
 
                                                                                         <ul class="dropdown-menu dropleft">
-                                                                                            <li>
-                                                                                                <a href="{{ route('admin.categories.show', $grandChildCat->id).qString() }}"
-                                                                                                   class="ajax-modal-btn">Show</a>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <a href="{{route('admin.categories.edit', $grandChildCat->id).qString() }}"
-                                                                                                   class="ajax-modal-btn">Edit</a>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <form method="POST"
-                                                                                                      action="{{ route('admin.categories.destroy', $grandChildCat->id).qString() }}"
-                                                                                                      accept-charset="UTF-8" class="data-form">
-                                                                                                    @csrf
-                                                                                                    @method('delete')
-                                                                                                    <a href="javascript:void(0)" @click="destroy"
-                                                                                                       class="dropdown-menu-link confirm ajax-silent"
-                                                                                                       title="Delete"
-                                                                                                       data-toggle="tooltip"
-                                                                                                       data-placement="top">Delete</a>
-                                                                                                </form>
-                                                                                            </li>
+                                                                                            <form method="POST" action="{{ route('admin.categories.destroy', $grandChildCat->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                                                                                @csrf
+                                                                                                @method('delete')
+                                                                                                <li>
+                                                                                                    <a href="{{ route('admin.categories.show', $grandChildCat->id).qString() }}" class="ajax-modal-btn">Show</a>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <a href="{{route('admin.categories.edit', $grandChildCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
+                                                                                                </li>
+                                                                                            </form>
                                                                                         </ul>
                                                                                     </div>
                                                                                 </td>
@@ -399,7 +356,8 @@
 
                                             </div>
                                             <div class="col-sm-7">
-                                                <div class="dataTables_paginate paging_simple_numbers" id="sortable_paginate">
+                                                <div class="dataTables_paginate paging_simple_numbers"
+                                                     id="sortable_paginate">
                                                     {{ $categoryData->appends(Request::except('page'))->links() }}
                                                 </div>
                                             </div>

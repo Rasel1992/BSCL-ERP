@@ -18,8 +18,9 @@
                         <div class="panel-body">
                             <div class="col-md-12">
                                 <div class="form-group @error('type') has-error @enderror">
-                                    <label for="sex">Type</label>
+                                    <label for="type">Type</label>
                                     <select class="form-control select2" id="type" name="type">
+                                        <option value="">Select Type</option>
                                             @php ($typ = old('type', isset($category) ? $category->type : ''))
                                             @foreach(['Fixed', 'Current', 'Stock'] as $type)
                                                 <option value="{{ $type }}" {{ ($type==$typ)?'selected':''}}>{{ $type }}</option>

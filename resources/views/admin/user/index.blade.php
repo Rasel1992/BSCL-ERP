@@ -22,9 +22,10 @@
                     <div class="col-md-6">
                         <form method="GET" action="{{ route('admin.users.index') }}" class="form-inline float-right">
                             <div class="form-group mb-2">
-                                <select class="form-control" id="type" name="type">
-                                    <option value="admin"  {{ (old('type')==Request::get('admin'))?'selected':''}}>Admin</option>
-                                    <option value="staff" {{ (old('type')==Request::get('staff'))?'selected':''}}>Staff</option>
+                                <select class="form-control select2" id="type" name="type">
+                                    <option value="">Select</option>
+                                    <option value="admin"  {{'admin' == Request::get('type')?'selected':''}} >Admin</option>
+                                    <option value="staff" {{'staff' == Request::get('type')?'selected':''}}>Staff</option>
                                 </select>
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
@@ -42,8 +43,11 @@
                     <tr>
                         <th>SL</th>
                         <th>Avatar</th>
+                        <th>User ID</th>
                         <th>Name</th>
                         <th>Type</th>
+                        <th>Department</th>
+                        <th>Designation</th>
                         <th>Email</th>
                         <th> </th>
                     </tr>
@@ -57,8 +61,11 @@
                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
                                 @endif
                             </td>
+                            <td>{{ $user->user_id }}</td>
                             <td><a href="{{ route('admin.users.show',$user->id ).qString() }}">{{ $user->name }}</a> </td>
                             <td><span class="label label-outline">{{ $user->type }}</span></td>
+                            <td>@if($user->dept_id){{ $user->departments->department }}@endif</td>
+                            <td>{{ $user->designation }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a href="{{route('admin.users.edit', $user->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
