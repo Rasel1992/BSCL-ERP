@@ -12,6 +12,10 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
@@ -20,10 +24,9 @@
     <link rel="stylesheet" href="{{ asset('assets/bower_components/jvectormap/jquery-jvectormap.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+
     <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/backend.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/backend1.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote.min.css') }}">
     <!-- Vue -->
@@ -40,12 +43,6 @@
     <!-- Data table -->
     <link href="{{ asset('assets/plugins/data-tables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
-    <!-- datetimepicker -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datetimepicker/jquery.datetimepicker.css') }}">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -56,9 +53,7 @@
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
-
     <header class="main-header">
-
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -76,6 +71,47 @@
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">{{App\Models\Requisition::where('requisition_to', Auth::user()->id)->count()}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have {{App\Models\Requisition::where('requisition_to', Auth::user()->id)->count()}} notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                                            page and may cause design problems
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-red"></i> 5 new members joined
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-red"></i> You changed your username
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -170,7 +206,7 @@
             </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{ route('admin.request.requisition.create') }}"><i class="fa fa-clock-o"></i> Requisition</a></li>
+                                <li><a href="{{ route('admin.request.requisition.index') }}"><i class="fa fa-clock-o"></i> Requisition</a></li>
                                 <li><a href="pages/charts/morris.html"><i class="fa fa-plane"></i> Leave Application</a></li>
                                 <li><a href="pages/charts/flot.html"><i class="fa fa-cc-mastercard"></i> Advance Money</a></li>
                             </ul>
@@ -185,10 +221,10 @@
             </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-clock-o"></i> Time History</a></li>
+                                <li><a href="{{ route('admin.shifts.index') }}"><i class="fa fa-clock-o"></i> Shift</a></li>
                                 <li><a href="pages/charts/morris.html"><i class="fa fa-calendar-o"></i> Timechange Request</a></li>
                                 <li><a href="pages/charts/flot.html"><i class="fa fa-file-text"></i> Attendance Report</a></li>
-                                <li><a href="pages/charts/inline.html"><i class="fa fa-indent"></i> Set Roster</a></li>
+                                <li><a href="{{ route('admin.rosters.index') }}"><i class="fa fa-indent"></i> Set Roster</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -348,7 +384,18 @@
                         <li><a href="{{route('admin.stocks.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
                     </ul>
                 </li>
-
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-codepen"></i>
+                        <span>Setting</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('admin.setting.role.index')}}"><i class="fa fa-sliders"></i> Role</a></li>
+                    </ul>
+                </li>
 
             </ul>
         </section>
@@ -378,8 +425,16 @@
 
 <!-- jQuery 3 -->
 <script src="{{ asset('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+<!-- bootstrap datepicker -->
+<script src="{{ asset('assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+<!-- bootstrap time picker -->
+<script src="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <!-- FastClick -->
 <script src="{{ asset('assets/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
@@ -418,9 +473,6 @@
 <script src="{{ asset('assets/plugins/data-tables/vfs_fonts.js') }}"></script>
 <script src="{{ asset('assets/plugins/data-tables/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/data-tables/buttons.print.min.js') }}"></script>
-
-<!-- Date Time Picker -->
-<script src="{{ asset('assets/plugins/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
 </body>
 
 <script>
@@ -464,7 +516,12 @@
         //Initialize Select2 Elements
         $('.select2').select2({
             width: '100%',
+            placeholder: ' Select'
         });
+
+        $('#datepicker').datepicker({
+            autoclose: true
+        })
 
         @error('error')
         Swal.fire({
@@ -490,44 +547,9 @@
         });
     });
 
-    $(".datepicker, .datetimepicker, #datepicker-from, #datepicker-to").keydown(function(e){
-        e.preventDefault();
-    });
-    $(".datepicker, .datetimepicker, #datepicker-from, #datepicker-to").attr("autocomplete","off");
-
-    $('.datepicker').datetimepicker({
-        lang:'en',
-        timepicker:false,
-        format:'Y-m-d',
-        formatDate:'Y/m/d'
-    });
-
-    $('.datetimepicker').datetimepicker({
-        lang:'en',
-        format:'Y-m-d H:i',
-        startDate:	'-1970/01/01',
-        step:30
-    });
-
-    /*From-to date*/
-    $('#datepicker-from').datetimepicker({
-        format:'Y-m-d',
-        onShow:function( ct ){
-            this.setOptions({
-                maxDate:jQuery('#datepicker-to').val()?jQuery('#datepicker-to').val():false
-            })
-        },
-        timepicker:false
-    });
-    $('#datepicker-to').datetimepicker({
-        format:'Y-m-d',
-        onShow:function( ct ){
-            this.setOptions({
-                minDate:jQuery('#datepicker-from').val()?jQuery('#datepicker-from').val():false
-            })
-        },
-        timepicker:false
-    });
+    $('.timepicker').timepicker({
+        showInputs: false
+    })
     /*From-to date*/
 
     $('input.role-module').on('ifChecked', function () {

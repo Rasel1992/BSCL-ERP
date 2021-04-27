@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\PaginationServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

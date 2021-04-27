@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'user_id' => $this->isMethod('put') ? 'nullable|string|max:100' : 'required|string|max:100|unique:users,user_id',
             'type' => 'required|in:admin,staff',
             'email' => $this->isMethod('put') ? 'nullable|string|max:100' : 'required|string|max:100|unique:users,email',
-            'mobile' => 'nullable|string|max:11|min:11',
+            'mobile' => 'required|string|max:11|min:11',
             'password' => $this->isMethod('put') ? 'nullable|string|min:8|max:255' : 'required|string|min:8|max:255',
             'dob' => 'nullable|date',
             'sex' => 'nullable|in:male,female,other',

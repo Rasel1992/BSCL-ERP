@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="content">
-        <form method="POST" action="{{ isset($inventory) ? route('admin.inventories.update', $inventory->id) : route('admin.inventories.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
+        <form method="POST" action="{{ isset($inventory) ? route('admin.inventories.update', $inventory->id) : route('admin.inventories.store') }}{{ qString() }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
             @csrf
             @if (isset($inventory))
                 @method('PUT')
@@ -26,25 +26,25 @@
                                             <label class="col-md-3">Asset Code<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
                                                 <input class="form-control" placeholder="Asset Code" name="asset_code" value="{{old('asset_code')}}" type="text" v-model="inventory.asset_code" required>
-                                            </div>
-                                            @error('asset_code')
-                                            <span class="help-block">
+                                                @error('asset_code')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('description') has-error @enderror">
-                                            <label class="col-md-3">Description</label>
+                                        <div class="form-group row @error('assign_date') has-error @enderror">
+                                            <label class="col-md-3">Assign Date<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" placeholder="Description" name="description" value="{{old('description')}}" v-model="inventory.description" type="text">
-                                            </div>
-                                            @error('description')
-                                            <span class="help-block">
+                                                <input class="form-control" placeholder="Assign Date" name="assign_date" value="{{old('assign_date')}}" v-model="inventory.assign_date" type="date" required>
+                                                @error('assign_date')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -54,12 +54,12 @@
                                             <label class="col-md-3">Voucher No</label>
                                             <div class="col-md-8">
                                                 <input class="form-control" placeholder="Voucher No" name="voucher_no" value="{{old('voucher_no')}}" v-model="inventory.voucher_no" type="text">
-                                            </div>
-                                            @error('voucher_no')
-                                            <span class="help-block">
+                                                @error('voucher_no')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -67,12 +67,12 @@
                                             <label class="col-md-3">Purchase Date<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
                                                 <input class="form-control" placeholder="Purchase Date" name="purchase_date" value="{{old('purchase_date')}}" v-model="inventory.purchase_date" type="date" required>
-                                            </div>
-                                            @error('purchase_date')
-                                            <span class="help-block">
+                                                @error('purchase_date')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -82,12 +82,12 @@
                                             <label class="col-md-3">Qty</label>
                                             <div class="col-md-8">
                                                 <input class="form-control" placeholder="Qty" name="qty" value="{{old('qty')}}" v-model="inventory.qty" type="number">
-                                            </div>
-                                            @error('qty')
-                                            <span class="help-block">
+                                                @error('qty')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -95,12 +95,12 @@
                                             <label for="cost" class="col-md-3">Cost</label>
                                             <div class="col-md-8">
                                                 <input class="form-control" placeholder="Cost" name="cost" value="{{old('cost')}}" v-model="inventory.cost" type="number" id="cost">
-                                            </div>
-                                            @error('cost')
-                                            <span class="help-block">
+                                                @error('cost')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,17 +120,17 @@
                                                         @endif
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                            @error('category_id')
-                                            <span class="help-block">
+                                                @error('category_id')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row @error('location') has-error @enderror">
-                                            <label for="location" class="col-md-3">location <span class="text-danger">*</span></label>
+                                            <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
                                                 <select class="form-control select2" id="location" name="location" v-model="inventory.location" v-select2 required>
                                                     <option value="">Select Location</option>
@@ -141,12 +141,12 @@
                                                     <option value="gs2" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs2') ? 'Selected' : ''}}>GS Bethbunia
                                                     </option>
                                                 </select>
-                                            </div>
-                                            @error('location')
-                                            <span class="help-block">
+                                                @error('location')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -178,56 +178,56 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6" v-show="inventory.assign_to == 'user'">
+                                            <div class="form-group row @error('user_id') has-error @enderror">
+                                                <label for="user_id" class="col-md-3">User</label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control select2" id="user_id" name="user_id" v-model="inventory.user_id" v-select2>
+                                                        <option value="">Select User</option>
+                                                        @foreach($users as $user)
+                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('user_id')
+                                                    <span class="help-block">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" v-show="inventory.assign_to == 'department'">
+                                            <div class="form-group row @error('dept_id') has-error @enderror">
+                                                <label for="dept_id" class="col-md-3">Department</label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control select2" id="dept_id" name="dept_id" v-model="inventory.dept_id" v-select2>
+                                                        <option value="">Select Department</option>
+                                                        @foreach($departments as $department)
+                                                            <option value="{{$department->id}}">{{$department->department}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('dept_id')
+                                                    <span class="help-block">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('assign_date') has-error @enderror">
-                                            <label class="col-md-3">Assign Date <span class="text-danger">*</span></label>
+                                        <div class="form-group row @error('description') has-error @enderror">
+                                            <label class="col-md-3">Description</label>
                                             <div class="col-md-8">
-                                                <input class="form-control" placeholder="Assign Date" name="assign_date" value="{{old('assign_date')}}" v-model="inventory.assign_date" type="date" required>
-                                            </div>
-                                            @error('assign_date')
-                                            <span class="help-block">
+                                                <textarea class="form-control" placeholder="Description" name="description" value="{{old('description')}}" cols="5" rows="10" v-model="inventory.description" type="text"></textarea>
+                                                @error('description')
+                                                <span class="help-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="col-md-12">
-                                    <div class="col-md-6" v-show="inventory.assign_to == 'user'">
-                                        <div class="form-group row @error('user_id') has-error @enderror">
-                                            <label for="user_id" class="col-md-3">User</label>
-                                            <div class="col-md-8">
-                                                <select class="form-control select2" id="user_id" name="user_id" v-model="inventory.user_id" v-select2>
-                                                    <option value="">Select User</option>
-                                                    @foreach($users as $user)
-                                                        <option value="{{$user->id}}">{{$user->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                @enderror
                                             </div>
-                                            @error('user_id')
-                                            <span class="help-block">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" v-show="inventory.assign_to == 'department'">
-                                        <div class="form-group row @error('dept_id') has-error @enderror">
-                                            <label for="dept_id" class="col-md-3">Department</label>
-                                            <div class="col-md-8">
-                                                <select class="form-control select2" id="dept_id" name="dept_id" v-model="inventory.dept_id" v-select2>
-                                                    <option value="">Select Department</option>
-                                                    @foreach($departments as $department)
-                                                        <option value="{{$department->id}}">{{$department->department}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            @error('dept_id')
-                                            <span class="help-block">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>

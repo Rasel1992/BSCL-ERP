@@ -34,8 +34,11 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/stocks/category/{id}','StockController@categoryStocks')->name('stocks.category');
     Route::post('/stocks/importInventory', 'StockController@ImportExcel')->name('stocks.import');
     Route::resource('stocks','StockController');
+    Route::resource('shifts','ShiftController');
+    Route::resource('rosters','RosterController');
 
     Route::group(['prefix' => 'request', 'as' => 'request.'], function () {
+        Route::get('/requisition/send','Request\RequisitionController@send')->name('requisition.send');
         Route::resource('requisition','Request\RequisitionController');
     });
 
@@ -55,6 +58,12 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::resource('users','UserController');
     Route::resource('inventories','InventoryController');
     Route::put('users/{user}/password/update', 'UserController@passwordUpdate')->name('users.password.update');
+
+    Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
+        Route::resource('/role','RoleController');
+    });
 });
 Route::get('inventories/{inventory}', 'Admin\InventoryController@showQrDetails');
 Route::get('/inventory/summary', 'Admin/InventoryController@summary')->name('inventories.summary');
+Route::get('notify','NotificationController@notify');
+Route::view('/notification', 'notification');

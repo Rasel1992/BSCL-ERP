@@ -30,6 +30,28 @@ if ( ! function_exists('qString')) {
     }
 }
 
+if (! function_exists('short_string')) {
+    function short_string($str) {
+        $rest = substr($str, 1, 7);
+        return $rest;
+    }
+}
+
+if (! function_exists('show_hour')) {
+    function show_hour($str) {
+        $rest = substr($str, 1, 1);
+        return $rest;
+    }
+}
+
+if (! function_exists('show_min')) {
+    function show_min($str) {
+        $rest = substr($str, 3, 3);
+        $str = preg_replace('/[^0-9. -]/', '', $rest);
+        return $str;
+    }
+}
+
 //Search string get and set an url
 if ( ! function_exists('qArray')) {
     function qArray()

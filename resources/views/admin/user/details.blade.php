@@ -106,11 +106,11 @@
         }
 
         .timer > li {
-            font-size: 46px;
+            font-size: 20px;
             text-align: center;
             display: inline-block;
             color: #555;
-            font-weight: 300;
+            font-weight: 600;
         }
 
         .user-timer ul.timer > li.dots {
@@ -194,7 +194,8 @@
                                         <div class="col-sm-3">
                                             <div class="text-center ">
                                                 @if(isset($user->image))
-                                                    <img src="{{ asset('user/'.$user->image.'') }}" width="128px" height="128px" class="img-circle">
+                                                    {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:128px; height:128px;']) !!}
+{{--                                                    <img src="{{ asset('user/'.$user->image.'') }}" width="128px" height="128px" class="img-circle">--}}
                                                 @else
                                                     <img src="{{ asset('storage/user/blank-profile-picture-973460_1280.png') }}" width="128px" height="128px" class="img-circle" alt="Avatar">
                                                 @endif
@@ -279,6 +280,7 @@
                                         </li>
                                         <li><a href="#inventory_details" data-toggle="tab">Inventory Details</a></li>
                                         <li><a href="#stock_details" data-toggle="tab">Stock Details</a></li>
+                                        <li><a href="#shift" data-toggle="tab">Shift</a></li>
                                         <li><a href="#bank_details" data-toggle="tab">Bank Details</a></li>
                                         <li><a href="#document_details" data-toggle="tab">Documents Details</a></li>
                                         <li><a href="#salary_details" data-toggle="tab">Salary Details</a></li>
@@ -292,7 +294,6 @@
                                         <li><a href="#tasks_details" data-toggle="tab">Nominee</a></li>
                                         <li><a href="#tasks_details" data-toggle="tab">Reference</a></li>
                                         <li><a href="#tasks_details" data-toggle="tab">Reporting</a></li>
-                                        <li><a href="#tasks_details" data-toggle="tab">Shift</a></li>
                                         <li><a href="#tasks_details" data-toggle="tab">Office Device</a></li>
                                     </ul>
                                 </div>
@@ -414,7 +415,11 @@
                                                         <label class="col-sm-5 control-label">Signature
                                                             : </label>
                                                         <div class="col-sm-7">
-                                                            <p class="form-control-static">{{ $user->signature ?? 'N/A' }}</p>
+                                                            <p class="form-control-static">
+                                                                @if(isset($user->signature))
+                                                                    {!! viewImg('user/signature', $user->signature, ['thumb' => 1,'alt'=>'Avatar', 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
+                                                                @endif
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -480,7 +485,61 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane " id="bank_details" style="position: relative;">
+
+                                        <div class="tab-pane" id="shift" style="position: relative;">
+                                            <div id="panelChart4" class="panel panel-custom">
+                                                <div class="panel-heading">
+                                                    <div class="panel-title">Total Working Hours</div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="form-group col-sm-12">
+                                                        <ul class="timer">
+                                                            <li>{{show_hour($totalWorkHours->totalHour)}}<span> Hours</span></li>
+                                                            <li class="dots">:</li>
+                                                            <li>{{show_min($totalWorkHours->totalHour)}}<span> Minutes</span></li>
+                                                            <li class="dots">:</li>
+                                                            <li>00<span> Seconds</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">Total Working Details</h4>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>SL</th>
+                                                            <th>Date</th>
+                                                            <th>Shift</th>
+                                                            <th>Time</th>
+                                                            <th>Hours</th>
+                                                        </tr>
+                                                        </thead>
+                                                        @if($user->rosters)
+                                                            @foreach($user->rosters as $key => $roster)
+                                                                <tbody>
+                                                                <td> {{++ $key}}</td>
+                                                                <td>{{$roster->roster_date}}<br></td>
+                                                                <td> {{ $roster->shift->name }}</td>
+                                                                <td> {{ $roster->shift->from }} - {{ $roster->shift->to }}</td>
+                                                                <td> {{ $roster->shift->total_hours }}</td>
+                                                                </tbody>
+                                                            @endforeach
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <td class="text-right" colspan="4"><strong>Total Hours : </strong></td>
+                                                                    <td>{{short_string($totalWorkHours ->totalHour)}}</td>
+                                                                </tr>
+                                                                </tfoot>
+                                                        @endif
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="bank_details" style="position: relative;">
                                             <div class="panel panel-custom">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">Bank Details
@@ -659,7 +718,7 @@
                                                                     href="/hrm/admin/user/overtime_report_pdf/2021/2"
                                                                     class="btn btn-primary btn-xs" data-toggle="tooltip"
                                                                     data-placement="top" title=""
-                                                                    data-original-title="PDF"><span <i="" class="fa fa-file-pdf-o"></span></a></span>
+                                                                    data-original-title="PDF"><span> <i class="fa fa-file-pdf-o"></i></span></a></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -702,96 +761,6 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane " id="tasks_details" style="position: relative;">
-                                            <div id="panelChart4" class="panel panel-custom">
-                                                <div class="panel-heading">
-                                                    <div class="panel-title">Total Task Time Spent</div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="form-group col-sm-12">
-                                                        <ul class="timer">
-                                                            <li>0<span> Hours</span></li>
-                                                            <li class="dots">:</li>
-                                                            <li>0<span> Minutes</span></li>
-                                                            <li class="dots">:</li>
-                                                            <li>0<span>Seconds</span></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="panelChart5" class="panel panel-custom">
-                                                <div class="panel-heading">
-                                                    <div class="panel-title">Task Reports</div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="chart-pie flot-chart"
-                                                         style="padding: 0px; position: relative;">
-                                                        <canvas class="flot-base" width="100" height="250"
-                                                                style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 100px; height: 250px;"></canvas>
-                                                        <canvas class="flot-overlay" width="100" height="250"
-                                                                style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 100px; height: 250px;"></canvas>
-                                                        <div class="legend">
-                                                            <div
-                                                                style="position: absolute; width: 0px; height: 0px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;"></div>
-                                                            <table
-                                                                style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454">
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td class="legendColorBox">
-                                                                        <div style="border:1px solid #ccc;padding:1px">
-                                                                            <div
-                                                                                style="width:4px;height:0;border:5px solid #23b7e5;overflow:hidden"></div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="legendLabel">Not Started</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="legendColorBox">
-                                                                        <div style="border:1px solid #ccc;padding:1px">
-                                                                            <div
-                                                                                style="width:4px;height:0;border:5px solid #ff902b;overflow:hidden"></div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="legendLabel">In Progress</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="legendColorBox">
-                                                                        <div style="border:1px solid #ccc;padding:1px">
-                                                                            <div
-                                                                                style="width:4px;height:0;border:5px solid #27c24c;overflow:hidden"></div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="legendLabel">Completed</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="legendColorBox">
-                                                                        <div style="border:1px solid #ccc;padding:1px">
-                                                                            <div
-                                                                                style="width:4px;height:0;border:5px solid #f05050;overflow:hidden"></div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="legendLabel">Deferred</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="legendColorBox">
-                                                                        <div style="border:1px solid #ccc;padding:1px">
-                                                                            <div
-                                                                                style="width:4px;height:0;border:5px solid #ff902b;overflow:hidden"></div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="legendLabel">Waiting For Someone</td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <div class="pieLabelBackground"
-                                                             style="position: absolute; width: 0px; height: 0px; top: 165px; left: 50px; background-color: rgb(34, 34, 34); opacity: 0.8;"></div>
-                                                        <span class="pieLabel" id="pieLabel2"
-                                                              style="position:absolute;top:165px;left:50px;"><div
-                                                                class="flot-pie-label">100%</div></span></div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

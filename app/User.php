@@ -3,22 +3,19 @@
 namespace App;
 use App\Models\Department;
 use App\Models\Inventory;
+use App\Models\Roster;
 use App\Models\StockUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'type', 'email', 'mobile', 'password','dob',
+        'name', 'user_id', 'type', 'email', 'mobile', 'password','dob',
         'sex', 'dept_id', 'designation', 'image', 'joining_date',
         'joining_date', 'father_name',  'mother_name', 'blood_group',
         'nid', 'passport', 'present_address', 'permanent_address', 'signature'
@@ -52,5 +49,9 @@ class User extends Authenticatable
 
     public function departments() {
         return $this->belongsTo(Department::class, 'dept_id', 'id');
+    }
+
+    public function rosters() {
+        return $this->hasMany(Roster::class, 'user_id', 'id');
     }
 }

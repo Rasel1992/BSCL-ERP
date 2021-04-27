@@ -9,8 +9,11 @@ use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Department;
 use App\Models\Role;
+use App\Models\Roster;
+use App\Models\Shift;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -54,12 +57,14 @@ class UserController extends Controller
         }
     }
 
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::where('id', $id)->first();
         if (empty($user)) {
             return redirect()->route('admin.users.index');
         }
-        return view('admin.user.details', compact('user'));
+        $totalWorkHours = Roster::select( DB::raw('time(sum(TIMEDIFF( shifts.to, shifts.from )))  AS totalHour'))->join('shifts', 'shifts.id', '=', 'rosters.shift_id')->where('rosters.user_id', $user->id)->first();
+        return view('admin.user.details', compact('user', 'totalWorkHours'));
     }
 
     public function edit(User $user)
@@ -91,7 +96,13 @@ class UserController extends Controller
                 $image = (new MediaController())->imageUpload($request->file('image'), 'user', 1);
                 $data['image'] = $image['name'];
             }
-
+            if ($request->hasFile('signature')) {
+                if ($user && $user->signature) {
+                    (new MediaController())->delete('user/signature', $user->signature, 1);
+                }
+                $image = (new MediaController())->imageUpload($request->file('signature'), 'user/signature', 1);
+                $data['signature'] = $image['name'];
+            }
             $user->update($data);
             return redirect()->route('admin.users.index', qArray())->withSuccess('User Updated!');
         } catch (\Exception $e) {
@@ -107,6 +118,9 @@ class UserController extends Controller
             }
             if ($user && $user->image) {
                 (new MediaController())->delete('user', $user->image, 1);
+            }
+            if ($user && $user->signature) {
+                (new MediaController())->delete('user/signature', $user->signature, 1);
             }
             $user->delete();
             return redirect()->route('admin.users.index', qArray())->withSuccess('User deleted!');

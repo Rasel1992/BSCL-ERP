@@ -11,120 +11,146 @@
             @csrf
             <input type="hidden" name="stock_id" value="{{$data->id}}">
             <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
                     <h3 class="box-title">Assign Stock
                     <a href="{{ route('admin.stocks.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Stock</a>
                     </h3>
                     <div class="panel">
                         <div class="panel-body">
-                            <div class="col-sm-12">
-                                <div class="col-sm-6">
-                                    <div class="form-group @error('assign_to') has-error @enderror">
-                                        <label class="with-help">Assign To <span class="text-danger">*</span></label>
-                                        @error('assign_to')
-                                        <span class="help-block">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                        @enderror
-                                    </div>
-                                    <label class="radio-inline">
-                                        <input type="radio" value="user" v-model="assignStock.assign_to" name="assign_to" {{ old('assign_to') == 'user' ? 'checked' : '' }}>User
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" value="department" v-model="assignStock.assign_to" name="assign_to" {{ old('assign_to') == 'department' ? 'checked' : '' }}>Department
-                                    </label>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group @error('apply_no') has-error @enderror">
-                                        <label for="title" class="with-help">Apply No.</label>
-                                        <input class="form-control" placeholder="Apply No." name="apply_no" value="{{old('apply_no')}}" type="text" >
-                                        @error('apply_no')
-                                        <span class="help-block">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                            </div>
-                            <br>
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-6" v-show="assignStock.assign_to == 'user'">
-                                        <div class="form-group @error('user_id') has-error @enderror">
-                                            <label for="user_id" class="with-help">User</label>
-                                            <select class="form-control select2" id="user_id" name="user_id"
-                                                    v-model="assignStock.user_id" v-select2>
-                                                <option value="">Select User</option>
-                                                @foreach($users as $user)
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('user_id')
-                                            <span class="help-block">
+                                <div class="col-md-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group @error('assign_to') has-error @enderror">
+                                            <div class="row">
+                                                <label class="col-md-3" for="input-type">Assign To<span class="text-danger">*</span></label>
+                                                @error('assign_to')
+                                                <span class="help-block">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                                <div class="col-md-8">
+                                                    <div id="input-type" class="row">
+                                                        <div class="col-sm-4">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" value="user" v-model="assignStock.assign_to" name="assign_to" {{ old('assign_to') == 'user' ? 'checked' : '' }}>User
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" value="department" v-model="assignStock.assign_to" name="assign_to" {{ old('assign_to') == 'department' ? 'checked' : '' }}>Department
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row @error('apply_no') has-error @enderror">
+                                            <label class="col-md-3">Apply No.</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" placeholder="Apply No." name="apply_no" value="{{old('apply_no')}}" type="text" >
+                                                @error('apply_no')
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="col-sm-6" v-show="assignStock.assign_to == 'user'">
+                                        <div class="form-group row @error('user_id') has-error @enderror">
+                                            <label for="user_id" class="col-md-3">User</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control select2" id="user_id" name="user_id"
+                                                        v-model="assignStock.user_id" v-select2>
+                                                    <option value="">Select User</option>
+                                                    @foreach($users as $user)
+                                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('user_id')
+                                                <span class="help-block">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6" v-show="assignStock.assign_to == 'department'">
-                                        <div class="form-group @error('dept_id') has-error @enderror">
-                                            <label for="dept_id" class="with-help">Department</label>
-                                            <select class="form-control select2" id="dept_id" name="dept_id"
-                                                    v-model="assignStock.dept_id" v-select2>
-                                                <option value="">Select Department</option>
-                                                @foreach($departments as $department)
-                                                    <option value="{{$department->id}}">{{$department->department}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('dept_id')
-                                            <span class="help-block">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                            @enderror
+                                        <div class="form-group row @error('dept_id') has-error @enderror">
+                                            <label for="dept_id" class="col-md-3">Department</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control select2" id="dept_id" name="dept_id"
+                                                        v-model="assignStock.dept_id" v-select2>
+                                                    <option value="">Select Department</option>
+                                                    @foreach($departments as $department)
+                                                        <option value="{{$department->id}}">{{$department->department}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('dept_id')
+                                                <span class="help-block">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="title" class="with-help">Qty In Stock</label>
-                                    <input class="form-control" placeholder="Qty" name="stock_qty" value="{{$data->qty}}" type="number" id="stock_qty" readonly>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group @error('qty') has-error @enderror">
-                                    <label for="title" class="with-help">Assign Qty<span class="text-danger">*</span></label>
-                                    <input class="form-control" placeholder="Qty" name="qty" value="{{old('qty')}}" type="number" id="qty" onchange="assignStock();" onkeyup="assignStock();" required>
-                                    @error('qty')
-                                    <span class="help-block">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="title" class="col-sm-3">Qty In Stock</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" placeholder="Qty" name="stock_qty" value="{{$data->qty}}" type="number" id="stock_qty" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row @error('qty') has-error @enderror">
+                                            <label for="title" class="col-sm-3">Assign Qty<span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" placeholder="Qty" name="qty" value="{{old('qty')}}" type="number" id="qty" onchange="assignStock();" onkeyup="assignStock();" required>
+                                                @error('qty')
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                    @enderror
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group @error('assign_date') has-error @enderror">
-                                    <label class="with-help">Assign Date <span class="text-danger">*</span></label>
-                                    <input class="form-control" placeholder="Assign Date" name="assign_date" value="{{old('assign_date')}}" type="date" required>
-                                    @error('assign_date')
-                                    <span class="help-block">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row @error('assign_date') has-error @enderror">
+                                            <label class="col-sm-3">Assign Date <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" placeholder="Assign Date" name="assign_date" value="{{old('assign_date')}}" type="date" required>
+                                                @error('assign_date')
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group @error('remark') has-error @enderror">
-                                    <label class="with-help">Remark</label>
-                                    <textarea class="form-control" placeholder="Remark" name="remark" id="remark" cols="15" rows="5" value="{{old('remark')}}"></textarea>
-                                    @error('remark')
-                                    <span class="help-block">
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row @error('remark') has-error @enderror">
+                                            <label class="col-sm-3">Remark</label>
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control" placeholder="Remark" name="remark" id="remark" cols="15" rows="5" value="{{old('remark')}}"></textarea>
+                                                @error('remark')
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                    @enderror
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +160,7 @@
                         <button class="button save" type="submit">Save</button>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
             </div>
         </form>
     </section>

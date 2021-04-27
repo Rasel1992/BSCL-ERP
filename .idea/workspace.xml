@@ -2,7 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34529e75-ad32-42a8-b0b6-4d544ccc45ae" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jogotbari/BSCL-ERP into master&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/roster/create-edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/roster/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/roster/old.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/shift/create-edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/shift/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/role.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/role/create-edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/role/details.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/role/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/notification.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MyFristProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MyFristProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Request/RequisitionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Request/RequisitionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UserRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UserRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Stock.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Stock.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/backend1.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/backend1.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/department/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/department/create-edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/request/requisition/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/assign-stock.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/assign-stock.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/user/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user/create-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/user/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user/details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,6 +195,10 @@
       <path value="$PROJECT_DIR$/vendor/bacon/bacon-qr-code" />
       <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
       <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ljssk7brUXhpNMhvePQF8Kqmx4" />
@@ -174,18 +218,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\settings" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\stock" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets\plugins" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\department" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets" />
-      <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets\css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\BSCL-ERP\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\public\assets\images" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\request" />
-      <recent name="C:\xampp\htdocs\BSCL-ERP\public\storage\user\thumb" />
     </key>
   </component>
   <component name="RunManager">
@@ -300,6 +344,49 @@
       <workItem from="1617511047306" duration="7269000" />
       <workItem from="1617521346931" duration="6837000" />
       <workItem from="1617530715992" duration="1185000" />
+      <workItem from="1617595892018" duration="19344000" />
+      <workItem from="1617623447311" duration="1135000" />
+      <workItem from="1617681754653" duration="595000" />
+      <workItem from="1618065149484" duration="7069000" />
+      <workItem from="1618122843737" duration="1830000" />
+      <workItem from="1618130264754" duration="10926000" />
+      <workItem from="1618199749747" duration="68000" />
+      <workItem from="1618212830995" duration="656000" />
+      <workItem from="1618500008230" duration="111000" />
+      <workItem from="1618500134908" duration="626000" />
+      <workItem from="1618501592620" duration="515000" />
+      <workItem from="1618502226970" duration="4489000" />
+      <workItem from="1618550349869" duration="692000" />
+      <workItem from="1618551173113" duration="1631000" />
+      <workItem from="1618556822250" duration="10722000" />
+      <workItem from="1618634060916" duration="82000" />
+      <workItem from="1618652130648" duration="1468000" />
+      <workItem from="1618720357657" duration="15000" />
+      <workItem from="1618767329838" duration="209000" />
+      <workItem from="1618805960089" duration="430000" />
+      <workItem from="1618840842137" duration="8890000" />
+      <workItem from="1618896259290" duration="581000" />
+      <workItem from="1618933883403" duration="6600000" />
+      <workItem from="1618975869082" duration="100000" />
+      <workItem from="1619004882183" duration="3917000" />
+      <workItem from="1619027677071" duration="4053000" />
+      <workItem from="1619075289269" duration="631000" />
+      <workItem from="1619080886298" duration="12337000" />
+      <workItem from="1619114921938" duration="596000" />
+      <workItem from="1619160557049" duration="14373000" />
+      <workItem from="1619202017532" duration="461000" />
+      <workItem from="1619246073602" duration="11595000" />
+      <workItem from="1619276601114" duration="6021000" />
+      <workItem from="1619325493018" duration="23000" />
+      <workItem from="1619336619055" duration="713000" />
+      <workItem from="1619342083079" duration="1628000" />
+      <workItem from="1619344972545" duration="1062000" />
+      <workItem from="1619415146040" duration="138000" />
+      <workItem from="1619434600281" duration="2575000" />
+      <workItem from="1619459979190" duration="1804000" />
+      <workItem from="1619464021849" duration="596000" />
+      <workItem from="1619497554729" duration="310000" />
+      <workItem from="1619541822628" duration="3592000" />
     </task>
     <servers />
   </component>

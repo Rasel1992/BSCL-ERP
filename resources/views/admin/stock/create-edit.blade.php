@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="content">
-        <form method="POST" action="{{ isset($stock) ? route('admin.stocks.update', $stock->id) : route('admin.stocks.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
+        <form method="POST" action="{{ isset($stock) ? route('admin.stocks.update', $stock->id) : route('admin.stocks.store') }}{{ qString() }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
             @csrf
             {!! (isset($stock))?'<input name="_method" type="hidden" value="PUT">':'' !!}
             <div class="row">
@@ -21,16 +21,15 @@
                                 <div class="col-md-12">
                                     <div class="col-md-6">
                                         <div class="form-group row @error('stock_code') has-error @enderror">
-                                            <label for="name" class="col-md-3">Stock Code<span class="text-danger">*</span></label>
+                                            <label for="stock_code" class="col-md-3">Stock Code<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <input class="form-control" placeholder="Enter Stock Code" required name="stock_code"
-                                                   value="{{old('stock_code')}}" type="text" id="stock_code" v-model="stock.stock_code">
+                                            <input class="form-control" placeholder="Enter Stock Code" name="stock_code" value="{{old('stock_code')}}" type="text" id="stock_code" v-model="stock.stock_code" required>
+                                                @error('stock_code')
+                                                <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                                @enderror
                                             </div>
-                                            @error('stock_code')
-                                            <span class="help-block">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -49,12 +48,12 @@
                                                     @endif
                                                 @endforeach
                                             </select>
-                                            </div>
-                                            @error('category_id')
-                                            <span class="help-block">
+                                                @error('category_id')
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
 
@@ -65,12 +64,13 @@
                                             <label for="title" class="col-md-3">Qty<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
                                             <input class="form-control" placeholder="Qty" name="qty" v-model="stock.qty" type="number" id="qty" required>
-                                            </div>
                                                 @error('qty')
-                                            <span class="help-block">
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -93,12 +93,12 @@
                                                     GS Bethbunia
                                                 </option>
                                             </select>
-                                            </div>
-                                            @error('location')
-                                            <span class="help-block">
+                                                @error('location')
+                                                <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
-                                            @enderror
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
 
@@ -108,7 +108,7 @@
                                         <div class="form-group row @error('description') has-error @enderror">
                                             <label class="col-md-3">Details</label>
                                             <div class="col-md-8">
-                                            <input class="form-control" placeholder="Details" name="description" v-model="stock.description" type="text" required>
+                                                <textarea class="form-control" placeholder="Details" name="description" cols="5" rows="10" v-model="stock.description" type="text" required></textarea>
                                             </div>
                                             @error('description')
                                             <span class="help-block">

@@ -11,9 +11,9 @@
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
                     <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
-                    <a class="button add" href="{{ route('admin.inventories.summary') }}">Summary</a>
-                    <a class="button add" href="{{ route('admin.inventories.qr-code-list') }}">QR Code List</a>
-                    <a href="{{ route('admin.inventories.create') }}" class="button add"> Add Inventory</a>
+                    <a class="button add" href="{{ route('admin.inventories.summary').qString() }}">Summary</a>
+                    <a class="button add" href="{{ route('admin.inventories.qr-code-list').qString() }}">QR Code List</a>
+                    <a href="{{ route('admin.inventories.create').qString() }}" class="button add"> Add Inventory</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
