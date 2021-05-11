@@ -20,6 +20,7 @@ class CreateShiftsTable extends Migration
             $table->string('to');
             $table->string('total_hours');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

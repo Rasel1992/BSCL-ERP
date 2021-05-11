@@ -10,8 +10,14 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Stocks</h3>
                 <div class="box-tools pull-right">
+                    @can('see stock summary')
                     <a class="button add" href="{{ route('admin.stocks.summary') }}">Summary</a>
+                    @endcan
+
+                    @can('add stock')
                     <a href="{{ route('admin.stocks.create').qString() }}" class="button add"> Add Stock</a>
+                    @endcan
+
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
@@ -72,12 +78,21 @@
                             <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GSGazipur @else GS Bethbunia @endif</td>
 
                             <td class="row-options text-muted small">
+                                @can('edit stock')
                                 <a href="{{route('admin.stocks.edit', $stock->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
+                                @endcan
+
                                 <form method="POST" action="{{route('admin.stocks.destroy', $stock->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
+
+                                    @can('assign stock')
                                     <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id).qString() }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
+                                    @endcan
+
+                                    @can('delete stock')
                                     <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
+                                    @endcan
                                 </form>
                             </td>
                         </tr>

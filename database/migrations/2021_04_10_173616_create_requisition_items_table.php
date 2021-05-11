@@ -21,6 +21,7 @@ class CreateRequisitionItemsTable extends Migration
             $table->unsignedBigInteger('qty');
             $table->string('disbursement');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

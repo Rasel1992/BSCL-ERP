@@ -22,6 +22,7 @@ class PermissionSeeder extends Seeder
             'user' => [
                 'see user list',
                 'see user details',
+                'change password',
                 'add user',
                 'edit user',
                 'delete user'
@@ -47,13 +48,6 @@ class PermissionSeeder extends Seeder
                 'edit category',
                 'delete category'
             ],
-            'role' => [
-                'see role list',
-                'see role details',
-                'add role',
-                'edit role',
-                'delete role'
-            ],
             'inventory' => [
                 'see inventory list',
                 'see inventory details',
@@ -72,7 +66,18 @@ class PermissionSeeder extends Seeder
                 'delete stock',
                 'assign stock',
                 'see assigned stock list',
-            ]
+            ],
+            'role' => [
+                'see role list',
+                'see role details',
+                'add role',
+                'edit role',
+                'delete role'
+            ],
+            'setting' => [
+                'activity',
+            ],
+
         ];
 
         foreach($arrPermissions as $key => $apArr) {

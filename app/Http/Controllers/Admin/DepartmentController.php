@@ -9,12 +9,17 @@ use App\Imports\DepartmentsImport;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Excel;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
         try {
+            if (!Auth::user()->can('see department list')) {
+                return view('errors.403');
+            }
+
             $sql = Department::orderBy('created_at', 'ASC');
             if ($request->q) {
                 $sql->where(function ($q) use ($request) {
@@ -31,12 +36,20 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        if (!Auth::user()->can('add department')) {
+            return view('errors.403');
+        }
+
         return view('admin.department.create-edit');
     }
 
     public function store(DepartmentRequest $request)
     {
         try {
+            if (!Auth::user()->can('add department')) {
+                return view('errors.403');
+            }
+
             $data = $request->all();
             Department::create($data);
             return redirect()->route('admin.departments.index', qArray())->withSuccess('Department created successfully.');
@@ -47,6 +60,10 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
+        if (!Auth::user()->can('see department details')) {
+            return view('errors.403');
+        }
+
         if (empty($department)) {
             return redirect()->route('admin.departments.index');
         }
@@ -55,6 +72,10 @@ class DepartmentController extends Controller
 
     public function edit(Department $department)
     {
+        if (!Auth::user()->can('edit department')) {
+            return view('errors.403');
+        }
+
         if (empty($department)) {
             return redirect()->route('admin.departments.index');
         }
@@ -64,6 +85,10 @@ class DepartmentController extends Controller
     public function update(DepartmentRequest $request, Department $department)
     {
         try {
+            if (!Auth::user()->can('edit department')) {
+                return view('errors.403');
+            }
+
             if (empty($department)) {
                 return redirect()->route('admin.departments.index');
             }
@@ -79,6 +104,10 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         try {
+            if (!Auth::user()->can('delete department')) {
+                return view('errors.403');
+            }
+
             if (empty($department)) {
                 return redirect()->route('admin.departments.index', qArray());
             }

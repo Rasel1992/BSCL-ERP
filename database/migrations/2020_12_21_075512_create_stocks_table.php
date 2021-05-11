@@ -22,6 +22,7 @@ class CreateStocksTable extends Migration
             $table->string('qty');
             $table->enum('location', ['hq', 'gs1', 'gs2']);
             $table->timestamps();
+            $table->softDeletes();
         });
         }
 

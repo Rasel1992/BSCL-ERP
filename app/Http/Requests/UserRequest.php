@@ -44,6 +44,7 @@ class UserRequest extends FormRequest
             'present_address' => 'nullable|string|max:255',
             'permanent_address' => 'nullable|string|max:255',
             'signature' => 'nullable|image',
+            'role' => 'required',
         ];
     }
 }

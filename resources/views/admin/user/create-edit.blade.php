@@ -167,18 +167,16 @@
                                         </div>
                                     @endif
                                         <div class="col-md-6">
-                                            <div class="form-group row @error('sex') has-error @enderror">
-                                                <label class="col-md-3" for="sex">Gender</label>
+                                            <div class="form-group row @error('role') has-error @enderror">
+                                                <label class="col-md-3" for="sex">Role<span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
-                                                    <select class="form-control select2" id="sex" name="sex" v-model="user.sex" v-select2>
-                                                        <option value="">Select</option>
-                                                        <option value="male" {{ old('sex') == 'male' ? 'selected' : '' }}>Male</option>
-                                                        <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female
-                                                        </option>
-                                                        <option value="other" {{ old('sex') == 'other' ? 'selected' : '' }}>Others
-                                                        </option>
+                                                    <select name="role" class="form-control select2" required>
+                                                        @php ($admin_role = old('role', isset($data) ? $adminRole : ''))
+                                                        @foreach($roles as $role)
+                                                            <option value="{{$role}}" {{ ($admin_role == $role) ? 'selected' : '' }}>{{$role}}</option>
+                                                        @endforeach
                                                     </select>
-                                                    @error('sex')
+                                                    @error('role')
                                                     <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -186,6 +184,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
 
                                 </div>
                                 <div class="col-md-12">
@@ -237,27 +236,80 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="form-group row @error('sex') has-error @enderror">
+                                            <label class="col-md-3" for="sex">Gender</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control select2" id="sex" name="sex" v-model="user.sex" v-select2>
+                                                    <option value="">Select</option>
+                                                    <option value="male" {{ old('sex') == 'male' ? 'selected' : '' }}>Male</option>
+                                                    <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female
+                                                    </option>
+                                                    <option value="other" {{ old('sex') == 'other' ? 'selected' : '' }}>Others
+                                                    </option>
+                                                </select>
+                                                @error('sex')
+                                                <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group row @error('signature') has-error @enderror">
+                                            <label class="col-md-3" for="exampleInputFile">Signature</label>
+                                            <span style="margin-left: 10px;">
+                                            @if(isset($user->signature))
+                                                    {!! viewImg('user/signature', $user->signature, ['thumb' => 1,'alt'=>'Avatar', 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
+                                                @endif
+                                             </span>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-8 nopadding-right">
+                                                        <input id="uploadsig" placeholder="Choose signature" class="form-control"
+                                                               disabled="disabled" style="height: 28px;">
+                                                    </div>
+                                                    <div class="col-md-4 nopadding-left">
+                                                        <div class="fileUpload btn btn-primary btn-block btn-flat">
+                                                            <span>UPLOAD</span>
+                                                            <input type="file" name="signature" value="{{old('signature')}}"
+                                                                   @change="fileChosen('#uploadsig')" id="uploadBtn1" class="upload"
+                                                                   accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @error('signature')
+                                                <span class="help-block">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group row @error('image') has-error @enderror">
                                             <label class="col-md-3" for="exampleInputFile">Avatar</label>
                                             <span style="margin-left: 10px;">
                                             @if(isset($user->image))
-                                            {!! viewImg('user', $user->image, ['thumb' => 1,'alt'=>'Avatar', 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}@endif
+                                                    {!! viewImg('user', $user->image, ['thumb' => 1,'alt'=>'Avatar', 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}@endif
                                              </span>
                                             <div class="col-md-8">
-                                            <div class="row">
-                                                <div class="col-md-8 nopadding-right">
-                                                    <input id="uploadFile" placeholder="Choose avatar" class="form-control"
-                                                           disabled="disabled" style="height: 28px;">
-                                                </div>
-                                                <div class="col-md-4 nopadding-left">
-                                                    <div class="fileUpload btn btn-primary btn-block btn-flat">
-                                                        <span>UPLOAD</span>
-                                                        <input type="file" name="image" value="{{old('image')}}"
-                                                               @change="fileChosen('#uploadFile')" id="uploadBtn" class="upload"
-                                                               accept="image/*">
+                                                <div class="row">
+                                                    <div class="col-md-8 nopadding-right">
+                                                        <input id="uploadFile" placeholder="Choose avatar" class="form-control"
+                                                               disabled="disabled" style="height: 28px;">
+                                                    </div>
+                                                    <div class="col-md-4 nopadding-left">
+                                                        <div class="fileUpload btn btn-primary btn-block btn-flat">
+                                                            <span>UPLOAD</span>
+                                                            <input type="file" name="image" value="{{old('image')}}"
+                                                                   @change="fileChosen('#uploadFile')" id="uploadBtn" class="upload"
+                                                                   accept="image/*">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                                 @error('image')
                                                 <span class="help-block">
                                     <strong>{{ $message }}</strong>
@@ -359,39 +411,6 @@
                                                 <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('signature') has-error @enderror">
-                                            <label class="col-md-3" for="exampleInputFile">Signature</label>
-                                            <span style="margin-left: 10px;">
-                                            @if(isset($user->signature))
-                                                    {!! viewImg('user/signature', $user->signature, ['thumb' => 1,'alt'=>'Avatar', 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
-                                                @endif
-                                             </span>
-                                            <div class="col-md-8">
-                                                <div class="row">
-                                                    <div class="col-md-8 nopadding-right">
-                                                        <input id="uploadsig" placeholder="Choose signature" class="form-control"
-                                                               disabled="disabled" style="height: 28px;">
-                                                    </div>
-                                                    <div class="col-md-4 nopadding-left">
-                                                        <div class="fileUpload btn btn-primary btn-block btn-flat">
-                                                            <span>UPLOAD</span>
-                                                            <input type="file" name="signature" value="{{old('signature')}}"
-                                                                   @change="fileChosen('#uploadsig')" id="uploadBtn1" class="upload"
-                                                                   accept="image/*">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @error('signature')
-                                                <span class="help-block">
-                                    <strong>{{ $message }}</strong>
-                                </span>
                                                 @enderror
                                             </div>
                                         </div>

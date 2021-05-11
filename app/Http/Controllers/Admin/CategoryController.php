@@ -8,11 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index(Request $request)
     {
+        if (!Auth::user()->can('see category list')) {
+            return view('errors.403');
+        }
+
         $sql = Category::where('parent_id', 0)->with('nested')->orderBy('id', 'asc');
         if ($request->q) {
             $sql->whereHas('nested', function ($q) use ($request) {
@@ -29,12 +34,20 @@ class CategoryController extends Controller
 
     public function create()
     {
+        if (!Auth::user()->can('add category')) {
+            return view('errors.403');
+        }
+
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
         return view('admin.category.create-edit', compact('categoryData'));
     }
 
     public function store(CategoryRequest $request)
     {
+        if (!Auth::user()->can('add category')) {
+            return view('errors.403');
+        }
+
         $data = $request->all();
         Category::create($data);
         return redirect()->route('admin.categories.index', qArray())->withSuccess('Category created successfully.');
@@ -42,6 +55,10 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
+        if (!Auth::user()->can('see category details')) {
+            return view('errors.403');
+        }
+
         if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }
@@ -55,6 +72,10 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        if (!Auth::user()->can('edit category')) {
+            return view('errors.403');
+        }
+
         if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }
@@ -65,6 +86,10 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
+        if (!Auth::user()->can('edit category')) {
+            return view('errors.403');
+        }
+
         if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }
@@ -82,6 +107,10 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if (!Auth::user()->can('delete category')) {
+            return view('errors.403');
+        }
+
         if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }

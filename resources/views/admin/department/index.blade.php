@@ -9,10 +9,12 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Departments</h3>
+                @can('add department')
                 <div class="box-tools pull-right">
 {{--                    <a class="btn btn-success" href="{{ route('admin.export.departments') }}">Export</a>--}}
                     <a href="{{ route('admin.departments.create').qString() }}" class="button add"> Add Department</a>
                 </div>
+                @endcan
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <div class="row">
@@ -45,18 +47,24 @@
                             <td><a href="{{ route('admin.departments.show',$department->id ).qString() }}"> {{ $department->department }} </a></td>
                             <td>
                             <span class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" style="left: -115px;">
-                                                 <form method="POST" action="{{ route('admin.departments.destroy', $department->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                     @csrf
-                                                     @method('delete')
-                                                     <li><a href="{{ route('admin.departments.edit', $department->id).qString() }}"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
-                                                  </form>
-                                            </ul>
-                                        </span>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                    <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="left: -115px;">
+                                     <form method="POST" action="{{ route('admin.departments.destroy', $department->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                         @csrf
+                                         @method('delete')
+
+                                         @can('edit department')
+                                         <li><a href="{{ route('admin.departments.edit', $department->id).qString() }}"><i class="fa fa-edit"></i></a></li>
+                                         @endcan
+
+                                         @can('delete department')
+                                        <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
+                                         @endcan
+                                      </form>
+                                </ul>
+                            </span>
                             </td>
                         </tr>
                     @endforeach

@@ -12,6 +12,7 @@ use App\Models\Inventory;
 use App\User;
 use Illuminate\Http\Request;
 use Excel;
+use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class InventoryController extends Controller
@@ -19,6 +20,10 @@ class InventoryController extends Controller
     public function index(Request $request)
     {
         try {
+            if (!Auth::user()->can('see inventory list')) {
+                return view('errors.403');
+            }
+
             $categoryData = Category::where('type', '!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
             $sql = Inventory::orderBy('created_at', 'ASC');
             if ($request->q) {
@@ -46,6 +51,10 @@ class InventoryController extends Controller
 
     public function create()
     {
+        if (!Auth::user()->can('add inventory')) {
+            return view('errors.403');
+        }
+
         $users = User::get();
         $departments = Department::get();
         $categoryData = Category::where('type', '!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
@@ -54,6 +63,10 @@ class InventoryController extends Controller
 
     public function store(InventoryRequest $request)
     {
+        if (!Auth::user()->can('add inventory')) {
+            return view('errors.403');
+        }
+
         $data = $request->all();
         Inventory::create($data);
         return redirect()->route('admin.inventories.index', qArray())->withSuccess('Inventory created successfully.');
@@ -62,6 +75,10 @@ class InventoryController extends Controller
 
     public function show(Inventory $inventory)
     {
+        if (!Auth::user()->can('see inventory details')) {
+            return view('errors.403');
+        }
+
         if (empty($inventory)) {
             return redirect()->route('admin.inventories.index');
         }
@@ -70,6 +87,10 @@ class InventoryController extends Controller
 
     public function edit(Inventory $inventory)
     {
+        if (!Auth::user()->can('edit inventory')) {
+            return view('errors.403');
+        }
+
         if (empty($inventory)) {
             return redirect()->route('admin.inventories.index');
         }
@@ -82,6 +103,10 @@ class InventoryController extends Controller
     public function update(InventoryRequest $request, Inventory $inventory)
     {
         try {
+            if (!Auth::user()->can('edit inventory')) {
+                return view('errors.403');
+            }
+
             if (empty($inventory)) {
                 return redirect()->route('admin.inventories.index');
             }
@@ -96,6 +121,10 @@ class InventoryController extends Controller
     public function destroy(Inventory $inventory)
     {
         try {
+            if (!Auth::user()->can('delete inventory')) {
+                return view('errors.403');
+            }
+
             if (empty($inventory)) {
                 return redirect()->route('admin.inventories.index');
             }
@@ -109,6 +138,10 @@ class InventoryController extends Controller
     public function qrCodeList(Request $request)
     {
         try {
+            if (!Auth::user()->can('see inventory QR code list')) {
+                return view('errors.403');
+            }
+
             $sql = Inventory::orderBy('created_at', 'ASC');
             if ($request->q) {
                 $sql->where('asset_code', 'LIKE', $request->q . '%');
@@ -123,6 +156,10 @@ class InventoryController extends Controller
     public function summary()
     {
         try {
+            if (!Auth::user()->can('see inventory summary')) {
+                return view('errors.403');
+            }
+
             $categories = Category::with('nested')->where('parent_id', 0)->where('type', '!=', 'Stock')->paginate(50);
             return view('admin.inventory.summary', compact('categories'));
         } catch (\Exception $e) {

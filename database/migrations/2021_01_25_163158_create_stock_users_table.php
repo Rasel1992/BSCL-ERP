@@ -22,6 +22,7 @@ class CreateStockUsersTable extends Migration
             $table->string('qty');
             $table->date('assign_date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

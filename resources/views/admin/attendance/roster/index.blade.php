@@ -9,9 +9,11 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Rosters</h3>
+                @can('add set roster')
                 <div class="box-tools pull-right">
                     <a href="{{ route('admin.rosters.create').qString() }}" class="button add"> Set Rosters</a>
                 </div>
+                @endcan
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <div class="col-md-12">
@@ -67,18 +69,25 @@
                             <td> {{ $value->shift->total_hours}}</td>
                             <td>
                             <span class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" style="left: -115px;">
-                                                 <form method="POST" action="{{ route('admin.rosters.destroy', $value->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                     @csrf
-                                                     @method('delete')
-                                                     <li><a href="{{ route('admin.rosters.edit', $value->id).qString() }}"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
-                                                  </form>
-                                            </ul>
-                                        </span>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                    <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="left: -115px;">
+                                     <form method="POST" action="{{ route('admin.rosters.destroy', $value->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                         @csrf
+                                         @method('delete')
+
+                                         @can('edit set roster')
+                                         <li><a href="{{ route('admin.rosters.edit', $value->id).qString() }}"><i class="fa fa-edit"></i></a></li>
+                                         @endcan
+
+                                         @can('delete set roster')
+                                        <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
+                                        @endcan
+
+                                      </form>
+                                </ul>
+                            </span>
                             </td>
                         </tr>
                     @endforeach

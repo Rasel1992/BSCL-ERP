@@ -338,6 +338,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group mb0  col-sm-6">
+                                                        <label class="col-sm-5 control-label">Role : </label>
+                                                        <div class="col-sm-7">
+                                                            <p class="form-control-static">{{ $userRole ?? 'N/A' }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb0  col-sm-6">
                                                         <label class="col-sm-5 control-label">Joining Date: </label>
                                                         <div class="col-sm-7">
                                                             <p class="form-control-static">{{ $user->joining_date ?? 'N/A' }}</p>
