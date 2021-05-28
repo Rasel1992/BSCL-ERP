@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
 
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
         Route::resource('/role','RoleController');
+        Route::get('/activity-log', 'ActivityLogController@index')->name('activity-log');
     });
 });
 Route::get('inventories/{inventory}', 'Admin\InventoryController@showQrDetails');

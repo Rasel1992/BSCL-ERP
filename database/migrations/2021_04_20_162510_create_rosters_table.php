@@ -20,6 +20,7 @@ class CreateRostersTable extends Migration
             $table->date('roster_date');
             $table->enum('day', ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

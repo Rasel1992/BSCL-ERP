@@ -28,27 +28,21 @@
                                     </tr>
                                     </thead>
                                     <tbody id="editData">
-                                    @php($i = 1)
                                     @foreach($permissionArr as $module => $moduleArr)
                                         <tr>
                                             <td>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="module{{ $i }}" onclick="moduleCheck({{ $i }})" @if(isset($show)) {{ (array_key_exists($module, $rolePermission))?'checked':'' }} @endif>
-                                                    <label class="custom-control-label" for="module{{ $i }}">{{ ucwords($module) }}</label>
-                                                </div>
+                                                <strong>{{ ucwords($module) }}</strong>
                                             </td>
                                             <td>
-                                                <div class="row" id="moduleContent{{ $i }}">
+                                                <div class="row">
                                                     @foreach($moduleArr as $md)
                                                         <div class="col-sm-2 custom-control custom-checkbox">
-                                                            <input class="custom-control-input" id="permission{{ $md->id }}" name="permissions[]" type="checkbox" value="{{ $md->name }}"  @if(isset($show)) {{ (isset($rolePermission[$module]) && in_array($md->name, $rolePermission[$module]))?'checked':'' }}  @endif>
-                                                            <label for="permission{{ $md->id }}" class="custom-control-label">{{ ucwords(str_replace($module, '', $md->name)) }}</label><br>
+                                                            {{ ucwords(str_replace($module, '', $md->name)) }}<br>
                                                         </div>
                                                     @endforeach
                                                 </div>
                                             </td>
                                         </tr>
-                                        @php($i++)
                                     @endforeach
                                     </tbody>
                                 </table>

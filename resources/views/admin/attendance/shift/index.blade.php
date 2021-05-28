@@ -9,9 +9,11 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Shifts</h3>
+                @can('add shift')
                 <div class="box-tools pull-right">
                     <a href="{{ route('admin.shifts.create').qString() }}" class="button add"> Add Shift</a>
                 </div>
+                @endcan
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort">
@@ -35,18 +37,25 @@
                             <td> {{ $shift->total_hours }}</td>
                             <td>
                             <span class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" style="left: -115px;">
-                                                 <form method="POST" action="{{ route('admin.shifts.destroy', $shift->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                     @csrf
-                                                     @method('delete')
-                                                     <li><a href="{{ route('admin.shifts.edit', $shift->id).qString() }}"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
-                                                  </form>
-                                            </ul>
-                                        </span>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                    <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="left: -115px;">
+                                     <form method="POST" action="{{ route('admin.shifts.destroy', $shift->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                         @csrf
+                                         @method('delete')
+
+                                         @can('edit shift')
+                                         <li><a href="{{ route('admin.shifts.edit', $shift->id).qString() }}"><i class="fa fa-edit"></i></a></li>
+                                         @endcan
+
+                                         @can('delete shift')
+                                        <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
+                                         @endcan
+
+                                      </form>
+                                </ul>
+                            </span>
                             </td>
                         </tr>
                     @endforeach

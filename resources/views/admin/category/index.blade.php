@@ -163,9 +163,13 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Category</h3>
+
+                @can('add category')
                 <div class="box-tools pull-right">
                     <a href="{{ route('admin.categories.create') }}" class="button add">Add Category</a>
                 </div>
+                @endcan
+
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <div class="row">
@@ -283,16 +287,26 @@
                                                                                         <form method="POST" action="{{ route('admin.categories.destroy', $childCat->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                                                                             @csrf
                                                                                             @method('delete')
+
+                                                                                            @can('see category details')
                                                                                             <li>
                                                                                                 <a href="{{ route('admin.categories.show', $childCat->id).qString() }}" class="ajax-modal-btn">Show</a>
                                                                                             </li>
+                                                                                            @endcan
+
+                                                                                            @can('edit category')
                                                                                             <li>
                                                                                                 <a href="{{route('admin.categories.edit', $childCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
                                                                                             </li>
+                                                                                            @endcan
+
+                                                                                            @can('delete category')
                                                                                             <li>
                                                                                                 <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
 
                                                                                             </li>
+                                                                                            @endcan
+
                                                                                         </form>
                                                                                     </ul>
                                                                                 </div>
@@ -322,15 +336,25 @@
                                                                                             <form method="POST" action="{{ route('admin.categories.destroy', $grandChildCat->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                                                                                 @csrf
                                                                                                 @method('delete')
+
+                                                                                                @can('see category details')
                                                                                                 <li>
                                                                                                     <a href="{{ route('admin.categories.show', $grandChildCat->id).qString() }}" class="ajax-modal-btn">Show</a>
                                                                                                 </li>
+                                                                                                @endcan
+
+                                                                                                @can('edit category')
                                                                                                 <li>
                                                                                                     <a href="{{route('admin.categories.edit', $grandChildCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
                                                                                                 </li>
+                                                                                                @endcan
+
+                                                                                                @can('delete category')
                                                                                                 <li>
                                                                                                     <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
                                                                                                 </li>
+                                                                                                @endcan
+
                                                                                             </form>
                                                                                         </ul>
                                                                                     </div>

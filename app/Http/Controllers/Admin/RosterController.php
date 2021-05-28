@@ -8,11 +8,16 @@ use App\Models\Roster;
 use App\Models\Shift;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RosterController extends Controller
 {
     public function index(Request $request)
     {
+        if (!Auth::user()->can('see set roster list')) {
+            return view('errors.403');
+        }
+
         $rosters = Roster::orderBy('day', 'ASC')->paginate(50);
         $shifts = Shift::get();
         return view('admin.attendance.roster.index', compact('rosters', 'shifts'));
@@ -20,6 +25,10 @@ class RosterController extends Controller
 
     public function create()
     {
+        if (!Auth::user()->can('add set roster')) {
+            return view('errors.403');
+        }
+
         $users = User::get();
         $shifts = Shift::get();
         return view('admin.attendance.roster.create-edit', compact('users', 'shifts'));
@@ -27,6 +36,10 @@ class RosterController extends Controller
 
     public function store(RosterRequest $request)
     {
+        if (!Auth::user()->can('add set roster')) {
+            return view('errors.403');
+        }
+
         $data = [];
         foreach ($request->user_id as  $user_id) {
             foreach ($request->day as  $day) {
@@ -48,6 +61,10 @@ class RosterController extends Controller
 
     public function edit(Roster $roster)
     {
+        if (!Auth::user()->can('edit set roster')) {
+            return view('errors.403');
+        }
+
         if (empty($roster)) {
             return redirect()->route('admin.rosters.index');
         }
@@ -58,6 +75,10 @@ class RosterController extends Controller
 
     public function update(RosterRequest $request, Roster $roster)
     {
+        if (!Auth::user()->can('edit set roster')) {
+            return view('errors.403');
+        }
+
         try {
             if (empty($roster)) {
                 return redirect()->route('admin.rosters.index');
@@ -86,6 +107,10 @@ class RosterController extends Controller
     public function destroy(Roster $roster)
     {
         try {
+            if (!Auth::user()->can('delete set roster')) {
+                return view('errors.403');
+            }
+
             if (empty($roster)) {
                 return redirect()->route('admin.rosters.index', qArray());
             }

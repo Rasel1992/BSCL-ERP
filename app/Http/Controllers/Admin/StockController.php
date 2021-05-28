@@ -14,12 +14,17 @@ use App\Models\StockUser;
 use App\User;
 use Illuminate\Http\Request;
 use Excel;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
     public function index(Request $request)
     {
         try {
+            if (!Auth::user()->can('see stock list')) {
+                return view('errors.403');
+            }
+
             $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
             $sql = Stock::orderBy('created_at', 'ASC');
             if ($request->location) {
@@ -37,6 +42,10 @@ class StockController extends Controller
 
     public function create()
     {
+        if (!Auth::user()->can('add stock')) {
+            return view('errors.403');
+        }
+
         $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData'));
     }
@@ -44,6 +53,10 @@ class StockController extends Controller
     public function store(StockRequest $request)
     {
         try {
+            if (!Auth::user()->can('add stock')) {
+                return view('errors.403');
+            }
+
             $data = $request->all();
             Stock::create($data);
             return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock created successfully.');
@@ -54,6 +67,10 @@ class StockController extends Controller
 
     public function edit(Stock $stock)
     {
+        if (!Auth::user()->can('edit stock')) {
+            return view('errors.403');
+        }
+
         if (empty($stock)) {
             return redirect()->route('admin.stocks.index');
         }
@@ -64,6 +81,10 @@ class StockController extends Controller
     public function update(StockRequest $request, Stock $stock)
     {
         try {
+            if (!Auth::user()->can('edit stock')) {
+                return view('errors.403');
+            }
+
             if (empty($stock)) {
                 return redirect()->route('admin.stocks.index');
             }
@@ -78,6 +99,10 @@ class StockController extends Controller
     public function destroy(Stock $stock)
     {
         try {
+            if (!Auth::user()->can('delete stock')) {
+                return view('errors.403');
+            }
+
             if (empty($stock)) {
                 return redirect()->route('admin.stocks.index');
             }
@@ -91,6 +116,11 @@ class StockController extends Controller
     public function assignedStock(Request $request)
     {
         try {
+
+            if (!Auth::user()->can('see assigned stock list')) {
+                return view('errors.403');
+            }
+
             $categoryData = Category::where('parent_id', 0)->with('nested')->where('type', 'Stock')->get();
             $sql = StockUser::with('stock')->orderBy('created_at', 'ASC');
 
@@ -119,6 +149,10 @@ class StockController extends Controller
 
     public function assignStockForm(Request $request, $id)
     {
+        if (!Auth::user()->can('assign stock')) {
+            return view('errors.403');
+        }
+
         $data = Stock::where('id', $id)->first();
         $users = User::get();
         $departments = Department::get();
@@ -127,6 +161,10 @@ class StockController extends Controller
 
     public function assignStock(AssignStockRequest $request, $id)
     {
+        if (!Auth::user()->can('assign stock')) {
+            return view('errors.403');
+        }
+
         $stock_id = $id;
         $data = Stock::where('id', $stock_id)->first();
 
@@ -152,6 +190,10 @@ class StockController extends Controller
     public function summary()
     {
         try {
+
+            if (!Auth::user()->can('see stock summary')) {
+                return view('errors.403');
+            }
 
             $categories = Category::with('nested')->where('parent_id', 0)->where('type', 'Stock')->paginate(50);
             return view('admin.stock.summary', compact('categories'));

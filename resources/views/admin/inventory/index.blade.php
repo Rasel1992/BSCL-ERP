@@ -11,9 +11,18 @@
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
                     <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
+                    @can('see inventory summary')
                     <a class="button add" href="{{ route('admin.inventories.summary').qString() }}">Summary</a>
+                    @endcan
+
+                    @can('see inventory QR code list')
                     <a class="button add" href="{{ route('admin.inventories.qr-code-list').qString() }}">QR Code List</a>
+                    @endcan
+
+                    @can('add inventory')
                     <a href="{{ route('admin.inventories.create').qString() }}" class="button add"> Add Inventory</a>
+                    @endcan
+
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
@@ -120,27 +129,24 @@
                                             <td>{{ $inventory->purchase_date ?? '-' }}</td>
                                             <td>
                                  <span class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"
-                                               aria-expanded="false">
-                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"><i class="fa fa-cogs"></i> <span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu" style="left: -115px;">
-                                                 <form method="POST"
-                                                       action="{{ route('admin.inventories.destroy', $inventory->id).qString() }}"
-                                                       accept-charset="UTF-8" class="data-form">
+                                                 <form method="POST" action="{{ route('admin.inventories.destroy', $inventory->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                                      @csrf
                                                      @method('delete')
-                                                     <li><a href="{{ route('admin.inventories.show', $inventory->id).qString() }}"
-                                                            class="ajax-modal-btn"><i data-toggle="tooltip"
-                                                                                      data-placement="top"
-                                                                                      title="Details"
-                                                                                      class="fa fa-expand"></i></a></li>
-                                                     <li><a href="{{route('admin.inventories.edit', $inventory->id).qString() }}"
-                                                            class="ajax-modal-btn"><i data-toggle="tooltip"
-                                                                                      data-placement="top" title="Edit"
-                                                                                      class="fa fa-edit"></i></a>&nbsp;</li>
-                                                    <li><a href="javascript:void(0)" @click="destroy"><i
-                                                                class="fa fa-trash-o"></i> </a></li>
+
+                                                     @can('see inventory details')
+                                                     <li><a href="{{ route('admin.inventories.show', $inventory->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Details" class="fa fa-expand"></i></a></li>
+                                                     @endcan
+
+                                                     @can('edit inventory')
+                                                     <li><a href="{{route('admin.inventories.edit', $inventory->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;</li>
+                                                     @endcan
+
+                                                     @can('delete inventory')
+                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
+                                                     @endcan
                                                   </form>
                                             </ul>
                                         </span>

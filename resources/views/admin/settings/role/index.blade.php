@@ -9,9 +9,12 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Roles</h3>
+
+                @can('add role')
                 <div class="box-tools pull-right">
                     <a href="{{ route('admin.setting.role.create').qString() }}" class="button add"> Add Role</a>
                 </div>
+                @endcan
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <table class="table table-hover table-2nd-no-sort">
@@ -29,19 +32,29 @@
                             <td> {{ $val->name }} </td>
                             <td>
                             <span class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                                <i class="fa fa-cogs"></i> <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" style="left: -115px;">
-                                                 <form method="POST" action="{{ route('admin.setting.role.destroy', $val->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                     @csrf
-                                                     @method('delete')
-                                                     <li><a href="{{ route('admin.setting.role.edit', $val->id).qString() }}"><i class="fa fa-edit"></i></a></li>
-                                                     <li><a href="{{ route('admin.setting.role.show', $val->id).qString() }}"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
-                                                  </form>
-                                            </ul>
-                                        </span>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                    <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="left: -115px;">
+                                     <form method="POST" action="{{ route('admin.setting.role.destroy', $val->id).qString() }}" accept-charset="UTF-8" class="data-form">
+                                         @csrf
+                                         @method('delete')
+
+                                         @can('see role details')
+                                         <li><a href="{{ route('admin.setting.role.edit', $val->id).qString() }}"><i class="fa fa-edit"></i></a></li>
+                                         @endcan
+
+                                         @can('edit role')
+                                         <li><a href="{{ route('admin.setting.role.show', $val->id).qString() }}"><i class="fa fa-eye"></i></a></li>
+                                         @endcan
+
+                                         @can('delete role')
+                                        <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
+                                         @endcan
+
+                                      </form>
+                                </ul>
+                            </span>
                             </td>
                         </tr>
                     @endforeach

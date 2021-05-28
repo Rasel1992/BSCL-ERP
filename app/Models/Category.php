@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    use SoftDeletes, LogsActivity;
     protected $fillable = [
         'parent_id', 'category_name', 'type',
     ];
@@ -37,6 +36,21 @@ class Category extends Model
 
     public function stocks() {
         return $this->hasMany('App\Models\Stock', 'category_id', 'id');
+    }
+
+    protected static $logAttributes = ['*'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
+    protected static $logName = 'Category'; //custom_log_name_for_this_model
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return self::$logName. " {$eventName}";
+    }
+
+    public function tapActivity(Activity $activity)
+    {
+        $activity->ip = \request()->ip();
     }
 
 }

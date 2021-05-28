@@ -394,6 +394,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('admin.setting.role.index')}}"><i class="fa fa-sliders"></i> Role</a></li>
+                        <li><a href="{{route('admin.setting.activity-log')}}"><i class="fa fa-sliders"></i> Activity Log</a></li>
                     </ul>
                 </li>
 

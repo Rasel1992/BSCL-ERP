@@ -36,8 +36,10 @@ class CreateUsersTable extends Migration
             $table->string('present_address')->nullable();
             $table->string('permanent_address')->nullable();
             $table->string('signature')->nullable();
+            $table->enum('status', ['Active', 'Deactivated'])->default('Active');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

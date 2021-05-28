@@ -23,6 +23,7 @@ class CreateRequisitionsTable extends Migration
             $table->enum('status', ['Pending', 'Accept', 'Reject'])->default('Pending');
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -31,6 +31,7 @@ class CreateInventoriesTable extends Migration
             $table->date('purchase_date');
             $table->date('assign_date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
