@@ -2,31 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34529e75-ad32-42a8-b0b6-4d544ccc45ae" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jogotbari/BSCL-ERP into master&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/inventory/location-summary.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/stock/location-summary.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/stock/updated-stock.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-approved.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-disbursed.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-received.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-verified.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/InventoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/InventoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Request/RequisitionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Request/RequisitionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CategoryRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RosterRequest.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/ShiftRequest.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StockRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StockRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Stock.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Stock.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_20_181608_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_20_181608_create_categories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_21_075512_create_stocks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_21_075512_create_stocks_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/create-edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/inventory/summary.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/inventory/summary.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/create-edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/summary.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/summary.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Requisition.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Requisition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_10_155803_create_requisitions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_10_155803_create_requisitions_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,17 +182,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../idea-pos" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\inventory" />
-      <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\stock" />
+      <recent name="G:\xampp\htdocs\BSCL-ERP\resources\views\admin\request\requisition" />
       <recent name="G:\xampp\htdocs\BSCL-ERP\resources\views" />
       <recent name="G:\xampp\htdocs\BSCL-ERP\resources\views\admin\settings" />
       <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\settings" />
+      <recent name="C:\xampp\htdocs\BSCL-ERP\resources\views\admin\stock" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\BSCL-ERP\app\Http\Controllers\Admin" />
@@ -382,15 +368,15 @@
       <workItem from="1620201974028" duration="1007000" />
       <workItem from="1620297144325" duration="12000" />
       <workItem from="1620457528355" duration="632000" />
-      <workItem from="1620712886390" duration="7916000" />
-      <workItem from="1622196762673" duration="2000" />
-      <workItem from="1622216645929" duration="11511000" />
-      <workItem from="1622261272708" duration="1481000" />
-      <workItem from="1622286694187" duration="3598000" />
-      <workItem from="1622302646770" duration="12268000" />
-      <workItem from="1622349799521" duration="3318000" />
-      <workItem from="1622354485319" duration="974000" />
-      <workItem from="1622355911210" duration="1788000" />
+      <workItem from="1620712886390" duration="9559000" />
+      <workItem from="1620724369245" duration="820000" />
+      <workItem from="1620796039143" duration="1707000" />
+      <workItem from="1620800510551" duration="867000" />
+      <workItem from="1620810860692" duration="6153000" />
+      <workItem from="1620884779974" duration="3661000" />
+      <workItem from="1621073730611" duration="81000" />
+      <workItem from="1621164712199" duration="1004000" />
+      <workItem from="1621300383914" duration="2996000" />
     </task>
     <servers />
   </component>

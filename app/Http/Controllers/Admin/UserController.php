@@ -71,6 +71,10 @@ class UserController extends Controller
                 $image = (new MediaController())->imageUpload($request->file('image'), 'user', 1);
                 $data['image'] = $image['name'];
             }
+            if ($request->hasFile('signature')) {
+                $image = (new MediaController())->imageUpload($request->file('signature'), 'user/signature', 1);
+                $data['signature'] = $image['name'];
+            }
             $user = User::create($data);
             $user->assignRole($request->role);
             return redirect()->route('admin.users.index', qArray())->withSuccess('User created successfully.');

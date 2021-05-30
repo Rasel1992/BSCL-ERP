@@ -100,7 +100,7 @@
                                                  <form method="POST" action="{{ route('admin.request.requisition.destroy', $to->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                                      @csrf
                                                      @method('delete')
-                                                     <li><a href="{{ route('admin.request.requisition.edit', $to->id) }}"><i class="fa fa-eye"></i></a></li>
+                                                     <li><a href="{{ route('admin.request.requisition.show', $to->id) }}"><i class="fa fa-eye"></i></a></li>
                                                     <li><a href="javascript:void(0)" @click="destroy"><i class="fa fa-trash-o"></i> </a></li>
                                                   </form>
                                             </ul>
@@ -403,378 +403,6 @@
                                     </div>
                                 </div>
 
-                                @elseif(isset($edit))
-                                    <div class="tab-pane active">
-                                        <div class="box box-info">
-                                            <div class="box-header">
-                                                <i class="fa fa-envelope"></i>
-
-                                                <h3 class="box-title">Requisition Edit</h3>
-                                                <!-- tools box -->
-                                                <div class="pull-right box-tools">
-                                                    <a href="{{ route('admin.request.requisition.index') }}" class="btn btn-info pull-right">Back to list</a>
-                                                </div>
-                                                <!-- /. tools -->
-                                            </div>
-                                            <div class="box-body">
-                                                <form action="{{ route('admin.request.requisition.update', $edit) }}" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-
-                                                    @if (isset($edit))
-                                                        @method('PUT')
-                                                    @endif
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <div class="input-group date">
-                                                                        <div class="input-group-addon">
-                                                                            Requisition SL No. :
-                                                                        </div>
-                                                                        @php $randomNum=substr(str_shuffle("0123456789"), 0, 2); @endphp
-
-                                                                        <input type="text" class="form-control" name="requisition_by" value="{{ $data->sl_number }}" readonly>
-                                                                    </div>
-                                                                    <!-- /.input group -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6"></div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <div class="input-group date">
-                                                                        <div class="input-group-addon">
-                                                                            Requisition By :
-                                                                        </div>
-                                                                        <input type="text" class="form-control" value="{{ $data->requisitionBy->name }}" readonly>
-                                                                    </div>
-                                                                    <!-- /.input group -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6"></div>
-                                                        </div>
-                                                        @if(empty($data->verified_by) && isset( $data->requisitionBy->name))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Verified By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="verified_by" value="{{Auth::user()->name}}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-                                                        @if(empty($data->approved_by) && isset( $data->requisitionBy->name) && isset( $data->verifiedBy->name))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Approved By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="approved_by" value="{{Auth::user()->name}}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-                                                        @if(empty($data->received_by) && isset( $data->requisitionBy->name) && isset( $data->verifiedBy->name) && isset( $data->approvedBy->name))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Received By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="received_by" value="{{Auth::user()->name}}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-                                                        @if(empty($data->disbursed_by) && isset( $data->requisitionBy->name) && isset( $data->verifiedBy->name) && isset( $data->approvedBy->name) && isset( $data->receivedBy->name))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Disbursed By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="disbursed_by" value="{{Auth::user()->name}}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-                                                        @if(isset($data->verified_by))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Verified By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="verified_by" value="{{ $data->verifiedBy->name }}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-
-                                                        @if(isset($data->approved_by))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Approved By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="approved_by" value="{{ $data->approvedBy->name }}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-
-                                                        @if(isset($data->received_by))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Received By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="received_by" value="{{ $data->receivedBy->name }}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-
-                                                        @if(isset($data->disbursed_by))
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Disbursed By :
-                                                                            </div>
-                                                                            <input type="text" class="form-control" name="disbursed_by" value="{{ $data->disbursedBy->name }}" readonly>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"></div>
-                                                            </div>
-                                                        @endif
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <div class="input-group date">
-                                                                        <div class="input-group-addon">
-                                                                            Actual User :
-                                                                        </div>
-                                                                        <input type="text" class="form-control" name="actual_user" value="{{isset($data->actual_user) ? $data->actual_user : ''}}">
-                                                                    </div>
-                                                                    <!-- /.input group -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6"></div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <div class="input-group date">
-                                                                        <div class="input-group-addon">
-                                                                            Designation :
-                                                                        </div>
-                                                                        <input type="text" class="form-control" name="designation" value="{{ $data->requisitionBy->name }}" readonly>
-                                                                    </div>
-                                                                    <!-- /.input group -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6"></div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <div class="input-group date">
-                                                                        <div class="input-group-addon">
-                                                                            Department :
-                                                                        </div>
-                                                                        <input type="text" class="form-control" name="dept" value="{{ $data->requisitionBy->departments->department }}" readonly>
-                                                                    </div>
-                                                                    <!-- /.input group -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6"></div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <div class="input-group date">
-                                                                        <div class="input-group-addon">
-                                                                            Date :
-                                                                        </div>
-                                                                        <input type="date" class="form-control" name="requisition_date" value="{{ $data->requisition_date }}" readonly>
-                                                                    </div>
-                                                                    <!-- /.input group -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6"></div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="box-body">
-                                                                <table class="table table-bordered">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th>Sl. No</th>
-                                                                        <th>Item Code</th>
-                                                                        <th>Particulars</th>
-                                                                        <th>Quantity</th>
-                                                                        <th>Disbursement</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                    @foreach($data->requisitionItems as $key => $val)
-                                                                        <tr>
-                                                                            <td>{{++$key}}</td>
-                                                                            <td>{{$val->item_code}}</td>
-                                                                            <td>{{$val->particulars}}</td>
-                                                                            <td>{{$val->qty}}</td>
-                                                                            <td>{{$val->disbursement}}</td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-1"></div>&nbsp;
-                                                            <div class="col-md-2">
-                                                                @if($data->requisitionBy->signature)
-                                                                    {!! viewImg('user/signature', $data->requisitionBy->signature, ['class' => 'thumbnail', 'style' => 'width:100px; height:30px;']) !!}
-                                                                @endif
-
-                                                                <hr>
-                                                                <label>Requisitioned By</label>
-                                                            </div> &nbsp;
-                                                            <div class="col-md-2">
-                                                                @if(isset(Auth::user()->signature))
-                                                                    {!! viewImg('user/signature', Auth::user()->signature, ['class' => 'thumbnail', 'style' => 'width:100px; height:30px;']) !!}
-                                                                @else
-                                                                    <div class="file-up">
-                                                                        <div class="file-upload">
-                                                                            <input type="file" name="signature" />
-                                                                            <i class="fa fa-arrow-up"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-                                                                <hr>
-                                                                <label>Verified By Wing</label>
-                                                            </div>&nbsp;
-                                                            <div class="col-md-2">
-                                                                <div class="file-up">
-                                                                    <div class="file-upload">
-                                                                        <input disabled type="file" name="signature" />
-                                                                        <i class="fa fa-arrow-up"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <label>Approved By</label>
-                                                            </div>&nbsp;
-                                                            <div class="col-md-2">
-                                                                <div class="file-up">
-                                                                    <div class="file-upload">
-                                                                        <input disabled type="file" name="signature" />
-                                                                        <i class="fa fa-arrow-up"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <label>Received By</label>
-                                                            </div>&nbsp;
-                                                            <div class="col-md-2">
-                                                                <div class="file-up">
-                                                                    <div class="file-upload">
-                                                                        <input disabled type="file" name="signature" />
-                                                                        <i class="fa fa-arrow-up"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <label class="">Disbursed By</label>
-                                                            </div>&nbsp;
-                                                            <div class="col-md-1"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="box-footer clearfix">
-                                                        <div class="col-md-12">
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Approved To :
-                                                                            </div>
-                                                                            <select class="form-control" id="approved_to" name="approved_to">
-                                                                                <option value="">Select</option>
-                                                                                @foreach($users as $user)
-                                                                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <div class="input-group date">
-                                                                            <div class="input-group-addon">
-                                                                                Status :
-                                                                            </div>
-                                                                            <select class="form-control" id="verified_status" name="verified_status">
-                                                                                <option value="">Select Status</option>
-                                                                                @foreach(['Pending', 'Accept', 'Reject'] as $desi)
-                                                                                    <option value="{{ $desi }}">{{ $desi }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        <!-- /.input group -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <button type="submit" class="pull-right btn btn-success">Send
-                                                                        <i class="fa fa-arrow-circle-right"></i></button>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 @else
                                     <div class="tab-pane active">
                                         <div class="box box-info">
@@ -789,6 +417,8 @@
                                                 <!-- /. tools -->
                                             </div>
                                             <div class="box-body">
+                                                <form action="{{route('admin.request.requisition.store') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-md-6">
@@ -797,6 +427,8 @@
                                                                         <div class="input-group-addon">
                                                                             Requisition SL No. :
                                                                         </div>
+                                                                        @php $randomNum=substr(str_shuffle("0123456789"), 0, 2); @endphp
+
                                                                         <input type="text" class="form-control" name="requisition_by" value="{{ $data->sl_number }}" readonly>
                                                                     </div>
                                                                     <!-- /.input group -->
@@ -1045,12 +677,16 @@
                                                                 <label>Requisitioned By</label>
                                                             </div> &nbsp;
                                                             <div class="col-md-2">
-                                                                <div class="file-up">
-                                                                    <div class="file-upload">
-                                                                        <input disabled type="file" name="signature" />
-                                                                        <i class="fa fa-arrow-up"></i>
+                                                                @if(isset(Auth::user()->signature))
+                                                                    {!! viewImg('user/signature', Auth::user()->signature, ['class' => 'thumbnail', 'style' => 'width:100px; height:30px;']) !!}
+                                                                @else
+                                                                    <div class="file-up">
+                                                                        <div class="file-upload">
+                                                                            <input type="file" name="signature" />
+                                                                            <i class="fa fa-arrow-up"></i>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                @endif
                                                                 <hr>
                                                                 <label>Verified By Wing</label>
                                                             </div>&nbsp;
@@ -1087,6 +723,35 @@
                                                             <div class="col-md-1"></div>
                                                         </div>
                                                     </div>
+                                                    <div class="box-footer clearfix">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-4"></div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group date">
+                                                                            <div class="input-group-addon">
+                                                                                Send To :
+                                                                            </div>
+                                                                            <select class="form-control" id="requisition_to" name="requisition_to">
+                                                                                <option value="">Select</option>
+                                                                                @foreach($users as $user)
+                                                                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <!-- /.input group -->
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <button type="submit" class="pull-right btn btn-success">Send
+                                                                        <i class="fa fa-arrow-circle-right"></i></button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
