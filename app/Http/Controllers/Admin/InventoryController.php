@@ -167,6 +167,20 @@ class InventoryController extends Controller
         }
     }
 
+    public function locationSummary(Request $request)
+    {
+        try {
+            if (!Auth::user()->can('see inventory summary')) {
+                return view('errors.403');
+            }
+
+            $categories = Category::with('nested', 'inventories')->where('parent_id', 0)->where('type', '!=', 'Stock')->paginate(50);
+            $location = $request->location;
+            return view('admin.inventory.location-summary', compact('categories', 'location'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 
     public function code()
     {

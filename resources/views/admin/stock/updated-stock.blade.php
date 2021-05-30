@@ -1,29 +1,22 @@
 @extends('layouts.backend')
 
 @section('title')
-    Stocks
+    Updated Stocks
 @endsection
 
 @section('content')
     <section class="content">
         <div class="panel">
             <div class="box-header with-border">
-                <h3 class="box-title">Stocks</h3>
+                <h3 class="box-title">Updated Stocks</h3>
                 <div class="box-tools pull-right">
-                    @can('see stock summary')
-                    <a class="button add" href="{{ route('admin.stocks.summary') }}">Summary</a>
-                    @endcan
-                    <a class="button add" href="{{ route('admin.stocks.updated.list') }}">Updated Stock List</a>
-                    @can('add stock')
-                    <a href="{{ route('admin.stocks.create').qString() }}" class="button add"> Add Stock</a>
-                    @endcan
-
+                    <a href="{{ route('admin.stocks.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Stock</a>
                 </div>
             </div> <!-- /.box-header -->
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="GET" action="{{ route('admin.stocks.index') }}" class="form-inline float-right">
+                        <form method="GET" action="{{ route('admin.stocks.updated.list') }}" class="form-inline float-right">
                             <div class="input-group">
                                 <span class="input-group-addon">From</span>
                                 <input type="date" class="form-control" name="from"
@@ -63,7 +56,7 @@
                                        placeholder="Input your search text...">
                             </div>
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
-                            <a href="{{ route('admin.stocks.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
+                            <a href="{{ route('admin.stocks.updated.list') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
                         </form>
                     </div>
                 </div>
@@ -91,25 +84,6 @@
                             <td> @if($stock->qty < 5) <span style="color: red">{{ $stock->qty }}</span> @else {{ $stock->qty }} @endif</td>
                             <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GSGazipur @else GS Bethbunia @endif</td>
                             <td>{{ $stock->stock_date }}</td>
-
-                            <td class="row-options text-muted small">
-                                @can('edit stock')
-                                <a href="{{route('admin.stocks.edit', $stock->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                @endcan
-
-                                <form method="POST" action="{{route('admin.stocks.destroy', $stock->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                    @csrf
-                                    @method('delete')
-
-                                    @can('assign stock')
-                                    <a href="{{route('admin.stocks.get-assign-stock-form', $stock->id).qString() }}" class="confirm ajax-silent" title="Assign Stock"><i class="fa fa-plus"></i></a>
-                                    @endcan
-
-                                    @can('delete stock')
-                                    <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
-                                    @endcan
-                                </form>
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -125,36 +99,9 @@
                         </div>
                     </div>
                 @endif
-            </div> <!-- /.box-body -->
-        </div> <!-- /.box -->
-        @include('admin.stock.form_import')
+            </div>
+        </div>
     </section>
 @endsection
 
-@push('scripts')
-    <script>
-        new Vue({
-            el: '#app',
-            methods: {
-                destroy: function () {
-                    const $this = $(event.target);
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.value) {
-                            $this.closest('form').submit();
-                        }
-                    });
-                }
-            }
-        })
-    </script>
-@endpush
 

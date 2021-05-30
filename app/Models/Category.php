@@ -11,7 +11,7 @@ class Category extends Model
 {
     use SoftDeletes, LogsActivity;
     protected $fillable = [
-        'parent_id', 'category_name', 'type',
+        'parent_id', 'category_name', 'type', 'category_code'
     ];
 
     public function nested()

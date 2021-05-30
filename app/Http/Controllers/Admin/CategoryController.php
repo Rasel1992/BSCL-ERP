@@ -18,7 +18,7 @@ class CategoryController extends Controller
             return view('errors.403');
         }
 
-        $sql = Category::where('parent_id', 0)->with('nested')->orderBy('id', 'asc');
+        $sql = Category::where('parent_id', 0)->with('nested')->orderBy('category_name', 'asc');
         if ($request->q) {
             $sql->whereHas('nested', function ($q) use ($request) {
                 $q->where('category_name', 'LIKE', $request->q . '%');
@@ -48,8 +48,16 @@ class CategoryController extends Controller
             return view('errors.403');
         }
 
-        $data = $request->all();
-        Category::create($data);
+        $storeData = [
+            'parent_id' => $request->parent_id,
+            'type' => $request->type,
+            'category_name' => $request->category_name,
+        ];
+
+        if($request->parent_id != 0) {
+            $storeData['category_code'] = $request->category_code;
+        }
+        Category::create($storeData);
         return redirect()->route('admin.categories.index', qArray())->withSuccess('Category created successfully.');
     }
 
@@ -93,14 +101,17 @@ class CategoryController extends Controller
         if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }
-        $input = $request->all();
         $updateData = [
-            'parent_id' => $input['parent_id'],
-            'category_name' => $input['category_name'],
-            'type' => $input['type'],
+            'parent_id' => $request->parent_id,
+            'type' => $request->type,
+            'category_name' => $request->category_name,
         ];
-        $data = $category;
-        $data->update($updateData);
+
+        if($request->category_code && $request->parent_id != 0) {
+            $updateData['category_code'] = $request->category_code;
+        }
+
+        $category->update($updateData);
 
         return redirect()->route('admin.categories.index', qArray())->withSuccess('Category updated successfully.');
     }
@@ -116,5 +127,11 @@ class CategoryController extends Controller
         }
         $category->delete();
         return redirect()->route('admin.categories.index', qArray())->withSuccess('Category deleted successfully.');
+    }
+
+    public function CategoryCodeAjax(Request $request)
+    {
+        $code = Category::select('id', 'category_code')->where('id', $request->category_id)->first();
+        return response()->json(['status' => true, 'code' => $code]);
     }
 }

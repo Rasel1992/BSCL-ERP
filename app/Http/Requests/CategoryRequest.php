@@ -26,7 +26,8 @@ class CategoryRequest extends FormRequest
         return [
             'parent_id' => 'required|integer',
             'type' => 'required|in:Fixed,Current,Stock',
-            'category_name' => 'required|string|max:255',
+            'category_name' => $this->isMethod('put') ? 'required|string|max:100' : 'required|string|max:255|unique:categories,category_name',
+            'category_code' => $this->isMethod('put') ? 'nullable|string|max:100' : 'nullable|string|max:255|unique:categories,category_code',
         ];
     }
 }

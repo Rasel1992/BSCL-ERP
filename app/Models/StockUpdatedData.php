@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Contracts\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Stock extends Model
+class StockUpdatedData extends Model
 {
     use SoftDeletes, LogsActivity;
+
     protected $fillable = [
         'stock_code',
         'description',
@@ -27,7 +28,7 @@ class Stock extends Model
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
-    protected static $logName = 'Stock'; //custom_log_name_for_this_model
+    protected static $logName = 'Stock Updated Data'; //custom_log_name_for_this_model
 
     public function getDescriptionForEvent(string $eventName): string
     {
@@ -38,4 +39,5 @@ class Stock extends Model
     {
         $activity->ip = \request()->ip();
     }
+
 }

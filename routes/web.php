@@ -30,7 +30,9 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/stocks/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('stocks.get-assign-stock-form');
     Route::post('/assign-stock/{stock}', 'StockController@assignStock')->name('assign-stock');
     Route::get('/stocks/assigned-stock','StockController@assignedStock')->name('stocks.assigned-stock');
+    Route::get('/stocks/location/summary', 'StockController@locationSummary')->name('stocks.location.summary');
     Route::get('/stocks/summary', 'StockController@summary')->name('stocks.summary');
+    Route::get('/stocks/updated/list', 'StockController@updatedList')->name('stocks.updated.list');
     Route::get('/stocks/category/{id}','StockController@categoryStocks')->name('stocks.category');
     Route::post('/stocks/importInventory', 'StockController@ImportExcel')->name('stocks.import');
     Route::resource('stocks','StockController');
@@ -43,6 +45,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     });
 
     Route::group(['prefix' => 'inventories', 'as' => 'inventories.'], function () {
+    Route::get('/location/summary', 'InventoryController@locationSummary')->name('location.summary');
     Route::get('/summary', 'InventoryController@summary')->name('summary');
     Route::get('/category/{id}','InventoryController@categoryInventory')->name('category');
     Route::get('/qr-code-list', 'InventoryController@qrCodeList')->name('qr-code-list');
@@ -52,6 +55,7 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/categories/all', 'CategoryController@all')->name('categories.all');
     Route::post('/categories/update-order', 'CategoryController@updateOrder')->name('categories.update.order');
     Route::resource('categories','CategoryController');
+    Route::get('/category-code-ajax', 'CategoryController@CategoryCodeAjax')->name('category-code-ajax');
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
     Route::get('/inventories/exportDepartment','DepartmentController@fileExport')->name('export.departments');

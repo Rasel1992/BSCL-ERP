@@ -24,10 +24,12 @@ class StockRequest extends FormRequest
     public function rules()
     {
         return [
+            'stock_code' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:255',
             'category_id' => 'required|integer|exists:categories,id',
             'qty' => 'required|integer',
             'location' => 'required|in:hq,gs1,gs2',
+            'stock_date' => 'required|date',
         ];
     }
 }

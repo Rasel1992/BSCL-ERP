@@ -27,6 +27,7 @@ class UserController extends Controller
             $sql = User::orderBy('created_at', 'ASC');
             if ($request->q) {
                 $sql->where('name', 'LIKE', $request->q . '%');
+                $sql->orWhere('user_id', $request->q );
             }
             if ($request->type) {
                 $sql->where('type', $request->type);

@@ -152,9 +152,39 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="service-box-wrapper" id="service-box">
-                            <div class="box-body table-responsive no-padding">
-                                <span id="all_show_hide" @click="allCatChildShowHide" class="btn btn-info pull-right">Hide All</span>
+                            <div class="box-body table-responsive">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-8 text-right">
+                                            <form method="GET" action="{{ route('admin.inventories.location.summary') }}" class="form-inline">
+                                                <div class="form-group" style="width: 25%">
+                                                    <select class="form-control select2" id="location" name="location">
+                                                        <option value="">Select Location</option>
+                                                        <option value="hq" {{'hq' == Request::get('location')?'selected':''}} >Head Quarter
+                                                        </option>
+                                                        <option value="gs1" {{'gs1' == Request::get('location')?'selected':''}}>GS Gazipur
+                                                        </option>
+                                                        <option value="gs2" {{'gs2' == Request::get('location')?'selected':''}}>GS Bethbunia
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
+                                                <a href="{{ route('admin.inventories.location.summary') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6">
+                                            <span id="all_show_hide" @click="allCatChildShowHide" class="btn btn-info pull-right">Hide All</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br>
                                 <div class="col-xs-4">
                                     <div class="panel">

@@ -11,13 +11,9 @@
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
                     <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
-                    @can('see inventory summary')
                     <a class="button add" href="{{ route('admin.inventories.summary').qString() }}">Summary</a>
-                    @endcan
 
-                    @can('see inventory QR code list')
                     <a class="button add" href="{{ route('admin.inventories.qr-code-list').qString() }}">QR Code List</a>
-                    @endcan
 
                     @can('add inventory')
                     <a href="{{ route('admin.inventories.create').qString() }}" class="button add"> Add Inventory</a>
@@ -112,10 +108,10 @@
                                             <td> {{ $inventory->category->category_name }}</td>
                                             <td>
                                                 @if($inventory->assign_to == 'user') <strong>Person:</strong>
-                                                <br> {{$inventory->user->name }}
+                                                <br> <a href="{{ route('admin.users.show',$inventory->user_id ).qString() }}">{{$inventory->user->name }} </a>
                                                 @else
                                                     <strong>Department:</strong>
-                                                    <br> {{ $inventory->department->department}}
+                                                    <br> <a href="{{ route('admin.departments.show',$inventory->dept_id ).qString() }}">{{ $inventory->department->department}}</a>
                                                 @endif
                                             </td>
                                             <td>{{ $inventory->assign_date ?? '-' }}</td>

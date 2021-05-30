@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStocksTable extends Migration
+class CreateStockUpdatedDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('stock_updated_data', function (Blueprint $table) {
             $table->id();
-            $table->string('stock_code')->unique();
+            $table->string('stock_code');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->string('qty');
-            $table->enum('location', ['hq', 'gs1', 'gs2']);
             $table->date('stock_date');
+            $table->enum('location', ['hq', 'gs1', 'gs2']);
             $table->timestamps();
             $table->softDeletes();
         });
-        }
+    }
 
     /**
      * Reverse the migrations.
@@ -33,6 +33,6 @@ class CreateStocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('stock_updated_data');
     }
 }

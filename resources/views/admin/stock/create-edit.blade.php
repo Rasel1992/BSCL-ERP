@@ -20,11 +20,23 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('stock_code') has-error @enderror">
-                                            <label for="stock_code" class="col-md-3">Stock Code<span class="text-danger">*</span></label>
+                                        <div class="form-group row @error('category_id') has-error @enderror">
+                                            <label class="col-md-3">Stock Category<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <input class="form-control" placeholder="Enter Stock Code" name="stock_code" value="{{old('stock_code')}}" type="text" id="stock_code" v-model="stock.stock_code" required>
-                                                @error('stock_code')
+                                                <select class="form-control select2" id="category_id" name="category_id" onchange="categoryCode();" required>
+                                                    <?php $CatId = (isset($stock->category_id)) ? $stock->category_id : old('category_id'); ?>
+                                                    <option value="">Select Category</option>
+                                                    @foreach($categoryData as $cat)
+                                                        <option value="{{ $cat->id }}" {{ ($CatId==$cat->id)?'selected':'' }} disabled>{{ $cat->category_name }}</option>
+                                                        @if(!empty($cat->nested))
+                                                            @foreach($cat->nested as $nc)
+                                                                <option value="{{ $nc->id }}" {{ ($CatId==$nc->id)?'selected':'' }}>
+                                                                    &nbsp;&nbsp;-- {{ $nc->category_name }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                @error('category_id')
                                                 <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -33,22 +45,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('category_id') has-error @enderror">
-                                            <label for="category_id" class="col-md-3">Stock Category<span class="text-danger">*</span></label>
+                                        <div class="form-group row @error('stock_code') has-error @enderror">
+                                            <label class="col-md-3">Stock Code<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <select class="form-control select2" id="category_id" name="category_id" v-model="stock.category_id" required v-select2>
-                                                <option value="">Select Category</option>
-                                                @foreach($categoryData as $cat)
-                                                    <option value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
-                                                    @if(!empty($cat->nested))
-                                                        @foreach($cat->nested as $nc)
-                                                            <option value="{{ $nc->id }}">
-                                                                &nbsp;&nbsp;-- {{ $nc->category_name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                                @error('category_id')
+                                            <input class="form-control" placeholder="Enter Stock Code" name="stock_code" type="text" id="stock_code" value="{{ old('stock_code', $stock->stock_code ?? '')}}" readonly required>
+                                                @error('stock_code')
                                                 <span class="help-block">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -63,7 +64,7 @@
                                         <div class="form-group row @error('qty') has-error @enderror">
                                             <label for="title" class="col-md-3">Qty<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <input class="form-control" placeholder="Qty" name="qty" v-model="stock.qty" type="number" id="qty" required>
+                                            <input class="form-control" placeholder="Qty" name="qty" value="{{ old('qty', $stock->qty ?? '')}}" type="number" id="qty" required>
                                                 @error('qty')
                                                 <span class="help-block">
                             <strong>{{ $message }}</strong>
@@ -77,19 +78,15 @@
                                         <div class="form-group row @error('location') has-error @enderror">
                                             <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <select class="form-control select2" id="location" name="location"
-                                                    v-model="stock.location" v-select2>
+                                            <select class="form-control select2" id="location" name="location">
                                                 <option value="">Select Location</option>
-                                                <option
-                                                    value="hq" {{(isset($stock->location)?$stock->location:old('location') == 'hq') ? 'Selected' : ''}}>
+                                                <option value="hq" {{($stock->location ?? old('location') == 'hq') ? 'Selected' : ''}}>
                                                     Head Quarter
                                                 </option>
-                                                <option
-                                                    value="gs1" {{(isset($stock->location)?$stock->location:old('location') == 'gs1') ? 'Selected' : ''}}>
+                                                <option value="gs1" {{($stock->location ?? old('location') == 'gs1') ? 'Selected' : ''}}>
                                                     GS Gazipur
                                                 </option>
-                                                <option
-                                                    value="gs2" {{(isset($stock->location)?$stock->location:old('location') == 'gs2') ? 'Selected' : ''}}>
+                                                <option value="gs2" {{($stock->location ?? old('location') == 'gs2') ? 'Selected' : ''}}>
                                                     GS Bethbunia
                                                 </option>
                                             </select>
@@ -105,10 +102,23 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-6">
+                                        <div class="form-group row @error('stock_date') has-error @enderror">
+                                            <label class="col-md-3">Stock Date<span class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" placeholder="Stock Date" name="stock_date" value="{{ old('stock_date', $stock->stock_date ?? '')}}" type="date" required>
+                                                @error('stock_date')
+                                                <span class="help-block">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group row @error('description') has-error @enderror">
                                             <label class="col-md-3">Details</label>
                                             <div class="col-md-8">
-                                                <textarea class="form-control" placeholder="Details" name="description" cols="5" rows="10" v-model="stock.description" type="text" required></textarea>
+                                                <textarea class="form-control" placeholder="Details" name="description" cols="5" rows="10" type="text" required>{{ old('description', $stock->description ?? '')}}</textarea>
                                             </div>
                                             @error('description')
                                             <span class="help-block">
@@ -133,30 +143,23 @@
 @endsection
 @push('scripts')
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                stock: {
-                    stock_code: '{{ old('stock_code', $stock->stock_code ?? '') }}',
-                    description: '{{ old('description', $stock->description ?? '') }}',
-                    category_id: '{{ old('category_id ', $stock->category_id  ?? '') }}',
-                    qty: '{{ old('qty', $stock->qty ?? '') }}',
-                    location: '{{ old('location', $stock->location ?? '') }}',
-                },
-                mounted() {
-                    this.initLibs();
-                },
-                methods: {
-                    initLibs: function () {
-                        setTimeout(function () {
-                            $('.select2').select2({
-                                width: '100%',
-                                placeholder: 'Select',
-                            });
-                        }, 10);
+        function categoryCode() {
+            var catId = $('#category_id').val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.category-code-ajax') }}",
+                    data: {
+                        'category_id': catId,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (res) {
+                        if (res.status) {
+                            $('#stock_code').val(res.code.category_code);
+                        }
                     }
-                }
-            }
-        })
+                });
+        }
     </script>
 @endpush
