@@ -21,6 +21,8 @@ class CreateStockUsersTable extends Migration
             $table->unsignedBigInteger('dept_id')->nullable();
             $table->string('qty');
             $table->date('assign_date');
+            $table->text('remark')->nullable();
+            $table->string('apply_no')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

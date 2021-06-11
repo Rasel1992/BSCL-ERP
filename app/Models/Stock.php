@@ -10,6 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Stock extends Model
 {
     use SoftDeletes, LogsActivity;
+
     protected $fillable = [
         'stock_code',
         'description',

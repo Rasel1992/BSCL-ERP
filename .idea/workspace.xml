@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34529e75-ad32-42a8-b0b6-4d544ccc45ae" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jogotbari/BSCL-ERP into master&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-approved.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-disbursed.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-received.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition-verified.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/category/oldIndex.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Request/RequisitionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Request/RequisitionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Requisition.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Requisition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_10_155803_create_requisitions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_10_155803_create_requisitions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/request/requisition/requisition.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/AssignStockRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/AssignStockRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Stock.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Stock.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/StockUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/StockUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_25_163158_create_stock_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_25_163158_create_stock_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/stock/assigned-stock.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stock/assigned-stock.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -377,6 +374,8 @@
       <workItem from="1621073730611" duration="81000" />
       <workItem from="1621164712199" duration="1004000" />
       <workItem from="1621300383914" duration="2996000" />
+      <workItem from="1622362366440" duration="74000" />
+      <workItem from="1623388895913" duration="3683000" />
     </task>
     <servers />
   </component>

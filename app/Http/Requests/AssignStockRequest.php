@@ -27,9 +27,11 @@ class AssignStockRequest extends FormRequest
             'qty' => 'required|integer',
             'stock_id' => 'required|integer|exists:stocks,id',
             'assign_to' => 'required|in:user,department',
+            'apply_no' => 'nullable|string',
             'user_id' => 'nullable|integer|exists:users,id',
             'dept_id' => 'nullable|integer|exists:departments,id',
             'assign_date' => 'required|date',
+            'remark' => 'nullable|string',
         ];
     }
 }

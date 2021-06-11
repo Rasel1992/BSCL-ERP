@@ -63,10 +63,12 @@
                         <th>SL</th>
                         <th>Stock Category</th>
                         <th>Assign To</th>
+                        <th>Apply No.</th>
                         <th>Assigned Qty</th>
                         <th>Qty In Stock</th>
                         <th>Location</th>
                         <th>Assign Date</th>
+                        <th>Remark</th>
 
                     </tr>
                     </thead>
@@ -74,17 +76,19 @@
                     @foreach($assignedStocks as  $key => $stock)
                         <tr>
                             <td> {{$key + $assignedStocks->firstItem()}}</td>
-                            <td> {{ $stock->stock->category->category_name }}</td>
+                            <td>@if($stock->stock) {{ $stock->stock->category->category_name }} @endif</td>
                             <td>
                                 @if($stock->assign_to == 'user') <strong>Person:</strong><br><a href="{{ route('admin.users.show',$stock->user->id ) }}">{{$stock->user->name }}</a>
                                 @else
                                     <strong>Department:</strong><br><a href="{{ route('admin.departments.show',$stock->department->id ) }}">{{ $stock->department->department}}</a>
                                 @endif
                             </td>
+                            <td> {{ $stock->apply_no ?? '-'}}</td>
                             <td> {{ $stock->qty }}</td>
-                            <td> {{ $stock->stock->qty }}</td>
-                            <td> @if($stock->stock->location == 'hq') HeadQuarter @elseif($stock->stock->location == 'gs1') GS Gazipur @else GSBethbunia @endif</td>
+                            <td> @if($stock->stock){{ $stock->stock->qty }}@endif</td>
+                            <td> @if($stock->stock) @if($stock->stock->location == 'hq') HeadQuarter @elseif($stock->stock->location == 'gs1') GS Gazipur @else GSBethbunia @endif @else - @endif</td>
                             <td> {{ $stock->assign_date }} </td>
+                            <td> {{ $stock->remark ?? '-' }}</td>
                         </tr>
                     @endforeach
                     </tbody>

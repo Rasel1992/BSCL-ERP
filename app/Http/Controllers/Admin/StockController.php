@@ -133,16 +133,18 @@ class StockController extends Controller
         }
     }
 
-    public function destroy(Stock $stock)
+    public function destroy($id)
     {
         try {
             if (!Auth::user()->can('delete stock')) {
                 return view('errors.403');
             }
-
+            $stock = Stock::find($id);
             if (empty($stock)) {
                 return redirect()->route('admin.stocks.index');
             }
+            StockUser::where('stock_id', $id)->delete();
+
             $stock->delete();
             return redirect()->route('admin.stocks.index', qArray())->withSuccess('Stock deleted successfully.');
         } catch (\Exception $e) {
@@ -213,12 +215,14 @@ class StockController extends Controller
         ];
         $data->update($updateData);
         $storeData = [
-            'qty' => $request->qty,
             'stock_id' => $request->stock_id,
+            'qty' => $request->qty,
             'assign_to' => $request->assign_to,
             'user_id' => $request->user_id,
             'dept_id' => $request->dept_id,
             'assign_date' => $request->assign_date,
+            'remark' => $request->remark,
+            'apply_no' => $request->apply_no,
         ];
         StockUser::create($storeData);
         return redirect()->route('admin.stocks.assigned-stock')->withSuccess('Stock Assigned successfully.');

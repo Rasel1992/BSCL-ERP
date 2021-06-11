@@ -10,6 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class StockUser extends Model
 {
     use SoftDeletes, LogsActivity;
+
     protected $fillable = [
         'stock_id',
         'assign_to',
@@ -17,12 +18,15 @@ class StockUser extends Model
         'dept_id',
         'qty',
         'assign_date',
+        'remark',
+        'apply_no'
     ];
 
     public function stock()
     {
         return $this->belongsTo('App\Models\Stock', 'stock_id', 'id');
     }
+
     public function user()
     {
         return $this->belongsTo('App\user', 'user_id', 'id');
