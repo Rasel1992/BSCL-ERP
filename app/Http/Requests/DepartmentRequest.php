@@ -25,6 +25,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'department' => 'required|string|max:255',
+            'department_id' => $this->isMethod('put') ? 'nullable|string|max:100' : 'required|string|max:100|unique:departments,department_id',
         ];
     }
 }

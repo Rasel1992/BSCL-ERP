@@ -14,6 +14,7 @@ class DepartmentSeeder extends Seeder
         DB::table('departments')->insert([
             [
                 'department' => 'IT',
+                'department_id' => 'IT-1',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

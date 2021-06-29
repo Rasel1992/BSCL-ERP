@@ -28,9 +28,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($shifts as $key => $shift)
+                    @foreach($shifts as $shift)
                         <tr>
-                            <td> {{$key + $shifts->firstItem()}}</td>
+                            <td>  {{ $serial++ }}</td>
                             <td> {{ $shift->name }}</td>
                             <td> {{ $shift->from }}</td>
                             <td> {{ $shift->from }}</td>

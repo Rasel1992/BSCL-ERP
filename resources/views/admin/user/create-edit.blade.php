@@ -39,8 +39,8 @@
                                         <div class="form-group row @error('name') has-error @enderror">
                                             <label class="col-md-3" for="name">Name<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <input class="form-control" placeholder="Enter your name" required name="name"
-                                                   value="{{old('name')}}" type="text" id="name" v-model="user.name">
+                                                <input class="form-control" placeholder="Enter your name" required name="name"
+                                                       value="{{old('name')}}" type="text" id="name" v-model="user.name">
                                                 @error('name')
                                                 <span class="help-block">
                                             <strong>{{ $message }}</strong>
@@ -85,64 +85,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                        <div class="col-md-12">
-                                            @if(!isset($user))
-                                            <div class="col-md-6">
-                                                <div class="form-group row @error('password') has-error @enderror">
-                                                    <label class="col-md-3" for="password">Password<span class="text-danger">*</span></label>
-                                                    <div class="col-md-8">
+                                <div class="col-md-12">
+                                    @if(!isset($user))
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('password') has-error @enderror">
+                                                <label class="col-md-3" for="password">Password<span class="text-danger">*</span></label>
+                                                <div class="col-md-8">
                                                     <input class="form-control" id="password" placeholder="Enter your password"
                                                            data-minlength="6" required name="password"
                                                            value="{{old('password')}}" type="password">
-                                                        @error('password')
-                                                        <span class="help-block">
+                                                    @error('password')
+                                                    <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @else
-                                                <div class="col-md-6">
-                                                    <div class="form-group row @error('father_name') has-error @enderror">
-                                                        <label class="col-md-3" for="father_name">Fathers Name</label>
-                                                        <div class="col-md-8">
-                                                            <input class="form-control" placeholder="Enter your fathers name" name="father_name"
-                                                                   value="{{old('father_name')}}" type="text" id="name" v-model="user.father_name">
-                                                            @error('father_name')
-                                                            <span class="help-block">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            <div class="col-md-6">
-                                                <div class="form-group row @error('mobile') has-error @enderror">
-                                                    <label class="col-md-3" for="mobile">Mobile<span class="text-danger">*</span></label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" placeholder="Enter your Mobile Number" required name="mobile"
-                                                               value="{{old('mobile')}}" type="text" id="mobile" v-model="user.mobile">
-                                                        @error('mobile')
-                                                        <span class="help-block">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                                        @enderror
-                                                    </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
-                                <div class="col-md-12">
-                                    @if(!isset($user))
+                                    @else
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('father_name') has-error @enderror">
+                                                <label class="col-md-3" for="father_name">Fathers Name</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="Enter your fathers name" name="father_name"
+                                                           value="{{old('father_name')}}" type="text" id="name" v-model="user.father_name">
+                                                    @error('father_name')
+                                                    <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('password_confirmation') has-error @enderror">
-                                            <label class="col-md-3">Confirm Password<span class="text-danger">*</span></label>
+                                        <div class="form-group row @error('mobile') has-error @enderror">
+                                            <label class="col-md-3" for="mobile">Mobile<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <input class="form-control" placeholder="Confirm Password"
-                                                       data-match="#password" required name="password_confirmation"
-                                                       value="{{old('password_confirmation')}}" type="password">
-                                                @error('password_confirmation')
+                                                <input class="form-control" placeholder="Enter your Mobile Number" required name="mobile"
+                                                       value="{{old('mobile')}}" type="text" id="mobile" v-model="user.mobile">
+                                                @error('mobile')
                                                 <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -150,6 +132,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @if(!isset($user))
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('password_confirmation') has-error @enderror">
+                                                <label class="col-md-3">Confirm Password<span class="text-danger">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="Confirm Password"
+                                                           data-match="#password" required name="password_confirmation"
+                                                           value="{{old('password_confirmation')}}" type="password">
+                                                    @error('password_confirmation')
+                                                    <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     @else
                                         <div class="col-md-6">
                                             <div class="form-group row @error('mother_name') has-error @enderror">
@@ -166,24 +166,24 @@
                                             </div>
                                         </div>
                                     @endif
-                                        <div class="col-md-6">
-                                            <div class="form-group row @error('role') has-error @enderror">
-                                                <label class="col-md-3" for="sex">Role<span class="text-danger">*</span></label>
-                                                <div class="col-md-8">
-                                                    <select name="role" class="form-control select2" required>
-                                                        @php ($admin_role = old('role', isset($data) ? $adminRole : ''))
-                                                        @foreach($roles as $role)
-                                                            <option value="{{$role}}" {{ ($admin_role == $role) ? 'selected' : '' }}>{{$role}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('role')
-                                                    <span class="help-block">
+                                    <div class="col-md-6">
+                                        <div class="form-group row @error('role') has-error @enderror">
+                                            <label class="col-md-3" for="sex">Role<span class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <select name="role" class="form-control select2" required>
+                                                    @php ($admin_role = old('role', isset($data) ? $adminRole : ''))
+                                                    @foreach($roles as $role)
+                                                        <option value="{{$role}}" {{ ($admin_role == $role) ? 'selected' : '' }}>{{$role}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('role')
+                                                <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                    @enderror
-                                                </div>
+                                                @enderror
                                             </div>
                                         </div>
+                                    </div>
 
 
                                 </div>
@@ -226,7 +226,7 @@
                                         <div class="form-group row @error('designation') has-error @enderror">
                                             <label class="col-md-3">Designation<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                            <input class="form-control" placeholder="Designation" name="designation" value="{{ old('designation') }}" v-model="user.designation" type="text" required>
+                                                <input class="form-control" placeholder="Designation" name="designation" value="{{ old('designation') }}" v-model="user.designation" type="text" required>
                                                 @error('designation')
                                                 <span class="help-block">
                             <strong>{{ $message }}</strong>
@@ -258,6 +258,30 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-6">
+                                        <div class="form-group row @error('location') has-error @enderror">
+                                            <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <select class="form-control select2" id="location" name="location" v-model="user.location">
+                                                    <option value="">Select Location</option>
+                                                    <option value="hq" {{ old('location')  == 'hq' ? 'Selected' : ''}}>
+                                                        Head Quarter
+                                                    </option>
+                                                    <option value="gs1" {{ old('location') == 'gs1' ? 'Selected' : ''}}>
+                                                        GS Gazipur
+                                                    </option>
+                                                    <option value="gs2" {{ old('location')  == 'gs2' ? 'Selected' : ''}}>
+                                                        GS Bethbunia
+                                                    </option>
+                                                </select>
+                                                @error('location')
+                                                <span class="help-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group row @error('signature') has-error @enderror">
                                             <label class="col-md-3" for="exampleInputFile">Signature</label>
                                             <span style="margin-left: 10px;">
@@ -288,6 +312,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="col-md-12">
                                     <div class="col-md-6">
                                         <div class="form-group row @error('image') has-error @enderror">
                                             <label class="col-md-3" for="exampleInputFile">Avatar</label>
@@ -320,105 +347,105 @@
                                     </div>
                                 </div>
                                 @if(isset($user))
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('nid') has-error @enderror">
-                                            <label class="col-md-3" for="nid">NID</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" placeholder="NID" name="nid"
-                                                       value="{{old('nid')}}" type="text" id="nid" v-model="user.nid">
-                                                @error('nid')
-                                                <span class="help-block">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('nid') has-error @enderror">
+                                                <label class="col-md-3" for="nid">NID</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="NID" name="nid"
+                                                           value="{{old('nid')}}" type="text" id="nid" v-model="user.nid">
+                                                    @error('nid')
+                                                    <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                @enderror
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('joining_date') has-error @enderror">
+                                                <label class="col-md-3" for="joining_date">Joining Date</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="Joining date" name="joining_date"
+                                                           value="{{old('joining_date')}}" type="date" id="joining_date" v-model="user.joining_date">
+                                                    @error('joining_date')
+                                                    <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('joining_date') has-error @enderror">
-                                            <label class="col-md-3" for="joining_date">Joining Date</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" placeholder="Joining date" name="joining_date"
-                                                       value="{{old('joining_date')}}" type="date" id="joining_date" v-model="user.joining_date">
-                                                @error('joining_date')
-                                                <span class="help-block">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('passport') has-error @enderror">
+                                                <label class="col-md-3" for="passport">Passport</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="Passport" name="passport"
+                                                           value="{{old('passport')}}" type="text" id="passport" v-model="user.passport">
+                                                    @error('passport')
+                                                    <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('passport') has-error @enderror">
-                                            <label class="col-md-3" for="passport">Passport</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" placeholder="Passport" name="passport"
-                                                       value="{{old('passport')}}" type="text" id="passport" v-model="user.passport">
-                                                @error('passport')
-                                                <span class="help-block">
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('present_address') has-error @enderror">
+                                                <label class="col-md-3" for="present_address">Present Address</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="Present address" name="present_address"
+                                                           value="{{old('present_address')}}" type="text" id="present_address" v-model="user.present_address">
+                                                    @error('present_address')
+                                                    <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('present_address') has-error @enderror">
-                                            <label class="col-md-3" for="present_address">Present Address</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" placeholder="Present address" name="present_address"
-                                                       value="{{old('present_address')}}" type="text" id="present_address" v-model="user.present_address">
-                                                @error('present_address')
-                                                <span class="help-block">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('blood_group') has-error @enderror">
-                                            <label class="col-md-3" for="blood_group">Blood Group</label>
-                                            <div class="col-md-8">
-                                                <select class="form-control select2" id="blood_group" name="blood_group" v-model="user.blood_group"
-                                                        v-select2>
-                                                    <option value="">Select</option>
-                                                    @foreach(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] as $type)
-                                                        <option value="{{ $type }}" {{ old('blood_group') == $type ? 'selected' : '' }}>{{ $type }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('blood_group')
-                                                <span class="help-block">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('blood_group') has-error @enderror">
+                                                <label class="col-md-3" for="blood_group">Blood Group</label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control select2" id="blood_group" name="blood_group" v-model="user.blood_group"
+                                                            v-select2>
+                                                        <option value="">Select</option>
+                                                        @foreach(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] as $type)
+                                                            <option value="{{ $type }}" {{ old('blood_group') == $type ? 'selected' : '' }}>{{ $type }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('blood_group')
+                                                    <span class="help-block">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                                @enderror
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row @error('permanent_address') has-error @enderror">
+                                                <label class="col-md-3" for="permanent_address">Permanent Address</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" placeholder="Permanent address" name="permanent_address"
+                                                           value="{{old('permanent_address')}}" type="text" id="permanent_address" v-model="user.permanent_address">
+                                                    @error('permanent_address')
+                                                    <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row @error('permanent_address') has-error @enderror">
-                                            <label class="col-md-3" for="permanent_address">Permanent Address</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" placeholder="Permanent address" name="permanent_address"
-                                                       value="{{old('permanent_address')}}" type="text" id="permanent_address" v-model="user.permanent_address">
-                                                @error('permanent_address')
-                                                <span class="help-block">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 @endif
                             </div>
-                            </div>
+                        </div>
                     </div>
                     <div class="text-right form-footer">
                         <button class="button delete" type="reset">Clear</button>
@@ -440,6 +467,7 @@
                     user_id: '{{ old('user_id', $user->user_id ?? '') }}',
                     name: '{{ old('name', $user->name ?? '') }}',
                     type: '{{ old('type', $user->type ?? '') }}',
+                    location: '{{ old('location', $user->location ?? '') }}',
                     email: '{{ old('email', $user->email ?? '') }}',
                     mobile: '{{ old('mobile', $user->mobile ?? '') }}',
                     dob: '{{ old('dob', $user->dob ?? '') }}',

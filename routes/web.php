@@ -27,14 +27,21 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/password/update/form','ProfileController@passwordForm')->name('profile.password.update.form');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
     Route::resource('bills','BillRegisterController');
-    Route::get('/stocks/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('stocks.get-assign-stock-form');
+
+    Route::group(['prefix' => 'stocks', 'as' => 'stocks.'], function () {
+        Route::get('/stocks/get-assign-stock-form/{stock}', 'StockController@assignStockForm')->name('get-assign-stock-form');
+        Route::get('/assigned-stock','StockController@assignedStock')->name('assigned-stock');
+        Route::get('/location/summary', 'StockController@locationSummary')->name('location.summary');
+        Route::get('/summary', 'StockController@summary')->name('summary');
+        Route::get('/updated/list', 'StockController@updatedList')->name('updated.list');
+        Route::get('/category/{id}','StockController@categoryStocks')->name('category');
+        Route::post('/importInventory', 'StockController@ImportExcel')->name('import');
+        Route::get('/categories/all', 'CategoryController@all')->name('categories.all');
+        Route::post('/categories/update-order', 'CategoryController@updateOrder')->name('categories.update.order');
+        Route::get('/category-code-ajax', 'CategoryController@CategoryCodeAjax')->name('category-code-ajax');
+    });
+    Route::resource('stock-category','StockCategoryController');
     Route::post('/assign-stock/{stock}', 'StockController@assignStock')->name('assign-stock');
-    Route::get('/stocks/assigned-stock','StockController@assignedStock')->name('stocks.assigned-stock');
-    Route::get('/stocks/location/summary', 'StockController@locationSummary')->name('stocks.location.summary');
-    Route::get('/stocks/summary', 'StockController@summary')->name('stocks.summary');
-    Route::get('/stocks/updated/list', 'StockController@updatedList')->name('stocks.updated.list');
-    Route::get('/stocks/category/{id}','StockController@categoryStocks')->name('stocks.category');
-    Route::post('/stocks/importInventory', 'StockController@ImportExcel')->name('stocks.import');
     Route::resource('stocks','StockController');
     Route::resource('shifts','ShiftController');
     Route::resource('rosters','RosterController');
@@ -51,11 +58,13 @@ Route::group(['middleware' => 'auth:web','namespace' => 'Admin', 'prefix' => 'ad
     Route::get('/qr-code-list', 'InventoryController@qrCodeList')->name('qr-code-list');
     Route::post('/importInventory', 'InventoryController@ImportExcel')->name('import');
     Route::get('/exportInventory','InventoryController@fileExport')->name('export');
-    });
     Route::get('/categories/all', 'CategoryController@all')->name('categories.all');
     Route::post('/categories/update-order', 'CategoryController@updateOrder')->name('categories.update.order');
-    Route::resource('categories','CategoryController');
     Route::get('/category-code-ajax', 'CategoryController@CategoryCodeAjax')->name('category-code-ajax');
+    });
+
+    Route::resource('inventory-category','CategoryController');
+
     Route::resource('departments','DepartmentController');
     Route::post('/department/importDepartment', 'DepartmentController@ImportExcel')->name('import.departments');
     Route::get('/inventories/exportDepartment','DepartmentController@fileExport')->name('export.departments');

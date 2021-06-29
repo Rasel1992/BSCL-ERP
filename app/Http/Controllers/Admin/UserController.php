@@ -32,8 +32,9 @@ class UserController extends Controller
             if ($request->type) {
                 $sql->where('type', $request->type);
             }
-            $users = $sql->paginate(10);
-            return view('admin.user.index', compact('users'));
+            $users = $sql->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.user.index', compact('users', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

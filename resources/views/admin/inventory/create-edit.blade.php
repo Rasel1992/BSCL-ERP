@@ -115,7 +115,7 @@
                                                         <option value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
                                                         @if(!empty($cat->nested))
                                                             @foreach($cat->nested as $nc)
-                                                                <option value="{{ $nc->id }}" {{ old('category_id') == $nc->id ? 'selected' : '' }}>-- {{ $nc->category_name }}</option>
+                                                                <option value="{{ $nc->id }}" {{ old('category_id') == $nc->id ? 'selected' : '' }}> {{ $nc->category_name }} [ {{ $nc->category_code }}] </option>
                                                             @endforeach
                                                         @endif
                                                     @endforeach
@@ -187,7 +187,7 @@
                                                     <select class="form-control select2" id="user_id" name="user_id" v-model="inventory.user_id" v-select2>
                                                         <option value="">Select User</option>
                                                         @foreach($users as $user)
-                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                            <option value="{{$user->id}}">{{$user->name}} [ {{ $user->user_id }} ] </option>
                                                         @endforeach
                                                     </select>
                                                     @error('user_id')
@@ -205,7 +205,7 @@
                                                     <select class="form-control select2" id="dept_id" name="dept_id" v-model="inventory.dept_id" v-select2>
                                                         <option value="">Select Department</option>
                                                         @foreach($departments as $department)
-                                                            <option value="{{$department->id}}">{{$department->department}}</option>
+                                                            <option value="{{$department->id}}">{{$department->department}} [ {{ $department->department_id }}  ] </option>
                                                         @endforeach
                                                     </select>
                                                     @error('dept_id')

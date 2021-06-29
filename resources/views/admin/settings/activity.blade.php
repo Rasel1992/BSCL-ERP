@@ -64,7 +64,7 @@
                     <tbody>
                     @foreach($activities as $key => $val)
                         <tr>
-                            <td> {{$key + $activities->firstItem()}}</td>
+                            <td> {{ $serial++ }}</td>
                             <td>{{ $val->created_at }}</td>
                             <td>{{ $val->name }}</td>
                             <td>{{ $val->log_name  }}</td>

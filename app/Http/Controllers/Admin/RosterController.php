@@ -18,9 +18,10 @@ class RosterController extends Controller
             return view('errors.403');
         }
 
-        $rosters = Roster::orderBy('day', 'ASC')->paginate(50);
         $shifts = Shift::get();
-        return view('admin.attendance.roster.index', compact('rosters', 'shifts'));
+        $rosters = Roster::orderBy('day', 'ASC')->paginate(50);
+        $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+        return view('admin.attendance.roster.index', compact('rosters', 'shifts', 'serial'));
     }
 
     public function create()

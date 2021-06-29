@@ -11,7 +11,9 @@
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
                     <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
-                    <a class="button add" href="{{ route('admin.inventories.summary').qString() }}">Summary</a>
+                    <a class="button add" href="{{ route('admin.inventories.summary').qString() }}">All Summary</a>
+
+                    <a class="button add" href="{{ route('admin.inventories.location.summary').qString() }}">Summary</a>
 
                     <a class="button add" href="{{ route('admin.inventories.qr-code-list').qString() }}">QR Code List</a>
 
@@ -47,7 +49,7 @@
                                             @foreach($cat->nested as $nc)
                                                 <option
                                                     value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>
-                                                    -- {{ $nc->category_name }}</option>
+                                                    {{ $nc->category_name }} [ {{ $nc->category_code }} ]</option>
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -100,18 +102,18 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($inventories as $key => $inventory)
+                                    @foreach($inventories as $inventory)
                                         <tr>
-                                            <td> {{$key + $inventories->firstItem()}}</td>
+                                            <td>  {{ $serial++ }}</td>
                                             <td> {{ $inventory->asset_code  }}</td>
                                             <td> {{ $inventory->description }}</td>
-                                            <td> {{ $inventory->category->category_name }}</td>
+                                            <td> {{ $inventory->category->category_name }} [ {{ $inventory->category->category_code }} ]</td>
                                             <td>
                                                 @if($inventory->assign_to == 'user') <strong>Person:</strong>
-                                                <br> <a href="{{ route('admin.users.show',$inventory->user_id ).qString() }}">{{$inventory->user->name }} </a>
+                                                <br> <a href="{{ route('admin.users.show',$inventory->user_id ).qString() }}">{{$inventory->user->name }} [ {{$inventory->user->user_id }} ] </a>
                                                 @else
                                                     <strong>Department:</strong>
-                                                    <br> <a href="{{ route('admin.departments.show',$inventory->dept_id ).qString() }}">{{ $inventory->department->department}}</a>
+                                                    <br> <a href="{{ route('admin.departments.show',$inventory->dept_id ).qString() }}">{{ $inventory->department->department}} [ {{ $inventory->department->department_id }} ] </a>
                                                 @endif
                                             </td>
                                             <td>{{ $inventory->assign_date ?? '-' }}</td>

@@ -24,11 +24,12 @@ class DepartmentController extends Controller
             if ($request->q) {
                 $sql->where(function ($q) use ($request) {
                     $q->orWhere('department', 'LIKE', $request->q . '%');
-                    $q->orWhere('designation', 'LIKE', $request->q . '%');
+                    $q->orWhere('department_id', $request->q);
                 });
             }
-            $departments = $sql->paginate(10);
-            return view('admin.department.index', compact('departments'));
+            $departments = $sql->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.department.index', compact('departments', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

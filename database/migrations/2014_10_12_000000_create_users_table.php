@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('user_id')->unique();
             $table->enum('type', ['admin', 'staff']);
+            $table->enum('location', ['hq', 'gs1', 'gs2']);
             $table->string('email')->unique();
             $table->string('mobile');
             $table->timestamp('email_verified_at')->nullable();

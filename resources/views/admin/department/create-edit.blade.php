@@ -6,10 +6,7 @@
 
 @section('content')
     <section class="content">
-        <form method="POST"
-              action="{{ isset($department) ? route('admin.departments.update', $department->id) : route('admin.departments.store') }}"
-              accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data"
-              novalidate="true">
+        <form method="POST" action="{{ isset($department) ? route('admin.departments.update', $department->id) : route('admin.departments.store') }}" accept-charset="UTF-8" id="create-edit-form" data-toggle="validator" enctype="multipart/form-data" novalidate="true">
             @csrf
             @if (isset($department))
                 @method('PUT')
@@ -24,6 +21,20 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group row @error('department_id') has-error @enderror">
+                                            <label class="col-md-3" for="name">Department ID<span class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" placeholder="Enter Department ID" required name="department_id"
+                                                       value="{{ old('department_id', isset($department) ? $department->department_id : '') }}" type="text" id="department_id" >
+                                                @error('department_id')
+                                                <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group row @error('department') has-error @enderror">
                                             <label class="col-md-3">Department<span class="text-danger">*</span></label>

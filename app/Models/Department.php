@@ -11,6 +11,7 @@ class Department extends Model
 {
     use SoftDeletes, LogsActivity;
     protected $fillable = [
+        'department_id',
         'department',
     ];
 

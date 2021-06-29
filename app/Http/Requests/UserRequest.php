@@ -34,6 +34,7 @@ class UserRequest extends FormRequest
             'sex' => 'nullable|in:male,female,other',
             'dept_id' => 'required|integer|exists:departments,id',
             'designation' => 'required|string|max:255',
+            'location' => 'required|in:hq,gs1,gs2',
             'image' => 'nullable|image',
             'joining_date' => 'nullable|date',
             'father_name' => 'nullable|string|max:255',

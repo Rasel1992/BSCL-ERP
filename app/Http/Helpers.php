@@ -4,6 +4,16 @@
 use App\Models\Discount;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
+if ( ! function_exists('isLocationUser')) {
+    function isLocationUser($user)
+    {
+        if ($user->location) {
+            return true;
+        }
+        return false;
+    }
+}
+
 //if ( ! function_exists('qString')) {
 //    function qString($query = null)
 //    {

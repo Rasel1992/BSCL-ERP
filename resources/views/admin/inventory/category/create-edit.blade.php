@@ -6,13 +6,13 @@
 
 @section('content')
     <section class="content">
-        <form method="POST" action="{{ isset($category) ? route('admin.categories.update', $category->id) : route('admin.categories.store') }}" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ isset($category) ? route('admin.inventory-category.update', $category->id) : route('admin.inventory-category.store') }}" class="form-horizontal" enctype="multipart/form-data">
             @csrf
             {!! (isset($category))?'<input name="_method" type="hidden" value="PUT">':'' !!}
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-                    <h3 class="box-title">@if(isset($category))Edit @else Add @endif Category<a href="{{ route('admin.categories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a>
+                    <h3 class="box-title">@if(isset($category))Edit @else Add @endif Category<a href="{{ route('admin.inventory-category.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back to List</a>
                     </h3>
                     <div class="panel">
                         <div class="panel-body">
@@ -23,7 +23,7 @@
                                             <label class="col-md-3">Select Category<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
                                                 <?php $parent_id = (isset($category->parent_id)) ? $category->parent_id : old('parent_id'); ?>
-                                                <select name="parent_id" id="parent_id" class="form-control select2" onchange="displayCode();" v-select2 required>
+                                                <select name="parent_id" id="parent_id" class="form-control select2" onchange="displayCode();" onkeyup="displayCode();" v-select2 required>
                                                     <option value="0">No Category</option>
                                                     @foreach($categoryData as $cat)
                                                         <option value="{{ $cat->id }}" {{ ($parent_id==$cat->id)?'selected':'' }}>{{ $cat->category_name }}</option>
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="col-md-6" id="myDIV" {{ (isset($category) && $category->parent_id == 0) ? 'style=display:none;' : '' }}>
+                                    <div class="col-md-6" id="myDIV" {{ (isset($category) && $category->parent_id > '0') ? 'style=display:block;' : 'style=display:none;' }}>
                                         <div class="form-group row @error('category_code') has-error @enderror">
                                             <label class="col-md-3">Category Code</label>
                                             <div class="col-md-8">
@@ -78,7 +78,7 @@
                                                 <select class="form-control select2" id="type" name="type" required>
                                                     <option value="">Select Type</option>
                                                     @php ($typ = old('type', isset($category) ? $category->type : ''))
-                                                    @foreach(['Fixed', 'Current', 'Stock'] as $type)
+                                                    @foreach(['Fixed', 'Current'] as $type)
                                                         <option value="{{ $type }}" {{ ($type==$typ)?'selected':''}}>{{ $type }}</option>
                                                     @endforeach
                                                 </select>
@@ -106,15 +106,6 @@
 @endsection
 @push('scripts')
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                isEdit: false,
-                category: {
-                    parent_id: ''
-                }
-            }
-        })
         function displayCode() {
             var parentId = Number($('#parent_id').val());
             if (parentId > 0) {

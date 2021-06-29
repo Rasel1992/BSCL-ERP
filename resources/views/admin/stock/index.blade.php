@@ -11,8 +11,9 @@
                 <h3 class="box-title">Stocks</h3>
                 <div class="box-tools pull-right">
                     @can('see stock summary')
-                    <a class="button add" href="{{ route('admin.stocks.summary') }}">Summary</a>
+                    <a class="button add" href="{{ route('admin.stocks.summary') }}">All Summary</a>
                     @endcan
+                    <a class="button add" href="{{ route('admin.stocks.location.summary') }}">Summary</a>
                     <a class="button add" href="{{ route('admin.stocks.updated.list') }}">Updated Stock List</a>
                     @can('add stock')
                     <a href="{{ route('admin.stocks.create').qString() }}" class="button add"> Add Stock</a>
@@ -40,7 +41,7 @@
                                         <option value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
-                                                <option value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>-- {{ $nc->category_name }}</option>
+                                                <option value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>{{ $nc->category_name }} [ {{ $nc->category_code }}] </option>
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -84,10 +85,10 @@
                     <tbody>
                     @foreach($stocks as  $key => $stock)
                         <tr>
-                            <td> {{$key + $stocks->firstItem()}}</td>
+                            <td>  {{ $serial++ }} </td>
                             <td> {{ $stock->stock_code }}</td>
                             <td> {{ $stock->description }}</td>
-                            <td> {{ $stock->category->category_name }}</td>
+                            <td> {{ $stock->category->category_name }} [ {{ $stock->category->category_code }} ] </td>
                             <td> @if($stock->qty < 5) <span style="color: red">{{ $stock->qty }}</span> @else {{ $stock->qty }} @endif</td>
                             <td> @if($stock->location == 'hq') Head Quarter @elseif($stock->location == 'gs1') GSGazipur @else GS Bethbunia @endif</td>
                             <td>{{ $stock->stock_date }}</td>

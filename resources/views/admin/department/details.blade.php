@@ -14,17 +14,17 @@
                                     <caption><h3>Department Details <a href="{{ route('admin.departments.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back </a></h3></caption>
                                     <tbody>
                                     <tr>
+                                        <th style="width:120px;">Department ID</th>
+                                        <th style="width:10px;">:</th>
+                                        <td>
+                                            {{ $department->department_id }}
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th style="width:120px;">Department Name</th>
                                         <th style="width:10px;">:</th>
                                         <td>
                                             {{ $department->department }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:120px;">Designation</th>
-                                        <th style="width:10px;">:</th>
-                                        <td>
-                                            {{ $department->designation }}
                                         </td>
                                     </tr>
                                     </tbody>

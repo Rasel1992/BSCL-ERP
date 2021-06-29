@@ -27,14 +27,16 @@
                                 <table class="table table-hover table-2nd-no-sort">
                                             <thead>
                                             <tr>
+                                                <th>SL</th>
                                                 <th>Time</th>
                                                 <th>Name</th>
                                                 <th>Hours</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($shifts as $key => $shift)
+                                            @foreach($shifts as $shift)
                                                 <tr>
+                                                    <td> {{ $serial++ }}</td>
                                                     <td>{{$shift->from}} - {{$shift->to}}</td>
                                                     <td>{{$shift->name}}</td>
                                                     <td>{{$shift->total_hours}}</td>

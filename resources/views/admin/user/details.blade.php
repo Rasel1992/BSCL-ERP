@@ -195,7 +195,7 @@
                                             <div class="text-center ">
                                                 @if(isset($user->image))
                                                     {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:128px; height:128px;']) !!}
-{{--                                                    <img src="{{ asset('user/'.$user->image.'') }}" width="128px" height="128px" class="img-circle">--}}
+                                                    {{--                                                    <img src="{{ asset('user/'.$user->image.'') }}" width="128px" height="128px" class="img-circle">--}}
                                                 @else
                                                     <img src="{{ asset('storage/user/blank-profile-picture-973460_1280.png') }}" width="128px" height="128px" class="img-circle" alt="Avatar">
                                                 @endif
@@ -534,12 +534,12 @@
                                                                 <td> {{ $roster->shift->total_hours }}</td>
                                                                 </tbody>
                                                             @endforeach
-                                                                <tfoot>
-                                                                <tr>
-                                                                    <td class="text-right" colspan="4"><strong>Total Hours : </strong></td>
-                                                                    <td>{{short_string($totalWorkHours ->totalHour)}}</td>
-                                                                </tr>
-                                                                </tfoot>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <td class="text-right" colspan="4"><strong>Total Hours : </strong></td>
+                                                                <td>{{short_string($totalWorkHours ->totalHour)}}</td>
+                                                            </tr>
+                                                            </tfoot>
                                                         @endif
                                                     </table>
                                                 </div>

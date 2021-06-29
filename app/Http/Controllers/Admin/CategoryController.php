@@ -21,15 +21,17 @@ class CategoryController extends Controller
         $sql = Category::where('parent_id', 0)->with('nested')->orderBy('category_name', 'asc');
         if ($request->q) {
             $sql->whereHas('nested', function ($q) use ($request) {
-                $q->where('category_name', 'LIKE', $request->q . '%');
+                $q->where('category_name', $request->q);
+                $q->orWhere('category_code', $request->q);
             });
-            $sql->orWhere('category_name', 'LIKE', $request->q . '%');
+            $sql->orWhere('category_name', $request->q);
         }
         if ($request->type) {
             $sql->where('type', $request->type);
         }
-        $categoryData = $sql->paginate(10);
-        return view('admin.category.index', compact('categoryData'));
+        $categoryData = $sql->paginate(50);
+        $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+        return view('admin.inventory.category.index', compact('categoryData', 'serial'));
     }
 
     public function create()
@@ -39,7 +41,7 @@ class CategoryController extends Controller
         }
 
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
-        return view('admin.category.create-edit', compact('categoryData'));
+        return view('admin.inventory.category.create-edit', compact('categoryData'));
     }
 
     public function store(CategoryRequest $request)
@@ -58,48 +60,49 @@ class CategoryController extends Controller
             $storeData['category_code'] = $request->category_code;
         }
         Category::create($storeData);
-        return redirect()->route('admin.categories.index', qArray())->withSuccess('Category created successfully.');
+        return redirect()->route('admin.inventory-category.index', qArray())->withSuccess('Category created successfully.');
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
         if (!Auth::user()->can('see category details')) {
             return view('errors.403');
         }
-
+        $category = Category::where('id', $id)->first();
         if (empty($category)) {
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('admin.inventory-category.index');
         }
+
         $cat = Category::where('categories.id', $category->id)
             ->select('categories.*', 'B.category_name AS parent_name')
             ->leftJoin('categories AS B', 'B.id', '=', 'categories.parent_id')
             ->first();
 
-        return view('admin.category.show', compact('cat'));
+        return view('admin.inventory.category.show', compact('cat'));
     }
 
-    public function edit(Category $category)
+    public function edit($id)
     {
         if (!Auth::user()->can('edit category')) {
             return view('errors.403');
         }
-
+        $category = Category::where('id', $id)->first();
         if (empty($category)) {
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('admin.inventory-category.index');
         }
         $categoryData = Category::where('parent_id', 0)->with('nested')->get();
-        return view('admin.category.create-edit', compact('categoryData', 'category'));
+        return view('admin.inventory.category.create-edit', compact('categoryData', 'category'));
 
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
         if (!Auth::user()->can('edit category')) {
             return view('errors.403');
         }
-
+        $category = Category::where('id', $id)->first();
         if (empty($category)) {
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('admin.inventory-category.index');
         }
         $updateData = [
             'parent_id' => $request->parent_id,
@@ -113,20 +116,7 @@ class CategoryController extends Controller
 
         $category->update($updateData);
 
-        return redirect()->route('admin.categories.index', qArray())->withSuccess('Category updated successfully.');
-    }
-
-    public function destroy(Category $category)
-    {
-        if (!Auth::user()->can('delete category')) {
-            return view('errors.403');
-        }
-
-        if (empty($category)) {
-            return redirect()->route('admin.categories.index');
-        }
-        $category->delete();
-        return redirect()->route('admin.categories.index', qArray())->withSuccess('Category deleted successfully.');
+        return redirect()->route('admin.inventory-category.index', qArray())->withSuccess('Category updated successfully.');
     }
 
     public function CategoryCodeAjax(Request $request)

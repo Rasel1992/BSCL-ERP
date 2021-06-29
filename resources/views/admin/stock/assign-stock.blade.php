@@ -70,7 +70,7 @@
                                                         v-model="assignStock.user_id" v-select2>
                                                     <option value="">Select User</option>
                                                     @foreach($users as $user)
-                                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                                        <option value="{{$user->id}}">{{$user->name}} [ {{ $user->user_id }} ]</option>
                                                     @endforeach
                                                 </select>
                                                 @error('user_id')
@@ -89,7 +89,7 @@
                                                         v-model="assignStock.dept_id" v-select2>
                                                     <option value="">Select Department</option>
                                                     @foreach($departments as $department)
-                                                        <option value="{{$department->id}}">{{$department->department}}</option>
+                                                        <option value="{{$department->id}}">{{$department->department}} [ {{ $department->department_id }} ] </option>
                                                     @endforeach
                                                 </select>
                                                 @error('dept_id')

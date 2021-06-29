@@ -16,7 +16,8 @@ class ShiftController extends Controller
         }
 
         $shifts= Shift::paginate(10);
-        return view('admin.attendance.shift.index', compact('shifts'));
+        $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+        return view('admin.attendance.shift.index', compact('shifts', 'serial'));
     }
 
     public function create()

@@ -34,7 +34,7 @@
                     <tbody>
                     @foreach($data['inventories'] as $key => $inventory)
                         <tr>
-                            <td> {{$key + $data['inventories']->firstItem()}}</td>
+                            <td> {{ $serial++ }} </td>
                             <td> {{ $inventory->asset_code  }}</td>
                             <td> {{ $inventory->description }}</td>
                             <td> {{ $inventory->category->category_name }}</td>

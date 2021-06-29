@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateStockCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('stock_categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedSmallInteger('parent_id');
-            $table->enum('type', ['Fixed', 'Current']);
+            $table->enum('type', ['Fixed', 'Current', 'Stock']);
             $table->string('category_name');
             $table->string('category_code')->unique()->nullable();
             $table->unique(["parent_id", "category_name"], 'parent-cat');
@@ -32,6 +32,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('stock_categories');
     }
 }

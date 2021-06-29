@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\InventoryExport;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MediaController;
 use App\Http\Requests\InventoryRequest;
 use App\Imports\InventoriesImport;
 use App\Models\Category;
@@ -24,8 +25,13 @@ class InventoryController extends Controller
                 return view('errors.403');
             }
 
-            $categoryData = Category::where('type', '!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
+            $categoryData = Category::where('parent_id', 0)->with('nested')->get();
             $sql = Inventory::orderBy('created_at', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
             if ($request->q) {
                 $sql->where('asset_code', 'LIKE', $request->q . '%');
                 $sql->orWhere('voucher_no', $request->q );
@@ -43,7 +49,8 @@ class InventoryController extends Controller
                 $sql->whereDate('purchase_date', '<=', $request->to);
             }
             $inventories = $sql->paginate(50);
-            return view('admin.inventory.index', compact('categoryData', 'inventories'));
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.inventory.index', compact('categoryData', 'inventories', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -57,7 +64,7 @@ class InventoryController extends Controller
 
         $users = User::get();
         $departments = Department::get();
-        $categoryData = Category::where('type', '!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('categoryData', 'users', 'departments'));
     }
 
@@ -68,16 +75,26 @@ class InventoryController extends Controller
         }
 
         $data = $request->all();
+
         Inventory::create($data);
+
         return redirect()->route('admin.inventories.index', qArray())->withSuccess('Inventory created successfully.');
 
     }
 
-    public function show(Inventory $inventory)
+    public function show($id)
     {
         if (!Auth::user()->can('see inventory details')) {
             return view('errors.403');
         }
+
+        $sql = Inventory::orderBy('created_at', 'ASC');
+
+        if (isLocationUser(Auth::user())) {
+            $sql->where('location', Auth::user()->location);
+        }
+
+        $inventory = $sql->find($id);
 
         if (empty($inventory)) {
             return redirect()->route('admin.inventories.index');
@@ -85,27 +102,43 @@ class InventoryController extends Controller
         return view('admin.inventory.show', compact('inventory'));
     }
 
-    public function edit(Inventory $inventory)
+    public function edit($id)
     {
         if (!Auth::user()->can('edit inventory')) {
             return view('errors.403');
         }
+
+        $sql = Inventory::orderBy('created_at', 'ASC');
+
+        if (isLocationUser(Auth::user())) {
+            $sql->where('location', Auth::user()->location);
+        }
+
+        $inventory = $sql->find($id);
 
         if (empty($inventory)) {
             return redirect()->route('admin.inventories.index');
         }
         $users = User::get();
         $departments = Department::get();
-        $categoryData = Category::where('type', '!=', 'Stock')->where('parent_id', 0)->with('nested')->get();
+        $categoryData = Category::where('parent_id', 0)->with('nested')->get();
         return view('admin.inventory.create-edit', compact('inventory', 'categoryData', 'users', 'departments'));
     }
 
-    public function update(InventoryRequest $request, Inventory $inventory)
+    public function update(InventoryRequest $request, $id)
     {
         try {
             if (!Auth::user()->can('edit inventory')) {
                 return view('errors.403');
             }
+
+            $sql = Inventory::orderBy('created_at', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
+            $inventory = $sql->find($id);
 
             if (empty($inventory)) {
                 return redirect()->route('admin.inventories.index');
@@ -118,12 +151,20 @@ class InventoryController extends Controller
         }
     }
 
-    public function destroy(Inventory $inventory)
+    public function destroy($id)
     {
         try {
             if (!Auth::user()->can('delete inventory')) {
                 return view('errors.403');
             }
+
+            $sql = Inventory::orderBy('created_at', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
+            $inventory = $sql->find($id);
 
             if (empty($inventory)) {
                 return redirect()->route('admin.inventories.index');
@@ -143,11 +184,17 @@ class InventoryController extends Controller
             }
 
             $sql = Inventory::orderBy('created_at', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
             if ($request->q) {
                 $sql->where('asset_code', 'LIKE', $request->q . '%');
             }
-            $inventories = $sql->latest()->paginate(10);
-            return view('admin.inventory.qr-code-list', compact('inventories'));
+            $inventories = $sql->latest()->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.inventory.qr-code-list', compact('inventories', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -160,8 +207,9 @@ class InventoryController extends Controller
                 return view('errors.403');
             }
 
-            $categories = Category::with('nested')->where('parent_id', 0)->where('type', '!=', 'Stock')->paginate(50);
-            return view('admin.inventory.summary', compact('categories'));
+            $categories = Category::with('nested')->where('parent_id', 0)->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.inventory.summary', compact('categories', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -174,9 +222,14 @@ class InventoryController extends Controller
                 return view('errors.403');
             }
 
-            $categories = Category::with('nested', 'inventories')->where('parent_id', 0)->where('type', '!=', 'Stock')->paginate(50);
-            $location = $request->location;
-            return view('admin.inventory.location-summary', compact('categories', 'location'));
+            $categories = Category::with('nested', 'inventories')->where('parent_id', 0)->paginate(50);
+            if($request->location) {
+                $location = $request->location;
+            } else {
+                $location = Auth::user()->location;
+            }
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.inventory.location-summary', compact('categories', 'location', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -221,7 +274,8 @@ class InventoryController extends Controller
         if ($request->location) {
             $sql->where('location', $request->location);
         }
-        $data['inventories'] = $sql->paginate(15);
-        return view('admin.inventory.summary-show', compact('data', 'category'));
+        $data['inventories'] = $sql->paginate(50);
+        $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+        return view('admin.inventory.summary-show', compact('data', 'category', 'serial'));
     }
 }

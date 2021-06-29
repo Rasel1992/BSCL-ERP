@@ -10,6 +10,7 @@ use App\Imports\ImportStock;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Stock;
+use App\Models\StockCategory;
 use App\Models\StockUpdatedData;
 use App\Models\StockUser;
 use App\User;
@@ -26,8 +27,13 @@ class StockController extends Controller
                 return view('errors.403');
             }
 
-            $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+            $categoryData = StockCategory::where('parent_id', 0)->with('nested')->get();
             $sql = Stock::orderBy('stock_date', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
             if ($request->location) {
                 $sql->where('location', $request->location);
             }
@@ -47,8 +53,9 @@ class StockController extends Controller
                 });
                 $sql->orWhere('stock_code', $request->q);
             }
-            $stocks = $sql->paginate(10);
-            return view('admin.stock.index', compact('stocks', 'categoryData'));
+            $stocks = $sql->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.stock.index', compact('stocks', 'categoryData', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -60,7 +67,7 @@ class StockController extends Controller
             return view('errors.403');
         }
 
-        $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+        $categoryData = StockCategory::where('parent_id', 0)->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData'));
     }
 
@@ -95,31 +102,47 @@ class StockController extends Controller
         }
     }
 
-    public function edit(Stock $stock)
+    public function edit($id)
     {
         if (!Auth::user()->can('edit stock')) {
             return view('errors.403');
         }
 
+        $sql = Stock::orderBy('stock_date', 'ASC');
+
+        if (isLocationUser(Auth::user())) {
+            $sql->where('location', Auth::user()->location);
+        }
+
+        $stock = $sql->find($id);
+
         if (empty($stock)) {
             return redirect()->route('admin.stocks.index');
         }
-        $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+        $categoryData = StockCategory::where('parent_id', 0)->with('nested')->get();
         return view('admin.stock.create-edit', compact('categoryData', 'stock'))->with('edit', 1);
     }
 
-    public function update(StockRequest $request, Stock $stock)
+    public function update(StockRequest $request, $id)
     {
         try {
             if (!Auth::user()->can('edit stock')) {
                 return view('errors.403');
             }
 
+            $sql = Stock::orderBy('stock_date', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
+            $stock = $sql->find($id);
+
             if (empty($stock)) {
                 return redirect()->route('admin.stocks.index');
             }
             $storeData = [
-                'stock_code' => $stock->stock_code,
+                'stock_code' => $request->stock_code,
                 'description' => $request->description,
                 'category_id' => $request->category_id,
                 'qty' => $request->qty,
@@ -139,7 +162,15 @@ class StockController extends Controller
             if (!Auth::user()->can('delete stock')) {
                 return view('errors.403');
             }
-            $stock = Stock::find($id);
+
+            $sql = Stock::orderBy('stock_date', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
+            $stock = $sql->find($id);
+
             if (empty($stock)) {
                 return redirect()->route('admin.stocks.index');
             }
@@ -160,8 +191,14 @@ class StockController extends Controller
                 return view('errors.403');
             }
 
-            $categoryData = Category::where('parent_id', 0)->with('nested')->where('type', 'Stock')->get();
+            $categoryData = StockCategory::where('parent_id', 0)->with('nested')->get();
             $sql = StockUser::with('stock')->orderBy('created_at', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->whereHas('stock', function ($q) use ($request) {
+                    $q->where('location', Auth::user()->location);
+                });
+            }
 
             if ($request->location) {
                 $sql->whereHas('stock', function ($q) use ($request) {
@@ -179,8 +216,9 @@ class StockController extends Controller
             if ($request->to) {
                 $sql->whereDate('assign_date', '<=', $request->to);
             }
-            $assignedStocks = $sql->paginate(10);
-            return view('admin.stock.assigned-stock', compact('assignedStocks', 'categoryData'));
+            $assignedStocks = $sql->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.stock.assigned-stock', compact('assignedStocks', 'categoryData', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -236,8 +274,9 @@ class StockController extends Controller
                 return view('errors.403');
             }
 
-            $categories = Category::with('nested')->where('parent_id', 0)->where('type', 'Stock')->paginate(50);
-            return view('admin.stock.summary', compact('categories'));
+            $categories = StockCategory::with('nested')->where('parent_id', 0)->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.stock.summary', compact('categories', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -249,9 +288,15 @@ class StockController extends Controller
             if (!Auth::user()->can('see stock summary')) {
                 return view('errors.403');
             }
-            $categories = Category::with(['nested', 'stocks'])->where('parent_id', 0)->where('type', 'Stock')->paginate(50);
-            $location = $request->location;
-            return view('admin.stock.location-summary', compact('categories', 'location'));
+            $categories = StockCategory::with(['nested', 'stocks'])->where('parent_id', 0)->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+
+            if($request->location) {
+                $location = $request->location;
+            } else {
+                $location = Auth::user()->location;
+            }
+            return view('admin.stock.location-summary', compact('categories', 'location', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -259,13 +304,14 @@ class StockController extends Controller
 
     public function categoryStocks(Request $request, $id)
     {
-        $data['category'] = $category = Category::where('id', $id)->find($id);
+        $data['category'] = $category = StockCategory::where('id', $id)->find($id);
         $sql = Stock::where('category_id', $category->id);
         if ($request->location) {
             $sql->where('location', $request->location);
         }
-        $data['stocks'] = $sql->paginate(15);
-        return view('admin.stock.summary-show', compact('data', 'category'));
+        $data['stocks'] = $sql->paginate(50);
+        $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+        return view('admin.stock.summary-show', compact('data', 'category', 'serial'));
     }
 
     public function ImportExcel(Request $request)
@@ -292,8 +338,13 @@ class StockController extends Controller
                 return view('errors.403');
             }
 
-            $categoryData = Category::where('type', 'Stock')->where('parent_id', 0)->with('nested')->get();
+            $categoryData = StockCategory::where('parent_id', 0)->with('nested')->get();
             $sql = StockUpdatedData::orderBy('stock_date', 'ASC');
+
+            if (isLocationUser(Auth::user())) {
+                $sql->where('location', Auth::user()->location);
+            }
+
             if ($request->location) {
                 $sql->where('location', $request->location);
             }
@@ -312,8 +363,9 @@ class StockController extends Controller
                 });
                 $sql->orWhere('stock_code', $request->q);
             }
-            $stocks = $sql->paginate(10);
-            return view('admin.stock.updated-stock', compact('stocks', 'categoryData'));
+            $stocks = $sql->paginate(50);
+            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            return view('admin.stock.updated-stock', compact('stocks', 'categoryData', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

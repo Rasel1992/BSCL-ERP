@@ -18,7 +18,7 @@ class User extends Authenticatable
     use Notifiable, HasRoles, SoftDeletes, LogsActivity;
 
     protected $fillable = [
-        'name', 'user_id', 'type', 'email', 'mobile', 'password','dob',
+        'name', 'user_id', 'type', 'location', 'email', 'mobile', 'password','dob',
         'sex', 'dept_id', 'designation', 'image', 'joining_date',
         'joining_date', 'father_name',  'mother_name', 'blood_group',
         'nid', 'passport', 'present_address', 'permanent_address', 'signature', 'status'

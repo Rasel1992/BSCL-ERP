@@ -36,14 +36,16 @@
                     <thead>
                     <tr>
                         <th>SL</th>
+                        <th>Department ID</th>
                         <th>Department</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($departments as $key => $department)
+                    @foreach($departments as $department)
                         <tr>
-                            <td> {{$key + $departments->firstItem()}}</td>
+                            <td>  {{ $serial++ }} </td>
+                            <td>{{$department->department_id }}</td>
                             <td><a href="{{ route('admin.departments.show',$department->id ).qString() }}"> {{ $department->department }} </a></td>
                             <td>
                             <span class="dropdown">

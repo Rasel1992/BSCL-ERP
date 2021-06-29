@@ -50,6 +50,25 @@ class MediaController
         return $data;
     }
 
+    //Upload base64 in "$definePath" folder....
+    public function base64Upload($content, $path, $name = null)
+    {
+        //Path Create...
+        $realPath = $this->basePath.$path.'/';
+        if (!Storage::exists($realPath)) {
+            Storage::makeDirectory($realPath);
+        }
+
+        $name = $name ?? Str::random(15).'.png';
+
+        $image = \Intervention\Image\Facades\Image::make(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $content)))->stream();
+        Storage::put($realPath.$name, $image);
+
+        $data['name'] = $name;
+        $data['url'] = $this->storageFolder.$realPath.'/'.$name;
+        return $data;
+    }
+
     //Upload Image ("$definePath" and "$definePath/thumb") folder....
     public function imageUpload($requestFile, $path, $thumb = false, $name = null, $imageResize = [], $thumbResize = [300, 300])
     {

@@ -171,9 +171,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Category</h3>
 
-                @can('add category')
+                @can('add stock category')
                     <div class="box-tools pull-right">
-                        <a href="{{ route('admin.categories.create') }}" class="button add">Add Category</a>
+                        <a href="{{ route('admin.stock-category.create') }}" class="button add">Add Category</a>
                     </div>
                 @endcan
 
@@ -182,21 +182,13 @@
                 <div class="row">
                     <div class="col-md-6"></div>
                     <div class="col-md-6">
-                        <form method="GET" action="{{ route('admin.categories.index') }}" class="form-inline float-right">
-                            <div class="form-group mb-2">
-                                <select class="form-control" id="type" name="type">
-                                    <option value="">Select Type</option>
-                                    @foreach(['Fixed', 'Current', 'Stock'] as $type)
-                                        <option value="{{ $type }}" {{ $type==Request::get('type')?'selected':''}}>{{ $type }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <form method="GET" action="{{ route('admin.stock-category.index') }}" class="form-inline float-right">
                             <div class="form-group mx-sm-3 mb-2">
                                 <label class="sr-only">&nbsp;</label>
                                 <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}" placeholder="Input your search text...">
                             </div>
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
-                            <a href="{{ route('admin.categories.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
+                            <a href="{{ route('admin.stock-category.index') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
                         </form>
                     </div>
                 </div>
@@ -218,7 +210,7 @@
                                 <div class="col-xs-12">
                                     <div class="panel">
                                         <div class="box-header">
-                                            <h3 class="box-title">Head Quarter
+                                            <h3 class="box-title">Stock Category</h3>
                                         </div> <!-- /.box-header -->
                                         <div class="panel-body">
                                             <table class="table" id="child">
@@ -226,10 +218,10 @@
                                                 <tr class="parent_cat">
                                                     <td class="service-block__checker">
                                                     <td class="service-block__service">Category Name</td>
-                                                    <td class="service-block__middle">Code</td>
                                                 </tr>
                                                 </thead>
                                                 <tbody id="grand-child">
+
                                                 @foreach($categoryData as $key => $category)
                                                     <tr class="parent_cat parent-sort-row"
                                                         data-id="{{ $category->id }}">
@@ -237,7 +229,7 @@
                                                             <div class="parent_selector">
                                                                 <div
                                                                     class="service-block__drag pull-left parent-drag-handle">
-                                                                    {{ $key + $categoryData->firstItem()}}
+                                                                    {{ $serial++ }}
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -251,7 +243,6 @@
                                                                             <small><span class="service-block__collapse-button-counter" @click="catShowHide({{ $category->id }})"><span id="show_hide_controll_{{ $category->id }}">Hide</span> Category ({{ $category->nested->count() }})</span></small>
                                                                         @endif
                                                                     </td>
-                                                                    <td class="service-block__middle_1"> {{ $category->category_code }}</td>
                                                                     <td class="service-block__action">
                                                                         <div class="input-group-btn">
                                                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Actions
@@ -259,19 +250,12 @@
                                                                             </button>
 
                                                                             <ul class="dropdown-menu dropleft">
-                                                                                <form method="POST" action="{{ route('admin.categories.destroy', $category->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                                                    @csrf
-                                                                                    @method('delete')
-                                                                                    <li>
-                                                                                        <a href="{{ route('admin.categories.show', $category->id).qString() }}" class="ajax-modal-btn">Show</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="{{route('admin.categories.edit', $category->id).qString() }}" class="ajax-modal-btn">Edit</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
-                                                                                    </li>
-                                                                                </form>
+                                                                                <li>
+                                                                                    <a href="{{ route('admin.stock-category.show', $category->id).qString() }}" class="ajax-modal-btn">Show</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{route('admin.stock-category.edit', $category->id).qString() }}" class="ajax-modal-btn">Edit</a>
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </td>
@@ -283,7 +267,7 @@
                                                                         data-id="{{ $childCat->id }}">
                                                                         <td class="service-block__checker">
                                                                             <div class="service-block__drag pull-left child-drag-handle">
-                                                                                {{ ++ $key1 }}
+                                                                                {{ $childCat->category_code }}
                                                                             </div>
                                                                         </td>
                                                                         <td colspan="3"
@@ -298,7 +282,6 @@
                                                                                             <small><span class="service-block__collapse-button-counter" @click="catShowHide({{ $childCat->id }})"><span id="show_hide_controll_{{ $childCat->id }}">Hide</span> Category ({{ $childCat->nested->count() }})</span></small>
                                                                                         @endif
                                                                                     </td>
-                                                                                    <td class="service-block__middle_1">{{ $childCat->category_code }}</td>
                                                                                     <td class="service-block__action">
                                                                                         <div class="input-group-btn">
                                                                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Actions
@@ -306,84 +289,22 @@
                                                                                             </button>
 
                                                                                             <ul class="dropdown-menu dropleft">
-                                                                                                <form method="POST" action="{{ route('admin.categories.destroy', $childCat->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                                                                    @csrf
-                                                                                                    @method('delete')
+                                                                                                @can('see stock category details')
+                                                                                                    <li>
+                                                                                                        <a href="{{ route('admin.stock-category.show', $childCat->id).qString() }}" class="ajax-modal-btn">Show</a>
+                                                                                                    </li>
+                                                                                                @endcan
 
-                                                                                                    @can('see category details')
-                                                                                                        <li>
-                                                                                                            <a href="{{ route('admin.categories.show', $childCat->id).qString() }}" class="ajax-modal-btn">Show</a>
-                                                                                                        </li>
-                                                                                                    @endcan
-
-                                                                                                    @can('edit category')
-                                                                                                        <li>
-                                                                                                            <a href="{{route('admin.categories.edit', $childCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
-                                                                                                        </li>
-                                                                                                    @endcan
-
-                                                                                                    @can('delete category')
-                                                                                                        <li>
-                                                                                                            <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
-
-                                                                                                        </li>
-                                                                                                    @endcan
-
-                                                                                                </form>
+                                                                                                @can('edit stock category')
+                                                                                                    <li>
+                                                                                                        <a href="{{route('admin.stock-category.edit', $childCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
+                                                                                                    </li>
+                                                                                                @endcan
                                                                                             </ul>
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
                                                                                 </thead>
-                                                                                <tbody>
-                                                                                @foreach($childCat->nested()->orderBy('id', 'ASC')->get() as $key2 => $grandChildCat)
-                                                                                    <tr class="child child_cat_{{ $childCat->id }} grand-child-sort-row"
-                                                                                        data-id="{{ $grandChildCat->id }}">
-                                                                                        <td colspan="1" class="service-block__checker">
-                                                                                            <div class="service-block__drag pull-left grand-child-drag-handle">
-                                                                                                {{ ++ $key2 }}
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td class="service-block__service">
-                                                                                            <strong class="service-block__category-title">{{ $grandChildCat->category_name }}</strong>
-                                                                                        </td>
-                                                                                        <td class="service-block__action">
-                                                                                            <div class="input-group-btn">
-                                                                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Actions
-                                                                                                    <span class="fa fa-caret-down"></span>
-                                                                                                </button>
-
-                                                                                                <ul class="dropdown-menu dropleft">
-                                                                                                    <form method="POST" action="{{ route('admin.categories.destroy', $grandChildCat->id).qString() }}" accept-charset="UTF-8" class="data-form">
-                                                                                                        @csrf
-                                                                                                        @method('delete')
-
-                                                                                                        @can('see category details')
-                                                                                                            <li>
-                                                                                                                <a href="{{ route('admin.categories.show', $grandChildCat->id).qString() }}" class="ajax-modal-btn">Show</a>
-                                                                                                            </li>
-                                                                                                        @endcan
-
-                                                                                                        @can('edit category')
-                                                                                                            <li>
-                                                                                                                <a href="{{route('admin.categories.edit', $grandChildCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
-                                                                                                            </li>
-                                                                                                        @endcan
-
-                                                                                                        @can('delete category')
-                                                                                                            <li>
-                                                                                                                <a href="javascript:void(0)" @click="destroy" class="dropdown-menu-link confirm ajax-silent" title="Delete" data-toggle="tooltip" data-placement="top">Delete</a>
-                                                                                                            </li>
-                                                                                                        @endcan
-
-                                                                                                    </form>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </td>
-
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                                </tbody>
                                                                             </table>
                                                                             <!-- End Child sub -->
                                                                         </td>
@@ -426,23 +347,6 @@
         new Vue({
             el: '#app',
             methods: {
-                destroy: function () {
-                    const $this = $(event.target);
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.value) {
-                            $this.closest('form').submit();
-                        }
-                    });
-                },
                 catShowHide: function (catId) {
                     $('.child_cat_' + catId).toggle();
                     const getText = $('#show_hide_controll_' + catId).html();

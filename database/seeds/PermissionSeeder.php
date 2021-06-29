@@ -48,6 +48,13 @@ class PermissionSeeder extends Seeder
                 'edit category',
                 'delete category'
             ],
+            'stock category' => [
+                'see stock category list',
+                'see stock category details',
+                'add stock category',
+                'edit stock category',
+                'delete stock category'
+            ],
             'inventory' => [
                 'see inventory list',
                 'see inventory details',

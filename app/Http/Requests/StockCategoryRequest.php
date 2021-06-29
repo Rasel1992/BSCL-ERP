@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StockRequest extends FormRequest
+class StockCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,9 @@ class StockRequest extends FormRequest
     public function rules()
     {
         return [
-            'stock_code' => 'required|string|max:100',
-            'description' => 'nullable|string|max:255',
-            'category_id' => 'required|integer|exists:stock_categories,id',
-            'qty' => 'required|integer',
-            'location' => 'required|in:hq,gs1,gs2',
-            'stock_date' => 'required|date',
+            'parent_id' => 'required|integer',
+            'category_name' => $this->isMethod('put') ? 'required|string|max:100' : 'required|string|max:255|unique:stock_categories,category_name',
+            'category_code' => $this->isMethod('put') ? 'nullable|string|max:100' : 'nullable|string|max:255|unique:stock_categories,category_code',
         ];
     }
 }

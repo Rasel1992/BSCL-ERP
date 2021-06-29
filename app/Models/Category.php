@@ -34,9 +34,6 @@ class Category extends Model
         return $this->hasMany('App\Models\Inventory', 'category_id', 'id');
     }
 
-    public function stocks() {
-        return $this->hasMany('App\Models\Stock', 'category_id', 'id');
-    }
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;

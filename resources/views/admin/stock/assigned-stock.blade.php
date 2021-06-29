@@ -34,7 +34,7 @@
                                             value="{{ $cat->id }}" disabled>{{ $cat->category_name }}</option>
                                         @if(!empty($cat->nested))
                                             @foreach($cat->nested as $nc)
-                                                <option value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>-- {{ $nc->category_name }}</option>
+                                                <option value="{{ $nc->id }}" {{ ($nc->id==Request::get('category_id'))?'selected':''}}>{{ $nc->category_name }} [ {{ $nc->category_code }}]</option>
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -75,12 +75,12 @@
                     <tbody>
                     @foreach($assignedStocks as  $key => $stock)
                         <tr>
-                            <td> {{$key + $assignedStocks->firstItem()}}</td>
+                            <td>  {{ $serial++ }}</td>
                             <td>@if($stock->stock) {{ $stock->stock->category->category_name }} @endif</td>
                             <td>
-                                @if($stock->assign_to == 'user') <strong>Person:</strong><br><a href="{{ route('admin.users.show',$stock->user->id ) }}">{{$stock->user->name }}</a>
+                                @if($stock->assign_to == 'user') <strong>Person:</strong><br><a href="{{ route('admin.users.show',$stock->user->id ) }}">{{$stock->user->name }} [ {{$stock->user->user_id }} ] </a>
                                 @else
-                                    <strong>Department:</strong><br><a href="{{ route('admin.departments.show',$stock->department->id ) }}">{{ $stock->department->department}}</a>
+                                    <strong>Department:</strong><br><a href="{{ route('admin.departments.show',$stock->department->id ) }}">{{ $stock->department->department}} [{{ $stock->department->department_id }}] </a>
                                 @endif
                             </td>
                             <td> {{ $stock->apply_no ?? '-'}}</td>

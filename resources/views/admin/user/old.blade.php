@@ -11,9 +11,13 @@
         <div class="panel">
             <div class="box-header with-border">
                 <h3 class="box-title">Users</h3>
-                <div class="box-tools pull-right">
-                    <a href="{{ route('admin.users.create').qString() }}" class="button add" >Add User</a>
-                </div>
+
+                @can('add user')
+                    <div class="box-tools pull-right">
+                        <a href="{{ route('admin.users.create').qString() }}" class="button add" >Add User</a>
+                    </div>
+                @endcan
+
             </div>
             <!-- /.box-header -->
             <div class="panel-body">
@@ -55,11 +59,10 @@
                     <tbody>
                     @foreach($users as $key => $user)
                         <tr>
-                            <td> {{$key + $users->firstItem()}}</td>
-                            <td>@if(isset($user->image))
-                                    <img src="{{ asset('storage/user/'.$user->image.'') }}" width="40px" height="40px" class="img-circle">
-                                @else
-                                    <img src="{{ asset('storage/user/blank-profile-picture-973460_1280.png') }}" width="40px" height="40px" class="img-circle">
+                            <td>  {{ $serial++ }} </td>
+                            <td>
+                                @if($user->image)
+                                    {!! viewImg('user', $user->image, ['thumb' => 1, 'class' => 'img-circle', 'style' => 'width:40px; height:40px;']) !!}
                                 @endif
                             </td>
                             <td>{{ $user->user_id }}</td>
@@ -69,12 +72,22 @@
                             <td>{{ $user->designation }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                <a href="{{route('admin.users.edit', $user->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="#change-password-modal" @click="showPasswordUpdateModal('{{ $user->id }}')" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Change password" class="fa fa-lock"></i></a>&nbsp;
+                                @can('edit user')
+                                    <a href="{{route('admin.users.edit', $user->id).qString() }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-edit"></i></a>&nbsp;
+                                @endcan
+
+                                @can('change password')
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#change-password-modal" @click="showPasswordUpdateModal('{{ $user->id }}')" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="Change password" class="fa fa-lock"></i></a>&nbsp;
+                                @endcan
+
                                 <form method="POST" action="{{ route('admin.users.destroy', $user->id).qString() }}" accept-charset="UTF-8" class="data-form">
                                     @csrf
                                     @method('delete')
-                                    <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
+
+                                    @can('delete user')
+                                        <a href="javascript:void(0)" @click="destroy" class="confirm ajax-silent" title="Trash" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash-o"></i></a>
+                                    @endcan
+
                                 </form>
                             </td>
                         </tr>

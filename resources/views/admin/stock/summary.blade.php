@@ -209,7 +209,7 @@
                                                             <div class="parent_selector">
                                                                 <div
                                                                     class="service-block__drag pull-left parent-drag-handle">
-                                                                    {{ $key + $categories->firstItem()}}
+                                                                    {{ $serial++ }}
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -237,7 +237,7 @@
                                                                         data-id="{{ $childCat->id }}">
                                                                         <td class="service-block__checker">
                                                                             <div class="service-block__drag pull-left child-drag-handle">
-                                                                                {{ ++ $key1 }}
+                                                                                {{ $childCat->category_code }}
                                                                             </div>
                                                                         </td>
                                                                         <td colspan="3"
@@ -259,21 +259,6 @@
                                                                                     <td class="service-block__action">{{ $childCat->stocks->where('location', 'hq')->sum('qty') }}</td>
                                                                                 </tr>
                                                                                 </thead>
-                                                                                <tbody>
-                                                                                @foreach($childCat->nested()->orderBy('id', 'ASC')->get() as $key2 => $grandChildCat)
-                                                                                    <tr class="child child_cat_{{ $childCat->id }} grand-child-sort-row"
-                                                                                        data-id="{{ $grandChildCat->id }}">
-                                                                                        <td colspan="1" class="service-block__checker">
-                                                                                            <div class="service-block__drag pull-left grand-child-drag-handle">
-                                                                                                {{ ++ $key2 }}
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td><strong class="service-block__category-title"><a href="{{ route('admin.stocks.category', $grandChildCat->id) }}?location=hq">{{ $grandChildCat->category_name }}</a></strong>
-                                                                                        </td>
-                                                                                        <td class="service-block__action">{{ $grandChildCat->stocks->where('location', 'hq')->sum('qty') }}</td>
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                                </tbody>
                                                                             </table>
                                                                             <!-- End Child sub -->
                                                                         </td>
@@ -310,7 +295,7 @@
                                                         <td class="service-block__checker">
                                                             <div class="parent_selector">
                                                                 <div class="service-block__drag pull-left parent-drag-handle">
-                                                                    {{ $key + $categories->firstItem()}}
+                                                                    {{ $serial++ }}
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -338,7 +323,7 @@
                                                                         data-id="{{ $childCat->id }}">
                                                                         <td class="service-block__checker">
                                                                             <div class="service-block__drag pull-left child-drag-handle">
-                                                                                {{ ++ $key1 }}
+                                                                                {{ $childCat->category_code }}
                                                                             </div>
                                                                         </td>
                                                                         <td colspan="3"
@@ -356,21 +341,6 @@
                                                                                     <td class="service-block__action">{{ $childCat->stocks->where('location', 'gs1')->sum('qty') }}</td>
                                                                                 </tr>
                                                                                 </thead>
-                                                                                <tbody>
-                                                                                @foreach($childCat->nested()->orderBy('id', 'ASC')->get() as $key2 => $grandChildCat)
-                                                                                    <tr class="child child_cat1_{{ $childCat->id }} grand-child-sort-row"
-                                                                                        data-id="{{ $grandChildCat->id }}">
-                                                                                        <td colspan="1" class="service-block__checker">
-                                                                                            <div class="service-block__drag pull-left grand-child-drag-handle">
-                                                                                                {{ ++ $key2 }}
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td><strong class="service-block__category-title"><a href="{{ route('admin.stocks.category', $grandChildCat->id) }}?location=gs1">{{ $grandChildCat->category_name }}</a></strong>
-                                                                                        </td>
-                                                                                        <td class="service-block__action">{{ $grandChildCat->stocks->where('location', 'gs1')->sum('qty') }}</td>
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                                </tbody>
                                                                             </table>
                                                                             <!-- End Child sub -->
                                                                         </td>
@@ -407,7 +377,7 @@
                                                         <td class="service-block__checker">
                                                             <div class="parent_selector">
                                                                 <div class="service-block__drag pull-left parent-drag-handle">
-                                                                    {{ $key + $categories->firstItem()}}
+                                                                    {{ $serial++ }}
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -434,7 +404,7 @@
                                                                     <tr class="child child_cat2_{{ $category->id }} child-sort-row" data-id="{{ $childCat->id }}">
                                                                         <td class="service-block__checker">
                                                                             <div class="service-block__drag pull-left child-drag-handle">
-                                                                                {{ ++ $key1 }}
+                                                                                {{ $childCat->category_code }}
                                                                             </div>
                                                                         </td>
                                                                         <td colspan="3"
@@ -452,20 +422,6 @@
                                                                                     <td class="service-block__action">{{ $childCat->stocks->where('location', 'gs2')->sum('qty') }}</td>
                                                                                 </tr>
                                                                                 </thead>
-                                                                                <tbody>
-                                                                                @foreach($childCat->nested()->orderBy('id', 'ASC')->get() as $key2 => $grandChildCat)
-                                                                                    <tr class="child child_cat2_{{ $childCat->id }} grand-child-sort-row" data-id="{{ $grandChildCat->id }}">
-                                                                                        <td colspan="1" class="service-block__checker">
-                                                                                            <div class="service-block__drag pull-left grand-child-drag-handle">
-                                                                                                {{ ++ $key2 }}
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td><strong class="service-block__category-title"><a href="{{ route('admin.stocks.category', $grandChildCat->id) }}?location=gs2">{{ $grandChildCat->category_name }}</a></strong>
-                                                                                        </td>
-                                                                                        <td class="service-block__action">{{ $grandChildCat->stocks->where('location', 'gs2')->sum('qty') }}</td>
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                                </tbody>
                                                                             </table>
                                                                             <!-- End Child sub -->
                                                                         </td>

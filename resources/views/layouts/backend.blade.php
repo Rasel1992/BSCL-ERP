@@ -363,11 +363,32 @@
 
                             </ul>
                         </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Invoice</span>
+                                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Recurring Invoice</a></li>
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Estimates</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Payments Received</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Tax Rates</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Report</a></li>
+
+
+                            </ul>
+                        </li>
                         <li><a href="pages/charts/inline.html"><i class="fa fa-cube"></i> Item</a></li>
 
 
                     </ul>
                 </li>
+
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-codepen"></i>
@@ -377,11 +398,36 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('admin.categories.index')}}"><i class="fa fa-sliders"></i> Category</a></li>
-                        <li><a href="{{route('admin.inventories.index')}}"><i class="fa fa-sliders"></i> Inventory</a></li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Inventory</span>
+                                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{route('admin.inventory-category.index')}}"><i class="fa fa-sliders"></i> Category</a></li>
+                                <li><a href="{{route('admin.inventories.index')}}"><i class="fa fa-sliders"></i> Inventory</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Stock</span>
+                                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{route('admin.stock-category.index')}}"><i class="fa fa-sliders"></i> Category</a></li>
+                                <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
+                                <li><a href="{{route('admin.stocks.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{route('admin.bills.index')}}"><i class="fa fa-sliders"></i> Bill Register</a></li>
-                        <li><a href="{{route('admin.stocks.index')}}"><i class="fa fa-sliders"></i> Stock</a></li>
-                        <li><a href="{{route('admin.stocks.assigned-stock')}}"><i class="fa fa-sliders"></i> Assigned Stock</a></li>
+
+
                     </ul>
                 </li>
                 <li class="treeview">
