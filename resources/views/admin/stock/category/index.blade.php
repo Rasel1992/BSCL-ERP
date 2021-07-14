@@ -250,12 +250,17 @@
                                                                             </button>
 
                                                                             <ul class="dropdown-menu dropleft">
+                                                                                @can('see stock category details')
                                                                                 <li>
                                                                                     <a href="{{ route('admin.stock-category.show', $category->id).qString() }}" class="ajax-modal-btn">Show</a>
                                                                                 </li>
+                                                                                @endcan
+
+                                                                                @can('edit stock category')
                                                                                 <li>
                                                                                     <a href="{{route('admin.stock-category.edit', $category->id).qString() }}" class="ajax-modal-btn">Edit</a>
                                                                                 </li>
+                                                                                @endcan
                                                                             </ul>
                                                                         </div>
                                                                     </td>

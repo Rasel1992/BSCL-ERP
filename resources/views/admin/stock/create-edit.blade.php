@@ -74,7 +74,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    @if(Auth::user()->type == 'super-admin')
+                                        <div class="col-md-6">
                                         <div class="form-group row @error('location') has-error @enderror">
                                             <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
@@ -99,6 +100,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @else
+                                        <input type="hidden" name="location" value="{{Auth::user()->location}}" required>
+                                    @endif
 
                                 </div>
                                 <div class="col-md-12">

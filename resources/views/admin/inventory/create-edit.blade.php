@@ -128,17 +128,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    @if(Auth::user()->type == 'super-admin')
+                                        <div class="col-md-6">
                                         <div class="form-group row @error('location') has-error @enderror">
                                             <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
                                                 <select class="form-control select2" id="location" name="location" v-model="inventory.location" v-select2 required>
                                                     <option value="">Select Location</option>
-                                                    <option value="hq" {{(isset($inventory->location)?$inventory->location:old('location') == 'hq') ? 'Selected' : ''}}>Head Quarter
+                                                    <option value="hq" {{ old('location')  == 'hq' ? 'Selected' : ''}}>Head Quarter
                                                     </option>
-                                                    <option value="gs1" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs1') ? 'Selected' : ''}}>GS Gazipur
+                                                    <option value="gs1" {{ old('location') == 'gs1' ? 'Selected' : ''}}>GS Gazipur
                                                     </option>
-                                                    <option value="gs2" {{(isset($inventory->location)?$inventory->location:old('location') == 'gs2') ? 'Selected' : ''}}>GS Bethbunia
+                                                    <option value="gs2" {{ old('location')  == 'gs2' ? 'Selected' : ''}}>GS Bethbunia
                                                     </option>
                                                 </select>
                                                 @error('location')
@@ -149,6 +150,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @else
+                                        <input type="hidden" name="location" value="{{Auth::user()->location}}" required>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-12">

@@ -52,20 +52,25 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('type') has-error @enderror">
-                                            <label class="col-md-3" for="sex">User Type<span class="text-danger">*</span></label>
+                                        <div class="form-group row @error('location') has-error @enderror">
+                                            <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <select class="form-control select2" id="type" name="type" v-model="user.type" required
-                                                        v-select2>
-                                                    <option value="">Select Type</option>
-                                                    <option value="super-admin" {{ old('type') == 'super-admin' ? 'selected' : '' }}>Super Admin</option>
-                                                    <option value="admin" {{ old('type') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                                    <option value="staff" {{ old('type') == 'staff' ? 'selected' : '' }}>Staff</option>
+                                                <select class="form-control select2" id="location" name="location" v-model="user.location">
+                                                    <option value="">Select Location</option>
+                                                    <option value="hq" {{ old('location')  == 'hq' ? 'Selected' : ''}}>
+                                                        Head Quarter
+                                                    </option>
+                                                    <option value="gs1" {{ old('location') == 'gs1' ? 'Selected' : ''}}>
+                                                        GS Gazipur
+                                                    </option>
+                                                    <option value="gs2" {{ old('location')  == 'gs2' ? 'Selected' : ''}}>
+                                                        GS Bethbunia
+                                                    </option>
                                                 </select>
-                                                @error('type')
+                                                @error('location')
                                                 <span class="help-block">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -170,10 +175,9 @@
                                         <div class="form-group row @error('role') has-error @enderror">
                                             <label class="col-md-3" for="sex">Role<span class="text-danger">*</span></label>
                                             <div class="col-md-8">
-                                                <select name="role" class="form-control select2" required>
-                                                    @php ($admin_role = old('role', isset($data) ? $adminRole : ''))
+                                                <select name="role" class="form-control select2" v-model="user.role" v-select2 required>
                                                     @foreach($roles as $role)
-                                                        <option value="{{$role}}" {{ ($admin_role == $role) ? 'selected' : '' }}>{{$role}}</option>
+                                                        <option value="{{$role}}">{{$role}}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('role')
@@ -258,30 +262,6 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <div class="form-group row @error('location') has-error @enderror">
-                                            <label for="location" class="col-md-3">location<span class="text-danger">*</span></label>
-                                            <div class="col-md-8">
-                                                <select class="form-control select2" id="location" name="location" v-model="user.location">
-                                                    <option value="">Select Location</option>
-                                                    <option value="hq" {{ old('location')  == 'hq' ? 'Selected' : ''}}>
-                                                        Head Quarter
-                                                    </option>
-                                                    <option value="gs1" {{ old('location') == 'gs1' ? 'Selected' : ''}}>
-                                                        GS Gazipur
-                                                    </option>
-                                                    <option value="gs2" {{ old('location')  == 'gs2' ? 'Selected' : ''}}>
-                                                        GS Bethbunia
-                                                    </option>
-                                                </select>
-                                                @error('location')
-                                                <span class="help-block">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         <div class="form-group row @error('signature') has-error @enderror">
                                             <label class="col-md-3" for="exampleInputFile">Signature</label>
                                             <span style="margin-left: 10px;">
@@ -313,8 +293,6 @@
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="col-md-12">
                                     <div class="col-md-6">
                                         <div class="form-group row @error('image') has-error @enderror">
                                             <label class="col-md-3" for="exampleInputFile">Avatar</label>
@@ -345,6 +323,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 @if(isset($user))
                                     <div class="col-md-12">
@@ -466,7 +445,7 @@
                 user: {
                     user_id: '{{ old('user_id', $user->user_id ?? '') }}',
                     name: '{{ old('name', $user->name ?? '') }}',
-                    type: '{{ old('type', $user->type ?? '') }}',
+                    role: '{{ old('role', $userRole ?? '') }}',
                     location: '{{ old('location', $user->location ?? '') }}',
                     email: '{{ old('email', $user->email ?? '') }}',
                     mobile: '{{ old('mobile', $user->mobile ?? '') }}',

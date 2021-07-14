@@ -14,7 +14,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        if (!Auth::user()->can('see category list')) {
+        if (!Auth::user()->can('see inventory category list')) {
             return view('errors.403');
         }
 
@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        if (!Auth::user()->can('add category')) {
+        if (!Auth::user()->can('add inventory category')) {
             return view('errors.403');
         }
 
@@ -46,7 +46,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        if (!Auth::user()->can('add category')) {
+        if (!Auth::user()->can('add inventory category')) {
             return view('errors.403');
         }
 
@@ -65,7 +65,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        if (!Auth::user()->can('see category details')) {
+        if (!Auth::user()->can('see inventory category details')) {
             return view('errors.403');
         }
         $category = Category::where('id', $id)->first();
@@ -83,7 +83,7 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        if (!Auth::user()->can('edit category')) {
+        if (!Auth::user()->can('edit inventory category')) {
             return view('errors.403');
         }
         $category = Category::where('id', $id)->first();
@@ -97,7 +97,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, $id)
     {
-        if (!Auth::user()->can('edit category')) {
+        if (!Auth::user()->can('edit inventory category')) {
             return view('errors.403');
         }
         $category = Category::where('id', $id)->first();

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Admin | Log in
+    User | Log in
 @endsection
 @section('content')
     <!-- /.login-logo -->
@@ -10,9 +10,9 @@
         <form method="post" action="{{ route('login') }}">
             @csrf
             <div class="form-group has-feedback">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input type="text" class="form-control" name="login" value="{{ old('login') }}" placeholder="Email Or Mobile Or User ID" required>
 
-                @error('email')
+                @error('login')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

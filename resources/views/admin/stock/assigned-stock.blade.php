@@ -40,6 +40,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @if(Auth::user()->type == 'super-admin')
                             <div class="form-group" style="width: 15%">
                                 <select class="form-control select2" id="location" name="location">
                                     <option value="">Select Location</option>
@@ -48,6 +49,27 @@
                                     <option value="gs1" {{'gs1' == Request::get('location')?'selected':''}}>GS Gazipur
                                     </option>
                                     <option value="gs2" {{'gs2' == Request::get('location')?'selected':''}}>GS Bethbunia
+                                    </option>
+                                </select>
+                            </div>
+                            @endif
+                            <div class="form-group" style="width: 15%">
+                                <select class="form-control select2" id="per_page" name="per_page">
+                                    @php $assignedStockPage = $assignedStocks->count();
+                                    $perPage = Request::get('per_page') ?? 50;
+                                    @endphp
+                                    <option value="">Select Location</option>
+                                    <option value="25" {{ ('25' == $perPage) ? 'selected' : '' }}>25
+                                    </option>
+                                    <option value="50" {{ ('50' == $perPage) ? 'selected' : '' }}>50
+                                    </option>
+                                    <option value="100" {{ ('100' == $perPage) ? 'selected' : '' }}>100
+                                    </option>
+                                    <option value="150" {{ ('150' == $perPage) ? 'selected' : '' }}>150
+                                    </option>
+                                    <option value="200" {{ ('200' == $perPage) ? 'selected' : '' }}>200
+                                    </option>
+                                    <option value="{{ $assignedStockPage }}" {{ ($assignedStockPage == $perPage) ? 'selected' : '' }}>Total Data
                                     </option>
                                 </select>
                             </div>

@@ -25,6 +25,13 @@ class UserController extends Controller
             }
 
             $sql = User::orderBy('created_at', 'ASC');
+
+            if ($request->per_page) {
+                $pagination = $request->per_page;
+            } else {
+                $pagination = 50;
+            }
+
             if ($request->q) {
                 $sql->where('name', 'LIKE', $request->q . '%');
                 $sql->orWhere('user_id', $request->q );
@@ -32,8 +39,8 @@ class UserController extends Controller
             if ($request->type) {
                 $sql->where('type', $request->type);
             }
-            $users = $sql->paginate(50);
-            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            $users = $sql->paginate($pagination);
+            $serial = (!empty($request->page)) ? (($pagination*($request->page - 1)) + 1) : 1;
             return view('admin.user.index', compact('users', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -118,7 +125,8 @@ class UserController extends Controller
         {
             $roles = Role::pluck('name', 'name')->all();
         }
-        return view('admin.user.create-edit', compact('user', 'departments', 'roles'));
+        $userRole = $user->roles->pluck('name', 'name')->first();
+        return view('admin.user.create-edit', compact('user', 'departments', 'roles', 'userRole'));
     }
 
     public function update(UserRequest $request, User $user)
@@ -153,7 +161,7 @@ class UserController extends Controller
                 $data['signature'] = $image['name'];
             }
             $user->update($data);
-            $user->assignRole($request->role);
+            $user->syncRoles($request->role);
             return redirect()->route('admin.users.index', qArray())->withSuccess('User Updated!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

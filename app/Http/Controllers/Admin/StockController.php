@@ -34,6 +34,12 @@ class StockController extends Controller
                 $sql->where('location', Auth::user()->location);
             }
 
+            if ($request->per_page) {
+                $pagination = $request->per_page;
+            } else {
+                $pagination = 50;
+            }
+
             if ($request->location) {
                 $sql->where('location', $request->location);
             }
@@ -53,8 +59,8 @@ class StockController extends Controller
                 });
                 $sql->orWhere('stock_code', $request->q);
             }
-            $stocks = $sql->paginate(50);
-            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            $stocks = $sql->paginate($pagination);
+            $serial = (!empty($request->page)) ? (($pagination*($request->page - 1)) + 1) : 1;
             return view('admin.stock.index', compact('stocks', 'categoryData', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -199,6 +205,11 @@ class StockController extends Controller
                     $q->where('location', Auth::user()->location);
                 });
             }
+            if ($request->per_page) {
+                $pagination = $request->per_page;
+            } else {
+                $pagination = 50;
+            }
 
             if ($request->location) {
                 $sql->whereHas('stock', function ($q) use ($request) {
@@ -216,8 +227,8 @@ class StockController extends Controller
             if ($request->to) {
                 $sql->whereDate('assign_date', '<=', $request->to);
             }
-            $assignedStocks = $sql->paginate(50);
-            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            $assignedStocks = $sql->paginate($pagination);
+            $serial = (!empty($request->page)) ? (($pagination*($request->page - 1)) + 1) : 1;
             return view('admin.stock.assigned-stock', compact('assignedStocks', 'categoryData', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -270,7 +281,7 @@ class StockController extends Controller
     {
         try {
 
-            if (!Auth::user()->can('see stock summary')) {
+            if (!Auth::user()->can('see stock all summary')) {
                 return view('errors.403');
             }
 
@@ -334,7 +345,7 @@ class StockController extends Controller
     public function updatedList(Request $request)
     {
         try {
-            if (!Auth::user()->can('see stock list')) {
+            if (!Auth::user()->can('see updated stock list')) {
                 return view('errors.403');
             }
 
@@ -343,6 +354,11 @@ class StockController extends Controller
 
             if (isLocationUser(Auth::user())) {
                 $sql->where('location', Auth::user()->location);
+            }
+            if ($request->per_page) {
+                $pagination = $request->per_page;
+            } else {
+                $pagination = 50;
             }
 
             if ($request->location) {
@@ -363,8 +379,8 @@ class StockController extends Controller
                 });
                 $sql->orWhere('stock_code', $request->q);
             }
-            $stocks = $sql->paginate(50);
-            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            $stocks = $sql->paginate($pagination);
+            $serial = (!empty($request->page)) ? (($pagination*($request->page - 1)) + 1) : 1;
             return view('admin.stock.updated-stock', compact('stocks', 'categoryData', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

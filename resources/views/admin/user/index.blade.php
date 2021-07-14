@@ -21,16 +21,31 @@
                     <div class="col-md-6"></div>
                     <div class="col-md-6">
                         <form method="GET" action="{{ route('admin.users.index') }}" class="form-inline float-right">
-                            <div class="form-group mb-2">
-                                <select class="form-control select2" id="type" name="type">
-                                    <option value="">Select</option>
-                                    <option value="admin"  {{'admin' == Request::get('type')?'selected':''}} >Admin</option>
-                                    <option value="staff" {{'staff' == Request::get('type')?'selected':''}}>Staff</option>
-                                </select>
-                            </div>
+
                             <div class="form-group mx-sm-3 mb-2">
                                 <label class="sr-only">&nbsp;</label>
                                 <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}" placeholder="Input your search text...">
+                            </div>
+
+                            <div class="form-group" style="width: 25%">
+                                <select class="form-control select2" id="per_page" name="per_page">
+                                    @php $userPage = $users->count();
+                                    $perPage = Request::get('per_page') ?? 50;
+                                    @endphp
+                                    <option value="">Select Location</option>
+                                    <option value="25" {{ ('25' == $perPage) ? 'selected' : '' }}>25
+                                    </option>
+                                    <option value="50" {{ ('50' == $perPage) ? 'selected' : '' }}>50
+                                    </option>
+                                    <option value="100" {{ ('100' == $perPage) ? 'selected' : '' }}>100
+                                    </option>
+                                    <option value="150" {{ ('150' == $perPage) ? 'selected' : '' }}>150
+                                    </option>
+                                    <option value="200" {{ ('200' == $perPage) ? 'selected' : '' }}>200
+                                    </option>
+                                    <option value="{{ $userPage }}" {{ ($userPage == $perPage) ? 'selected' : '' }}>Total User Data
+                                    </option>
+                                </select>
                             </div>
 
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
@@ -45,7 +60,6 @@
                         <th>Avatar</th>
                         <th>User ID</th>
                         <th>Name</th>
-                        <th>Type</th>
                         <th>Department</th>
                         <th>Designation</th>
                         <th>Email</th>
@@ -64,7 +78,6 @@
                             </td>
                             <td>{{ $user->user_id }}</td>
                             <td><a href="{{ route('admin.users.show',$user->id ).qString() }}">{{ $user->name }}</a> </td>
-                            <td><span class="label label-outline">{{ $user->type }}</span></td>
                             <td>@if($user->dept_id){{ $user->departments->department }}@endif</td>
                             <td>{{ $user->designation }}</td>
                             <td>{{ $user->email }}</td>

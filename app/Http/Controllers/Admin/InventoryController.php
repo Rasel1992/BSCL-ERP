@@ -32,6 +32,12 @@ class InventoryController extends Controller
                 $sql->where('location', Auth::user()->location);
             }
 
+            if ($request->per_page) {
+                $pagination = $request->per_page;
+            } else {
+                $pagination = 50;
+            }
+
             if ($request->q) {
                 $sql->where('asset_code', 'LIKE', $request->q . '%');
                 $sql->orWhere('voucher_no', $request->q );
@@ -48,8 +54,8 @@ class InventoryController extends Controller
             if ($request->to) {
                 $sql->whereDate('purchase_date', '<=', $request->to);
             }
-            $inventories = $sql->paginate(50);
-            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            $inventories = $sql->paginate($pagination);
+            $serial = (!empty($request->page)) ? (($pagination*($request->page - 1)) + 1) : 1;
             return view('admin.inventory.index', compact('categoryData', 'inventories', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -189,11 +195,17 @@ class InventoryController extends Controller
                 $sql->where('location', Auth::user()->location);
             }
 
+            if ($request->per_page) {
+                $pagination = $request->per_page;
+            } else {
+                $pagination = 50;
+            }
+
             if ($request->q) {
                 $sql->where('asset_code', 'LIKE', $request->q . '%');
             }
-            $inventories = $sql->latest()->paginate(50);
-            $serial = (!empty($request->page)) ? ((50*($request->page - 1)) + 1) : 1;
+            $inventories = $sql->latest()->paginate($pagination);
+            $serial = (!empty($request->page)) ? (($pagination*($request->page - 1)) + 1) : 1;
             return view('admin.inventory.qr-code-list', compact('inventories', 'serial'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -203,7 +215,7 @@ class InventoryController extends Controller
     public function summary()
     {
         try {
-            if (!Auth::user()->can('see inventory summary')) {
+            if (!Auth::user()->can('see inventory all summary')) {
                 return view('errors.403');
             }
 

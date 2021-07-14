@@ -171,7 +171,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Category</h3>
 
-                @can('add category')
+                @can('add inventory category')
                     <div class="box-tools pull-right">
                         <a href="{{ route('admin.inventory-category.create') }}" class="button add">Add Category</a>
                     </div>
@@ -257,12 +257,16 @@
                                                                                 </button>
 
                                                                                 <ul class="dropdown-menu dropleft">
+                                                                                    @can('see inventory category details')
                                                                                     <li>
                                                                                         <a href="{{ route('admin.inventory-category.show', $category->id).qString() }}" class="ajax-modal-btn">Show</a>
                                                                                     </li>
+                                                                                    @endcan
+                                                                                    @can('edit inventory category')
                                                                                     <li>
                                                                                         <a href="{{route('admin.inventory-category.edit', $category->id).qString() }}" class="ajax-modal-btn">Edit</a>
                                                                                     </li>
+                                                                                    @endcan
                                                                                 </ul>
                                                                             </div>
                                                                         </td>
@@ -296,13 +300,13 @@
                                                                                                 </button>
 
                                                                                                 <ul class="dropdown-menu dropleft">
-                                                                                                    @can('see category details')
+                                                                                                    @can('see inventory category details')
                                                                                                         <li>
                                                                                                             <a href="{{ route('admin.inventory-category.show', $childCat->id).qString() }}" class="ajax-modal-btn">Show</a>
                                                                                                         </li>
                                                                                                     @endcan
 
-                                                                                                    @can('edit category')
+                                                                                                    @can('edit inventory category')
                                                                                                         <li>
                                                                                                             <a href="{{route('admin.inventory-category.edit', $childCat->id).qString() }}" class="ajax-modal-btn">Edit</a>
                                                                                                         </li>

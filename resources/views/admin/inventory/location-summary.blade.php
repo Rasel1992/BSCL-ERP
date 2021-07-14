@@ -163,7 +163,11 @@
                 <h3 class="box-title">@if($location == 'hq') Head Quarter @elseif($location == 'gs1') GS Gazipur @else GS Betbhunia @endif Inventories Summary</h3>
                 <div class="box-tools pull-right">
                     <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp
+                    @if(Auth::user()->type == 'super-admin')
                     <a href="{{ route('admin.inventories.summary') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> Back</a>
+                    @else
+                    <a href="{{ route('admin.inventories.index') }}" class="btn btn-info pull-right"><i class="fa fa-angle-double-up"></i> List of Inventory</a>
+                    @endif
                 </div>
             </div> <!-- /.box-header -->
             <div class="row">

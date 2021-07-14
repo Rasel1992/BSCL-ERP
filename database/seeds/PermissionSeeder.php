@@ -41,12 +41,12 @@ class PermissionSeeder extends Seeder
                 'edit set roster',
                 'delete set roster'
             ],
-            'category' => [
-                'see category list',
-                'see category details',
-                'add category',
-                'edit category',
-                'delete category'
+            'inventory category' => [
+                'see inventory category list',
+                'see inventory category details',
+                'add inventory category',
+                'edit inventory category',
+                'delete inventory category'
             ],
             'stock category' => [
                 'see stock category list',
@@ -59,6 +59,7 @@ class PermissionSeeder extends Seeder
                 'see inventory list',
                 'see inventory details',
                 'see inventory QR code list',
+                'see inventory all summary',
                 'see inventory summary',
                 'add inventory',
                 'edit inventory',
@@ -67,12 +68,14 @@ class PermissionSeeder extends Seeder
             'stock' => [
                 'see stock list',
                 'see stock details',
+                'see stock all summary',
                 'see stock summary',
                 'add stock',
                 'edit stock',
                 'delete stock',
                 'assign stock',
                 'see assigned stock list',
+                'see updated stock list',
             ],
             'role' => [
                 'see role list',

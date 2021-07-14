@@ -39,4 +39,26 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'login' => 'required',
+            'password' => 'required|min:8'
+        ]);
+
+        if(is_numeric($request->login)){
+            $fieldType = 'mobile';
+        } elseif (filter_var($request->login, FILTER_VALIDATE_EMAIL)) {
+            $fieldType = 'email';
+        } else {
+            $fieldType = 'user_id';
+        }
+        if (auth()->attempt([$fieldType => $request->login, 'password' => $request->password], $request->remember)) {
+            return redirect($this->redirectPath());
+        } else {
+            $request->session()->flash('errorMessage', "User Login invalid!");
+            return redirect()->back()->with('Input', $request->only('login', 'remember'));
+        }
+    }
+
 }

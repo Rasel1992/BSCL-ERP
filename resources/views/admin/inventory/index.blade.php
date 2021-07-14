@@ -11,12 +11,15 @@
                 <h3 class="box-title">Inventories</h3>
                 <div class="box-tools pull-right">
                     <a href="javascript:void(0)" class="btn btn-success pull-left" onclick="printDiv('printableArea')">Print</a>&nbsp;&nbsp;
+                    @can('see inventory all summary')
                     <a class="button add" href="{{ route('admin.inventories.summary').qString() }}">All Summary</a>
-
+                    @endcan
+                    @can('see inventory summary')
                     <a class="button add" href="{{ route('admin.inventories.location.summary').qString() }}">Summary</a>
-
+                    @endcan
+                    @can('see inventory QR code list')
                     <a class="button add" href="{{ route('admin.inventories.qr-code-list').qString() }}">QR Code List</a>
-
+                    @endcan
                     @can('add inventory')
                     <a href="{{ route('admin.inventories.create').qString() }}" class="button add"> Add Inventory</a>
                     @endcan
@@ -38,8 +41,6 @@
                                 <span class="input-group-addon">To</span>
                                 <input type="date" class="form-control" name="to" value="{{ Request::get('to') }}">
                             </div>
-
-
                             <div class="form-group" style="width: 15%">
                                 <select class="form-control select2" id="category_id" name="category_id">
                                     <option value="">Select Category</option>
@@ -55,6 +56,8 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            @if(Auth::user()->type == 'super-admin')
                             <div class="form-group" style="width: 15%">
                                 <select class="form-control select2" id="location" name="location">
                                     <option value="">Select Location</option>
@@ -66,12 +69,32 @@
                                     </option>
                                 </select>
                             </div>
+                            @endif
                             <div class="form-group">
                                 <label class="sr-only">&nbsp;</label>
                                 <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}"
                                        placeholder="Input your search text...">
                             </div>
-
+                            <div class="form-group" style="width: 15%">
+                                <select class="form-control select2" id="per_page" name="per_page">
+                                    @php $inventoryPage = $inventories->count();
+                                    $perPage = Request::get('per_page') ?? 50;
+                                    @endphp
+                                    <option value="">Select page</option>
+                                    <option value="25" {{ ('25' == $perPage) ? 'selected' : '' }}>25
+                                    </option>
+                                    <option value="50" {{ ('50' == $perPage) ? 'selected' : '' }}>50
+                                    </option>
+                                    <option value="100" {{ ('100' == $perPage) ? 'selected' : '' }}>100
+                                    </option>
+                                    <option value="150" {{ ('150' == $perPage) ? 'selected' : '' }}>150
+                                    </option>
+                                    <option value="200" {{ ('200' == $perPage) ? 'selected' : '' }}>200
+                                    </option>
+                                    <option value="{{ $inventoryPage }}" {{ ($inventoryPage == $perPage) ? 'selected' : '' }}>Total Data
+                                    </option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> Search</button>&nbsp
                             <a href="{{ route('admin.inventories.index') }}" class="btn btn-warning mb-2"><i
                                     class="fa fa-times"></i></a>
@@ -169,7 +192,20 @@
                 </div>
             </div>
         </div> <!-- /.box -->
-        @include('admin.inventory.form_import')
+
+        <div class="box collapsed-box">
+            <div class="box-header">
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <br>
+            <div class="box-body">
+                @include('admin.inventory.form_import')
+            </div>
+        </div>
     </section>
 @endsection
 

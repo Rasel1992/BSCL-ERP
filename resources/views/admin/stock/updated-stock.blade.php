@@ -39,6 +39,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @if(Auth::user()->type == 'super-admin')
                             <div class="form-group" style="width: 15%">
                                 <select class="form-control select2" id="location" name="location">
                                     <option value="">Select Location</option>
@@ -50,10 +51,31 @@
                                     </option>
                                 </select>
                             </div>
+                            @endif
                             <div class="form-group">
                                 <label class="sr-only">&nbsp;</label>
                                 <input type="text" class="form-control" name="q" value="{{ Request::get('q') }}"
                                        placeholder="Input your search text...">
+                            </div>
+                            <div class="form-group" style="width: 15%">
+                                <select class="form-control select2" id="per_page" name="per_page">
+                                    @php $stockPage = $stocks->count();
+                                    $perPage = Request::get('per_page') ?? 50;
+                                    @endphp
+                                    <option value="">Select Location</option>
+                                    <option value="25" {{ ('25' == $perPage) ? 'selected' : '' }}>25
+                                    </option>
+                                    <option value="50" {{ ('50' == $perPage) ? 'selected' : '' }}>50
+                                    </option>
+                                    <option value="100" {{ ('100' == $perPage) ? 'selected' : '' }}>100
+                                    </option>
+                                    <option value="150" {{ ('150' == $perPage) ? 'selected' : '' }}>150
+                                    </option>
+                                    <option value="200" {{ ('200' == $perPage) ? 'selected' : '' }}>200
+                                    </option>
+                                    <option value="{{ $stockPage }}" {{ ($stockPage == $perPage) ? 'selected' : '' }}>Total Data
+                                    </option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-info mb-2"><i class="fa fa-search"></i> Search</button>
                             <a href="{{ route('admin.stocks.updated.list') }}" class="btn btn-warning mb-2"><i class="fa fa-times"></i></a>
